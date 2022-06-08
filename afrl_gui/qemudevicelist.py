@@ -40,7 +40,6 @@ class qemuDeviceList():
             if header is not None:
                 type = re.split(r"\sdevices:",v,maxsplit=1)
                 self.__deviceTypeList.append(type[0])
-                print(self.__deviceTypeList)
                 self.__deviceLists.append(qemuParameterList())
                 continue  # Check Next line
             # Must be a device listing
