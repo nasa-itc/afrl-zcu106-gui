@@ -1,0 +1,3 @@
+{
+    "files": ["ui/ui_qemulaunchwizard.py","qemumachineitem.py","app.py","ui/qemulaunchwizard.ui","qemuparameterlist.py","../../../../Desktop/vivado_workspace/vivado.jou","ui/mainwindow.ui","ui/ui_mainwindow.py","qemucpulist.py","qemuinstance.py","qemucpuitem.py","common.py","qemutableviewmodel.py","mainwindow.py","qemumachinelist.py","qemulaunchwizard.py","terminalwidget.py","qemuparameter.py","qemudeviceitem.py","qemudevicelist.py"]
+}

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>qemuLaunchWizard</class>
+ <widget class="QWizard" name="qemuLaunchWizard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>384</width>
+    <height>336</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Wizard</string>
+  </property>
+  <widget class="QWizardPage" name="qemuLaunchWizardNamePage">
+   <widget class="QLineEdit" name="nameLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>90</y>
+      <width>171</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="nameLabel">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>90</y>
+      <width>70</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Name</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWizardPage" name="qemuLaunchWizardMachineCpuPage">
+   <widget class="QComboBox" name="machineComboBox">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>40</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>40</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Board</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boardSettings_PushButton">
+    <property name="geometry">
+     <rect>
+      <x>168</x>
+      <y>80</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Advanced Settings</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cpuSettings_PushButton">
+    <property name="geometry">
+     <rect>
+      <x>168</x>
+      <y>170</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Advanced Settings</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cpuComboBox">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>130</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>130</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CPU</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWizardPage" name="qemuLaunchWizardDevicePage">
+   <widget class="QComboBox" name="deviceComboBox">
+    <property name="geometry">
+     <rect>
+      <x>142</x>
+      <y>140</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="deviceTypeLabel">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>50</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Device Type</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="deviceLabel">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>140</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Device</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="deviceTypeComboBox">
+    <property name="geometry">
+     <rect>
+      <x>142</x>
+      <y>50</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deviceSettingsButton">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>180</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Advanced</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWizardPage" name="qemuLaunchWizardNetworkPage">
+   <widget class="QLineEdit" name="ipLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>50</y>
+      <width>171</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>000.000.000.000</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ipLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>111</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>IP Address</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="subnetMaskLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>90</y>
+      <width>111</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Subnet Mask</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="subnetMaskLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>90</y>
+      <width>171</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>000.000.000.000</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWizardPage" name="qemuLaunchWizardKernelAppPage">
+   <widget class="QPushButton" name="appButton">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>60</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../resources/document-open.png</normaloff>
+      <normalon>../resources/document-open.png</normalon>../resources/document-open.png</iconset>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="appLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>141</x>
+      <y>60</y>
+      <width>171</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>application</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="kernelLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>20</y>
+      <width>171</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>kernel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="kernelLabel">
+    <property name="geometry">
+     <rect>
+      <x>19</x>
+      <y>20</y>
+      <width>111</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Kernel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="appLabel">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>111</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Application</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="kernelButton">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>20</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../resources/document-open.png</normaloff>
+      <normalon>../resources/document-open.png</normalon>../resources/document-open.png</iconset>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
