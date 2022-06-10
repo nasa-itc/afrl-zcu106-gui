@@ -27,6 +27,7 @@ from afrl_gui.qemuinstance import qemuInstance
 from afrl_gui.qemumachinelist import qemuMachineList
 from afrl_gui.qemucpulist import qemuCpuList
 from afrl_gui.qemudevicelist import qemuDeviceList
+from afrl_gui.devicesettingswidget import deviceSettingsWidget
 
 lastKernelDirectory = "/home/afrl_dev"
 lastAppDirectory = "/home/afrl_dev"
@@ -56,6 +57,7 @@ class QemuLaunchWizard(QWizard):
         self.ui.appButton.setIcon(icon)
         self.ui.kernelButton.clicked.connect(self.openKernelFileBrowser)
         self.ui.appButton.clicked.connect(self.openAppFileBrowser)
+        self.ui.deviceSettingsButton.clicked.connect(self.openDeviceSettings)
         self.button(QWizard.FinishButton).clicked.connect(self.launchQemuInstance)
 
         # Populate the dropdown menus
@@ -122,6 +124,12 @@ class QemuLaunchWizard(QWizard):
         for idx in range(0, len(deviceList)):
             self.ui.deviceComboBox.addItem(deviceList[idx].argument())
             self.ui.deviceComboBox.setItemData(idx,deviceList[idx].toolTipText(), role=Qt.ToolTipRole)
+
+    def openDeviceSettings(self):
+        '''Populates a form for configuring device settings '''
+        deviceStr = self.ui.deviceComboBox.currentText()
+        self.deviceSettingsWidget = deviceSettingsWidget(self, deviceStr)
+        self.deviceSettingsWidget.show()
 
     def launchQemuInstance(self):
         '''Verify QEMU model data and launch instance'''

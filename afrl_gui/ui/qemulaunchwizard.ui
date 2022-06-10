@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>384</width>
-    <height>336</height>
+    <width>397</width>
+    <height>333</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Wizard</string>
+   <string>QEMU Configuration Wizard</string>
   </property>
   <widget class="QWizardPage" name="qemuLaunchWizardNamePage">
    <widget class="QLineEdit" name="nameLineEdit">
@@ -39,77 +39,115 @@
    </widget>
   </widget>
   <widget class="QWizardPage" name="qemuLaunchWizardMachineCpuPage">
-   <widget class="QComboBox" name="machineComboBox">
+   <property name="title">
+    <string/>
+   </property>
+   <attribute name="pageId">
+    <string notr="true"/>
+   </attribute>
+   <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>10</x>
       <y>40</y>
-      <width>191</width>
-      <height>31</height>
+      <width>341</width>
+      <height>101</height>
      </rect>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="boardSettings_PushButton">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>60</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Advanced Settings</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>42</x>
+       <y>20</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Board</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="machineComboBox">
+     <property name="geometry">
+      <rect>
+       <x>122</x>
+       <y>20</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QFrame" name="frame_2">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>40</y>
-      <width>81</width>
-      <height>31</height>
+      <x>10</x>
+      <y>150</y>
+      <width>341</width>
+      <height>101</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Board</string>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
     </property>
-   </widget>
-   <widget class="QPushButton" name="boardSettings_PushButton">
-    <property name="geometry">
-     <rect>
-      <x>168</x>
-      <y>80</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
     </property>
-    <property name="text">
-     <string>Advanced Settings</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="cpuSettings_PushButton">
-    <property name="geometry">
-     <rect>
-      <x>168</x>
-      <y>170</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Advanced Settings</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="cpuComboBox">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>130</y>
-      <width>191</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>130</y>
-      <width>81</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>CPU</string>
-    </property>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>10</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CPU</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cpuComboBox">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>10</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="cpuSettings_PushButton">
+     <property name="geometry">
+      <rect>
+       <x>158</x>
+       <y>50</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Advanced Settings</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QWizardPage" name="qemuLaunchWizardDevicePage">
@@ -169,7 +207,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Advanced</string>
+     <string>Configure</string>
     </property>
    </widget>
   </widget>
