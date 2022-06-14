@@ -1,16 +1,16 @@
 # Copyright (C) 2009 - 2022 National Aeronautics and Space Administration. All Foreign Rights are Reserved to the U.S. Government.
 # This Python file uses the following encoding: utf-8
 
-import subprocess, re
+import re
 from afrl_gui.settingswidget import settingsWidget
 
 
-class deviceSettingsWidget(settingsWidget):
+class machineSettingsWidget(settingsWidget):
     def __init__(self, parent, deviceStr):
         super().__init__()
-        self.paramStr = "-device"
+        self.paramStr = "-machine"
         self.deviceStr = deviceStr
-        self.headerPattern = re.compile(r".+ options:")
-        self.infoDelimiter = ' - '
-        self.typeStrip = '<>'
+        self.headerPattern = re.compile(r"NULL")
+        self.infoDelimiter = ' ('
+        self.notesStrip = ')'
         self.populateForm()

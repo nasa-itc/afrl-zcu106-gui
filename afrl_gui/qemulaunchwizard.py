@@ -28,6 +28,7 @@ from afrl_gui.qemumachinelist import qemuMachineList
 from afrl_gui.qemucpulist import qemuCpuList
 from afrl_gui.qemudevicelist import qemuDeviceList
 from afrl_gui.devicesettingswidget import deviceSettingsWidget
+from afrl_gui.machinesettingswidget import machineSettingsWidget
 
 lastKernelDirectory = "/home/afrl_dev"
 lastAppDirectory = "/home/afrl_dev"
@@ -57,6 +58,7 @@ class QemuLaunchWizard(QWizard):
         self.ui.appButton.setIcon(icon)
         self.ui.kernelButton.clicked.connect(self.openKernelFileBrowser)
         self.ui.appButton.clicked.connect(self.openAppFileBrowser)
+        self.ui.boardSettings_PushButton.clicked.connect(self.openMachineSettings)
         self.ui.deviceSettingsButton.clicked.connect(self.openDeviceSettings)
         self.button(QWizard.FinishButton).clicked.connect(self.launchQemuInstance)
 
@@ -130,6 +132,12 @@ class QemuLaunchWizard(QWizard):
         deviceStr = self.ui.deviceComboBox.currentText()
         self.deviceSettingsWidget = deviceSettingsWidget(self, deviceStr)
         self.deviceSettingsWidget.show()
+
+    def openMachineSettings(self):
+        '''Populates a form for configuring device settings '''
+        machineStr = self.ui.machineComboBox.currentText()
+        self.machineSettingsWidget = machineSettingsWidget(self, machineStr)
+        self.machineSettingsWidget.show()
 
     def launchQemuInstance(self):
         '''Verify QEMU model data and launch instance'''
