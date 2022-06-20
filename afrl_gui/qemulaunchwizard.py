@@ -16,8 +16,8 @@
 
 import os.path
 
-from PySide6.QtWidgets import QFileDialog, QWizard
-from PySide6.QtCore import Qt, Signal, QSize
+from PySide6.QtWidgets import QFileDialog, QWizard, QScrollArea, QPlainTextEdit
+from PySide6.QtCore import Qt, Signal, Slot, QSize
 from PySide6.QtGui import QIcon
 
 from afrl_gui.common import RESOURCE_ROOT
@@ -70,6 +70,8 @@ class QemuLaunchWizard(QWizard):
         # Register ui fields
         self.ui.qemuLaunchWizardNamePage.registerField(
             "instanceName*", self.ui.nameLineEdit)
+        self.ui.qemuLaunchWizardNamePage.registerField(
+            "description", self.ui.descriptionPlainTextEdit, "plainText")
         self.ui.qemuLaunchWizardMachineCpuPage.registerField(
             "machine", self.ui.machineComboBox)
         self.ui.qemuLaunchWizardMachineCpuPage.registerField(
@@ -130,19 +132,36 @@ class QemuLaunchWizard(QWizard):
     def openDeviceSettings(self):
         '''Populates a form for configuring device settings '''
         deviceStr = self.ui.deviceComboBox.currentText()
-        self.deviceSettingsWidget = deviceSettingsWidget(self, deviceStr)
+        self.deviceSettingsWidget = QScrollArea()
+        settingsWidget = deviceSettingsWidget(self.deviceSettingsWidget, deviceStr)
+        settingsWidget.settingsSignal.connect(self.applyDeviceSettings)
+        self.deviceSettingsWidget.setWidget(settingsWidget)
         self.deviceSettingsWidget.show()
+
+    @Slot(list)
+    def applyDeviceSettings(self, settings):
+        '''slot to gather and save the device settings strings '''
+        print(f"DEVICE SETTINGS: {settings}")
 
     def openMachineSettings(self):
         '''Populates a form for configuring device settings '''
         machineStr = self.ui.machineComboBox.currentText()
-        self.machineSettingsWidget = machineSettingsWidget(self, machineStr)
+        self.machineSettingsWidget = QScrollArea()
+        settingsWidget = machineSettingsWidget(self.machineSettingsWidget, machineStr)
+        settingsWidget.settingsSignal.connect(self.applyMachineSettings)
+        self.machineSettingsWidget.setWidget(settingsWidget)
         self.machineSettingsWidget.show()
+
+    @Slot(list)
+    def applyMachineSettings(self, settings):
+        '''slot to gather and save the machine settings strings '''
+        print(f"MACHINE SETTINGS: {settings}")
 
     def launchQemuInstance(self):
         '''Verify QEMU model data and launch instance'''
         qemu = qemuInstance()
         qemu.name = self.ui.qemuLaunchWizardNamePage.field("instanceName")
+        qemu.description = self.ui.qemuLaunchWizardNamePage.field("description")
         qemu.machine = self.machineList[self.ui.qemuLaunchWizardMachineCpuPage.field("machine")].argument()
         qemu.cpu = self.cpuList[self.ui.qemuLaunchWizardMachineCpuPage.field("cpu")].argument()
         qemu.ipAddress.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("ipAddress"))

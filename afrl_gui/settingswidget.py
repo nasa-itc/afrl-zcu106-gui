@@ -2,14 +2,18 @@
 # This Python file uses the following encoding: utf-8
 
 import subprocess, re
-from PySide6.QtWidgets import QWidget, QGridLayout, QLabel
-from PySide6.QtWidgets import QLineEdit, QCheckBox, QTextEdit
+from PySide6.QtCore import Qt, Signal
+from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QPushButton
+from PySide6.QtWidgets import QLineEdit, QCheckBox, QPlainTextEdit
 from afrl_gui.parametersetting import parameterSetting
 
 
 class settingsWidget(QWidget):
-    def __init__(self):
-        super().__init__()
+
+    settingsSignal = Signal(list)
+
+    def __init__(self, parent):
+        super().__init__(parent)
         layout = QGridLayout()
         self.paramStr = ""
         self.settings = []
@@ -30,22 +34,28 @@ class settingsWidget(QWidget):
         # Parse out all the device parameterscandidates
         values = outStr.split('\n')  # Split into lines, process each line
         layoutRow = 0
+        settingLabel = QLabel(self.paramStr)
+        settingLabel.setAlignment(Qt.AlignRight)
+        self.layout().addWidget(settingLabel, layoutRow, 1)
+        self.layout().addWidget(QLabel(f"{self.deviceStr}"), layoutRow, 2)
+        layoutRow += 1
         self.toggleAllCB = QCheckBox()
         self.toggleAllCB.stateChanged.connect(self.toggleAllRows)
         self.layout().addWidget(self.toggleAllCB, layoutRow, 0)
-        self.layout().addWidget(QLabel(self.paramStr), layoutRow, 1)
-        self.layout().addWidget(QLabel(f"{self.deviceStr}"), layoutRow, 2)
-        layoutRow += 1
 
+        layoutRow += 1
         for v in values:
             if not v:
                 continue  # skip empty strings
-            print(v)
             header = self.headerPattern.match(v)
             if header is not None:
                 continue  # Skip header
             (label, info) = v.split('=', maxsplit=1)
-            label = label.strip()
+            labelParts = label.split(f"{self.deviceStr}.",maxsplit=1)
+            if len(labelParts) > 1:
+                label = labelParts[1].strip()
+            else:
+                label = labelParts[0].strip()
             info = info.split(self.infoDelimiter)
             type = info[0]
             notes = ""
@@ -58,6 +68,7 @@ class settingsWidget(QWidget):
         self.settings.sort()
         for s in self.settings:
             settingLabel = QLabel(s.name())
+            settingLabel.setAlignment(Qt.AlignRight)
             settingLabel.setToolTip(f"{s.type()}\n{s.notes()}")
             enableSettingCB = QCheckBox()
             enableSettingCB.stateChanged.connect(self.checkSettingsRows)
@@ -80,15 +91,42 @@ class settingsWidget(QWidget):
         enableSettingCB.stateChanged.connect(self.checkSettingsRows)
         self.layout().addWidget(enableSettingCB, layoutRow, 0)
         self.layout().addWidget(settingLabel, layoutRow, 1)
-        self.layout().addWidget(QTextEdit(), layoutRow, 2)
+        self.layout().addWidget(QPlainTextEdit(), layoutRow, 2)
+        # Add OK and Cancel buttons to apply settings or cancel compile
+        layoutRow += 1
+        okButton = QPushButton("OK")
+        okButton.clicked.connect(self.applySettings)
+        cancelButton = QPushButton("Cancel")
+        cancelButton.clicked.connect(self.window().close)
+        self.layout().addWidget(okButton, layoutRow, 1)
+        self.layout().addWidget(cancelButton, layoutRow, 2)
 
     def toggleAllRows(self):
-        for r in range(1,self.layout().rowCount()):
-            self.layout().itemAtPosition(r,0).widget().setChecked(self.toggleAllCB.isChecked())
+        for r in range(2, self.layout().rowCount() - 1):
+            self.layout().itemAtPosition(r, 0).widget().setChecked(self.toggleAllCB.isChecked())
 
     def checkSettingsRows(self):
-        for r in range(1,self.layout().rowCount()):
-            if self.layout().itemAtPosition(r,0).widget().isChecked():
-                self.layout().itemAtPosition(r,2).widget().setEnabled(True)
+        for r in range(2, self.layout().rowCount() - 1):
+            if self.layout().itemAtPosition(r, 0).widget().isChecked():
+                self.layout().itemAtPosition(r, 2).widget().setEnabled(True)
             else:
-                self.layout().itemAtPosition(r,2).widget().setEnabled(False)
+                self.layout().itemAtPosition(r, 2).widget().setEnabled(False)
+
+    def applySettings(self):
+        '''Apply the settings to the data model '''
+        settings = []
+        for r in range(2, self.layout().rowCount() - 1):
+            if self.layout().itemAtPosition(r, 0).widget().isChecked():
+                arg = self.layout().itemAtPosition(r, 1).widget().text()
+                widget = self.layout().itemAtPosition(r, 2).widget()
+                if widget.metaObject().className() == "QCheckBox":
+                    settings.append(f"{arg}={str(widget.isChecked()).lower()}")
+                if widget.metaObject().className() == "QLineEdit":
+                    settings.append(f"{arg}={widget.text()}")
+                if widget.metaObject().className() == "QPlainTextEdit":
+                    additionalArguments = widget.toPlainText().split('\n')
+                    for line in additionalArguments:
+                        settings.append(line)
+        self.settingsSignal.emit(settings)
+        self.window().close()
+

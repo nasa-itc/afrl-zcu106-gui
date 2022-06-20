@@ -7,7 +7,7 @@ from afrl_gui.settingswidget import settingsWidget
 
 class deviceSettingsWidget(settingsWidget):
     def __init__(self, parent, deviceStr):
-        super().__init__()
+        super().__init__(parent)
         self.paramStr = "-device"
         self.deviceStr = deviceStr
         self.headerPattern = re.compile(r".+ options:")

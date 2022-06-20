@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QLabel,
-    QLineEdit, QPushButton, QSizePolicy, QWidget,
-    QWizard, QWizardPage)
+    QLineEdit, QPlainTextEdit, QPushButton, QSizePolicy,
+    QWidget, QWizard, QWizardPage)
 
 class Ui_qemuLaunchWizard(object):
     def setupUi(self, qemuLaunchWizard):
@@ -28,10 +28,18 @@ class Ui_qemuLaunchWizard(object):
         self.qemuLaunchWizardNamePage.setObjectName(u"qemuLaunchWizardNamePage")
         self.nameLineEdit = QLineEdit(self.qemuLaunchWizardNamePage)
         self.nameLineEdit.setObjectName(u"nameLineEdit")
-        self.nameLineEdit.setGeometry(QRect(130, 90, 171, 30))
+        self.nameLineEdit.setGeometry(QRect(130, 50, 221, 30))
         self.nameLabel = QLabel(self.qemuLaunchWizardNamePage)
         self.nameLabel.setObjectName(u"nameLabel")
-        self.nameLabel.setGeometry(QRect(50, 90, 70, 30))
+        self.nameLabel.setGeometry(QRect(50, 50, 70, 30))
+        self.nameLabel.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.descritionLabel = QLabel(self.qemuLaunchWizardNamePage)
+        self.descritionLabel.setObjectName(u"descritionLabel")
+        self.descritionLabel.setGeometry(QRect(29, 100, 91, 30))
+        self.descritionLabel.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.descriptionPlainTextEdit = QPlainTextEdit(self.qemuLaunchWizardNamePage)
+        self.descriptionPlainTextEdit.setObjectName(u"descriptionPlainTextEdit")
+        self.descriptionPlainTextEdit.setGeometry(QRect(130, 110, 221, 131))
         qemuLaunchWizard.addPage(self.qemuLaunchWizardNamePage)
         self.qemuLaunchWizardMachineCpuPage = QWizardPage()
         self.qemuLaunchWizardMachineCpuPage.setObjectName(u"qemuLaunchWizardMachineCpuPage")
@@ -132,6 +140,7 @@ class Ui_qemuLaunchWizard(object):
     def retranslateUi(self, qemuLaunchWizard):
         qemuLaunchWizard.setWindowTitle(QCoreApplication.translate("qemuLaunchWizard", u"QEMU Configuration Wizard", None))
         self.nameLabel.setText(QCoreApplication.translate("qemuLaunchWizard", u"Name", None))
+        self.descritionLabel.setText(QCoreApplication.translate("qemuLaunchWizard", u"Description", None))
         self.qemuLaunchWizardMachineCpuPage.setTitle("")
         self.boardSettings_PushButton.setText(QCoreApplication.translate("qemuLaunchWizard", u"Advanced Settings", None))
         self.label.setText(QCoreApplication.translate("qemuLaunchWizard", u"Board", None))

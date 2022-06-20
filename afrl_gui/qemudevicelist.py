@@ -27,18 +27,16 @@ class qemuDeviceList():
             print(f"ERROR: qemu-system-aarch64 -device ? returned error code: {qemuOut.returncode}")
             return
         outStr = qemuOut.stdout.decode("utf-8")
-        # Parse out the device types for filtering
-
         # Parse out all the device candidates
         values = outStr.split('\n')  # Split into lines, process each line
         headerPattern = re.compile(r".+ devices")
         for v in values:
             if not v:
-                continue # skip empty strings
-            #Check for a new device type
+                continue  # skip empty strings
+            # Check for a new device type
             header = headerPattern.match(v)
             if header is not None:
-                type = re.split(r"\sdevices:",v,maxsplit=1)
+                type = re.split(r"\sdevices:", v, maxsplit=1)
                 self.__deviceTypeList.append(type[0])
                 self.__deviceLists.append(qemuParameterList())
                 continue  # Check Next line
@@ -49,7 +47,7 @@ class qemuDeviceList():
             for p in params:
                 p = p.strip()
                 if p.find("name") == 0:
-                    device.setArgument(p.replace('name "','').strip('"').strip())
+                    device.setArgument(p.replace('name "', '').strip('"').strip())
                 if p.find("bus") == 0:
                     device.setBus(p.replace('bus ', '').strip())
                 if p.find("desc") == 0:
