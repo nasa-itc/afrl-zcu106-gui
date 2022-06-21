@@ -32,3 +32,15 @@ class qemuInstance(QObject):
     def fieldCount(self):
         '''Returns the number of displayable fields for table views, update as necessary'''
         return 4
+
+    def commandLine(self):
+        '''Generates the qemu-system-aarch64 command line to launch this instance'''
+        cmdLine = "qemu-system-aarch64 "
+        if self.machine != "":
+            cmdLine += f"-machine {self.machine}"
+            for s in self.machineSettings[1:]:
+                cmdLine += f",{s}"
+
+            return cmdLine
+
+

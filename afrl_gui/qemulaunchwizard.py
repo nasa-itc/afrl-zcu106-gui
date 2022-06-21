@@ -44,6 +44,9 @@ class QemuLaunchWizard(QWizard):
         self.machineList = qemuMachineList()
         self.cpuList = qemuCpuList()
         self.deviceList = qemuDeviceList()
+        # Intermediate storage for device and machine specific settings
+        self.machineSettings = []
+        self.deviceSettings = []
         self.init_ui()
 
     def init_ui(self):
@@ -142,6 +145,7 @@ class QemuLaunchWizard(QWizard):
     def applyDeviceSettings(self, settings):
         '''slot to gather and save the device settings strings '''
         print(f"DEVICE SETTINGS: {settings}")
+        #  Need to maintain 1:1 betwen settings index and device index
 
     def openMachineSettings(self):
         '''Populates a form for configuring device settings '''
@@ -156,6 +160,7 @@ class QemuLaunchWizard(QWizard):
     def applyMachineSettings(self, settings):
         '''slot to gather and save the machine settings strings '''
         print(f"MACHINE SETTINGS: {settings}")
+        self.machineSettings = settings
 
     def launchQemuInstance(self):
         '''Verify QEMU model data and launch instance'''
@@ -163,6 +168,7 @@ class QemuLaunchWizard(QWizard):
         qemu.name = self.ui.qemuLaunchWizardNamePage.field("instanceName")
         qemu.description = self.ui.qemuLaunchWizardNamePage.field("description")
         qemu.machine = self.machineList[self.ui.qemuLaunchWizardMachineCpuPage.field("machine")].argument()
+        qemu.machineSettings = self.machineSettings
         qemu.cpu = self.cpuList[self.ui.qemuLaunchWizardMachineCpuPage.field("cpu")].argument()
         qemu.ipAddress.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("ipAddress"))
         qemu.subnetMask.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("subnetMask"))

@@ -75,3 +75,4 @@ class qemuTableViewModel(QAbstractTableModel):
             self.validCount = self.validCount + 1 # Don't forget to decrement when deleting
         self.dataChanged.emit(topLeft, bottomRight)
         print("Table View Model Received QEMU instance: " + repr(qemu))
+        print(f"cmd line: {qemu.commandLine()}")
