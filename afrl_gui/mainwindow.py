@@ -44,7 +44,6 @@ class MainWindow(QMainWindow):
         self.tableModel = qemuTableViewModel()
         self.window = []
         self.default_theme = QGuiApplication.palette()
-        self.setWindowTitle("AFRL-RWWN QEMU Manager")
         self.qemuList = []
         self.init_ui()
 
@@ -53,6 +52,8 @@ class MainWindow(QMainWindow):
         # load ui file
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.setWindowTitle("AFRL-RWWN QEMU MANAGER")
+
         # Update logos
         logo = QPixmap(os.path.join(RESOURCE_ROOT, "golden-horde_seal-300x300.png"))
         logo = logo.scaled(100, 100, Qt.KeepAspectRatio)
