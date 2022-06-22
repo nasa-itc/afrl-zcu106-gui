@@ -3,7 +3,8 @@
 
 import subprocess, re
 from PySide6.QtCore import Qt, Signal
-from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QPushButton
+from PySide6.QtWidgets import QWidget, QScrollArea, QLabel, QPushButton
+from PySide6.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout
 from PySide6.QtWidgets import QLineEdit, QCheckBox, QPlainTextEdit
 from afrl_gui.parametersetting import parameterSetting
 
@@ -14,7 +15,25 @@ class settingsWidget(QWidget):
 
     def __init__(self, parent):
         super().__init__(parent)
-        layout = QGridLayout()
+        # Scroll Area for form data
+        self.formArea = QScrollArea(self)
+        self.setLayout(QVBoxLayout())
+        self.layout().addWidget(self.formArea)
+        self.form = QWidget()
+        self.form.setLayout(QGridLayout())
+
+        # Ok/Cancel buttons for comitting or aborting
+        okButton = QPushButton("OK")
+        okButton.clicked.connect(self.applySettings)
+        cancelButton = QPushButton("Cancel")
+        cancelButton.clicked.connect(self.window().close)
+        okCancel = QWidget(self)
+        okCancel.setLayout(QHBoxLayout())
+        okCancel.layout().addWidget(okButton)
+        okCancel.layout().addWidget(cancelButton)
+        self.layout().addWidget(okCancel)
+
+        #Base Class declaration of attributes
         self.paramStr = ""
         self.settings = []
         self.deviceStr = ""
@@ -22,7 +41,6 @@ class settingsWidget(QWidget):
         self.typeStrip = ""  # chars to remove from type strings
         self.notesStrip = ""  # chars to remove from notes strings
         self.headerPattern = re.compile(r"NULL")
-        self.setLayout(layout)
 
     def populateForm(self):
         qemuOut = subprocess.run(["./qemu-system-aarch64", self.paramStr, f"{self.deviceStr},?"], capture_output=True)
@@ -34,14 +52,10 @@ class settingsWidget(QWidget):
         # Parse out all the device parameterscandidates
         values = outStr.split('\n')  # Split into lines, process each line
         layoutRow = 0
-        settingLabel = QLabel(self.paramStr)
-        settingLabel.setAlignment(Qt.AlignRight)
-        self.layout().addWidget(settingLabel, layoutRow, 1)
-        self.layout().addWidget(QLabel(f"{self.deviceStr}"), layoutRow, 2)
-        layoutRow += 1
+        self.setWindowTitle(f"{self.deviceStr} Settings")
         self.toggleAllCB = QCheckBox()
         self.toggleAllCB.stateChanged.connect(self.toggleAllRows)
-        self.layout().addWidget(self.toggleAllCB, layoutRow, 0)
+        self.form.layout().addWidget(self.toggleAllCB, layoutRow, 0)
 
         layoutRow += 1
         for v in values:
@@ -72,16 +86,16 @@ class settingsWidget(QWidget):
             settingLabel.setToolTip(f"{s.type()}\n{s.notes()}")
             enableSettingCB = QCheckBox()
             enableSettingCB.stateChanged.connect(self.checkSettingsRows)
-            self.layout().addWidget(enableSettingCB, layoutRow, 0)
-            self.layout().addWidget(settingLabel, layoutRow, 1)
+            self.form.layout().addWidget(enableSettingCB, layoutRow, 0)
+            self.form.layout().addWidget(settingLabel, layoutRow, 1)
             if s.type() == 'bool':
                 checkBox = QCheckBox()
                 checkBox.setEnabled(False)
-                self.layout().addWidget(checkBox, layoutRow, 2)
+                self.form.layout().addWidget(checkBox, layoutRow, 2)
             else:
                 lineEdit = QLineEdit()
                 lineEdit.setEnabled(False)
-                self.layout().addWidget(lineEdit, layoutRow, 2)
+                self.form.layout().addWidget(lineEdit, layoutRow, 2)
             layoutRow += 1
 
         #  Add catch all lineedit for additional arguments
@@ -89,36 +103,30 @@ class settingsWidget(QWidget):
         settingLabel.setToolTip(f"Additional configuration arguments, see qemu-system-aarch64 -help for more information")
         enableSettingCB = QCheckBox()
         enableSettingCB.stateChanged.connect(self.checkSettingsRows)
-        self.layout().addWidget(enableSettingCB, layoutRow, 0)
-        self.layout().addWidget(settingLabel, layoutRow, 1)
-        self.layout().addWidget(QPlainTextEdit(), layoutRow, 2)
-        # Add OK and Cancel buttons to apply settings or cancel compile
-        layoutRow += 1
-        okButton = QPushButton("OK")
-        okButton.clicked.connect(self.applySettings)
-        cancelButton = QPushButton("Cancel")
-        cancelButton.clicked.connect(self.window().close)
-        self.layout().addWidget(okButton, layoutRow, 1)
-        self.layout().addWidget(cancelButton, layoutRow, 2)
+        self.form.layout().addWidget(enableSettingCB, layoutRow, 0)
+        self.form.layout().addWidget(settingLabel, layoutRow, 1)
+        self.form.layout().addWidget(QPlainTextEdit(), layoutRow, 2)
+        self.formArea.setWidget(self.form)
+        self.formArea.show()
 
     def toggleAllRows(self):
-        for r in range(2, self.layout().rowCount() - 1):
-            self.layout().itemAtPosition(r, 0).widget().setChecked(self.toggleAllCB.isChecked())
+        for r in range(1, self.form.layout().rowCount()):
+            self.form.layout().itemAtPosition(r, 0).widget().setChecked(self.toggleAllCB.isChecked())
 
     def checkSettingsRows(self):
-        for r in range(2, self.layout().rowCount() - 1):
-            if self.layout().itemAtPosition(r, 0).widget().isChecked():
-                self.layout().itemAtPosition(r, 2).widget().setEnabled(True)
+        for r in range(1, self.form.layout().rowCount()):
+            if self.form.layout().itemAtPosition(r, 0).widget().isChecked():
+                self.form.layout().itemAtPosition(r, 2).widget().setEnabled(True)
             else:
-                self.layout().itemAtPosition(r, 2).widget().setEnabled(False)
+                self.form.layout().itemAtPosition(r, 2).widget().setEnabled(False)
 
     def applySettings(self):
         '''Apply the settings to the data model '''
         settings = []
-        for r in range(2, self.layout().rowCount() - 1):
-            if self.layout().itemAtPosition(r, 0).widget().isChecked():
-                arg = self.layout().itemAtPosition(r, 1).widget().text()
-                widget = self.layout().itemAtPosition(r, 2).widget()
+        for r in range(1, self.form.layout().rowCount()):
+            if self.form.layout().itemAtPosition(r, 0).widget().isChecked():
+                arg = self.form.layout().itemAtPosition(r, 1).widget().text()
+                widget = self.form.layout().itemAtPosition(r, 2).widget()
                 if widget.metaObject().className() == "QCheckBox":
                     settings.append(f"{arg}={str(widget.isChecked()).lower()}")
                 if widget.metaObject().className() == "QLineEdit":

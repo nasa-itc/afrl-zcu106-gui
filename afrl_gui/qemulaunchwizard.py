@@ -135,10 +135,8 @@ class QemuLaunchWizard(QWizard):
     def openDeviceSettings(self):
         '''Populates a form for configuring device settings '''
         deviceStr = self.ui.deviceComboBox.currentText()
-        self.deviceSettingsWidget = QScrollArea()
-        settingsWidget = deviceSettingsWidget(self.deviceSettingsWidget, deviceStr)
-        settingsWidget.settingsSignal.connect(self.applyDeviceSettings)
-        self.deviceSettingsWidget.setWidget(settingsWidget)
+        self.deviceSettingsWidget = deviceSettingsWidget(deviceStr)
+        self.deviceSettingsWidget.settingsSignal.connect(self.applyDeviceSettings)
         self.deviceSettingsWidget.show()
 
     @Slot(list)
@@ -150,10 +148,8 @@ class QemuLaunchWizard(QWizard):
     def openMachineSettings(self):
         '''Populates a form for configuring device settings '''
         machineStr = self.ui.machineComboBox.currentText()
-        self.machineSettingsWidget = QScrollArea()
-        settingsWidget = machineSettingsWidget(self.machineSettingsWidget, machineStr)
-        settingsWidget.settingsSignal.connect(self.applyMachineSettings)
-        self.machineSettingsWidget.setWidget(settingsWidget)
+        self.machineSettingsWidget = machineSettingsWidget(machineStr)
+        self.machineSettingsWidget.settingsSignal.connect(self.applyMachineSettings)
         self.machineSettingsWidget.show()
 
     @Slot(list)

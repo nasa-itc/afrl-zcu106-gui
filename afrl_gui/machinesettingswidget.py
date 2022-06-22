@@ -6,7 +6,7 @@ from afrl_gui.settingswidget import settingsWidget
 
 
 class machineSettingsWidget(settingsWidget):
-    def __init__(self, parent, deviceStr):
+    def __init__(self, deviceStr, parent=None):
         super().__init__(parent)
         self.paramStr = "-machine"
         self.deviceStr = deviceStr
