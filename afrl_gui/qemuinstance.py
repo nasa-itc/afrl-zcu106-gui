@@ -16,6 +16,7 @@ class qemuInstance(QObject):
         self.machine = ""
         self.machineSettings = []
         self.cpu = ""
+        self.cpuSettings = []
         self.devices = []
         self.deviceSettings = []  # List of deviceSetting lists, index match devices[] list
 
@@ -35,12 +36,27 @@ class qemuInstance(QObject):
 
     def commandLine(self):
         '''Generates the qemu-system-aarch64 command line to launch this instance'''
-        cmdLine = "qemu-system-aarch64 "
+        cmdLine = "qemu-system-aarch64"
+        # Setup Machine
         if self.machine != "":
-            cmdLine += f"-machine {self.machine}"
-            for s in self.machineSettings[1:]:
+            cmdLine += f" -machine {self.machine}"
+            for s in self.machineSettings:
                 cmdLine += f",{s}"
 
-            return cmdLine
+        # Setup CPU
+        if self.cpu != "":
+            cmdLine += f" -cpu {self.cpu}"
+            for s in self.cpuSettings:
+                cmdLine += f",{s}"
+
+        # Setup devices
+        deviceIdx = 0
+        for d in self.devices:
+            cmdLine += f" -device {d}"
+            for s in self.deviceSettings[deviceIdx]:
+                cmdLine += f",{s}"
+            deviceIdx += 1
+
+        return cmdLine
 
 
