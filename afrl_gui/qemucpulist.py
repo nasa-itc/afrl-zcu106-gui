@@ -21,6 +21,7 @@ class qemuCpuList(qemuParameterList):
         outStr = qemuOut.stdout.decode("utf-8")
         values = outStr.split('\n')
         values = values[1:] # Trim off first line/header, TODO specify header for these returns to match and remove
+        self.insertParameter(qemuCpuItem())  # Insert empty parameter as default value
         for v in values:
             if not v:
                 continue # skip empty strings
