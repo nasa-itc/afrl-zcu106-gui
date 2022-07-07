@@ -33,7 +33,7 @@ class settingsWidget(QWidget):
         okCancel.layout().addWidget(cancelButton)
         self.layout().addWidget(okCancel)
 
-        #Base Class declaration of attributes
+        # Base Class declaration of attributes
         self.paramStr = ""
         self.settings = []
         self.deviceStr = ""
@@ -45,7 +45,7 @@ class settingsWidget(QWidget):
     def populateForm(self):
         qemuOut = subprocess.run(["./qemu-system-aarch64", self.paramStr, f"{self.deviceStr},?"], capture_output=True)
         if(qemuOut.returncode != 0):
-            print(f"ERROR: qemu-system-aarch64 {self.paramStr},? returned error code: {qemuOut.returncode}")
+            print(f"ERROR: qemu-system-aarch64 {self.paramStr} {self.deviceStr},? returned error code: {qemuOut.returncode}")
             return
         outStr = qemuOut.stdout.decode("utf-8")
 
@@ -100,7 +100,7 @@ class settingsWidget(QWidget):
 
         #  Add catch all lineedit for additional arguments
         settingLabel = QLabel("Additional Arguments")
-        settingLabel.setToolTip(f"Additional configuration arguments, see qemu-system-aarch64 -help for more information")
+        settingLabel.setToolTip("Additional configuration arguments, see qemu-system-aarch64 -help for more information")
         enableSettingCB = QCheckBox()
         enableSettingCB.stateChanged.connect(self.checkSettingsRows)
         self.form.layout().addWidget(enableSettingCB, layoutRow, 0)
