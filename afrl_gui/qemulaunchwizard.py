@@ -41,12 +41,13 @@ class QemuLaunchWizard(QWizard):
 
     def __init__(self, parent):
         super().__init__(parent)
-        self.machineList = qemuMachineList()
-        self.cpuList = qemuCpuList()
-        self.deviceList = qemuDeviceList()
+        self.machineList = qemuMachineList()  # The list of machine candidates to populate dropdown with
+        self.cpuList = qemuCpuList()  # The list of cpu candidates to populate dropdown with
+        self.deviceList = qemuDeviceList()  # The list of device candidates to populate dropdown with
         # Intermediate storage for device and machine specific settings
         self.machineSettings = []
-        self.deviceSettings = []
+        self.devices = []  # The list of devices configured to launch with the QEMU instance
+        self.deviceSettings = []  # A list of device settings lists corresponding to the devices list
         self.init_ui()
 
     def init_ui(self):
@@ -62,7 +63,7 @@ class QemuLaunchWizard(QWizard):
         self.ui.kernelButton.clicked.connect(self.openKernelFileBrowser)
         self.ui.appButton.clicked.connect(self.openAppFileBrowser)
         self.ui.boardSettings_PushButton.clicked.connect(self.openMachineSettings)
-        self.ui.deviceSettingsButton.clicked.connect(self.openDeviceSettings)
+        self.ui.addDevicePushButton.clicked.connect(self.openDeviceSettings)
         self.button(QWizard.FinishButton).clicked.connect(self.launchQemuInstance)
 
         # Populate the dropdown menus
@@ -130,7 +131,7 @@ class QemuLaunchWizard(QWizard):
         self.ui.deviceComboBox.clear()
         for idx in range(0, len(deviceList)):
             self.ui.deviceComboBox.addItem(deviceList[idx].argument())
-            self.ui.deviceComboBox.setItemData(idx,deviceList[idx].toolTipText(), role=Qt.ToolTipRole)
+            self.ui.deviceComboBox.setItemData(idx, deviceList[idx].toolTipText(), role=Qt.ToolTipRole)
 
     def openDeviceSettings(self):
         '''Populates a form for configuring device settings '''
@@ -143,7 +144,8 @@ class QemuLaunchWizard(QWizard):
     def applyDeviceSettings(self, settings):
         '''slot to gather and save the device settings strings '''
         print(f"DEVICE SETTINGS: {settings}")
-        #  Need to maintain 1:1 betwen settings index and device index
+        self.devices.append(self.ui.deviceComboBox.currentText())
+        self.deviceSettings.append(settings)
 
     def openMachineSettings(self):
         '''Populates a form for configuring device settings '''
@@ -166,6 +168,8 @@ class QemuLaunchWizard(QWizard):
         qemu.machine = self.machineList[self.ui.qemuLaunchWizardMachineCpuPage.field("machine")].argument()
         qemu.machineSettings = self.machineSettings
         qemu.cpu = self.cpuList[self.ui.qemuLaunchWizardMachineCpuPage.field("cpu")].argument()
+        qemu.devices = self.devices
+        qemu.deviceSettings = self.deviceSettings
         qemu.ipAddress.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("ipAddress"))
         qemu.subnetMask.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("subnetMask"))
         qemu.kernel = self.ui.qemuLaunchWizardKernelAppPage.field("kernel")
