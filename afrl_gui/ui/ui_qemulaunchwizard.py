@@ -17,7 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QLabel,
     QLineEdit, QListView, QPlainTextEdit, QPushButton,
-    QSizePolicy, QWidget, QWizard, QWizardPage)
+    QSizePolicy, QSpinBox, QWidget, QWizard,
+    QWizardPage)
 
 class Ui_qemuLaunchWizard(object):
     def setupUi(self, qemuLaunchWizard):
@@ -71,6 +72,20 @@ class Ui_qemuLaunchWizard(object):
         self.cpuSettings_PushButton = QPushButton(self.frame_2)
         self.cpuSettings_PushButton.setObjectName(u"cpuSettings_PushButton")
         self.cpuSettings_PushButton.setGeometry(QRect(158, 50, 151, 31))
+        self.frame_5 = QFrame(self.qemuLaunchWizardMachineCpuPage)
+        self.frame_5.setObjectName(u"frame_5")
+        self.frame_5.setGeometry(QRect(10, 260, 341, 80))
+        self.frame_5.setFrameShape(QFrame.StyledPanel)
+        self.frame_5.setFrameShadow(QFrame.Raised)
+        self.memoryLabel = QLabel(self.frame_5)
+        self.memoryLabel.setObjectName(u"memoryLabel")
+        self.memoryLabel.setGeometry(QRect(40, 30, 81, 31))
+        self.memorySpinBox = QSpinBox(self.frame_5)
+        self.memorySpinBox.setObjectName(u"memorySpinBox")
+        self.memorySpinBox.setGeometry(QRect(120, 30, 141, 31))
+        self.memorySpinBox.setSuffix(u"MB")
+        self.memorySpinBox.setMinimum(4)
+        self.memorySpinBox.setMaximum(16384)
         qemuLaunchWizard.addPage(self.qemuLaunchWizardMachineCpuPage)
         self.qemuLaunchWizardDevicePage = QWizardPage()
         self.qemuLaunchWizardDevicePage.setObjectName(u"qemuLaunchWizardDevicePage")
@@ -167,6 +182,7 @@ class Ui_qemuLaunchWizard(object):
         self.label.setText(QCoreApplication.translate("qemuLaunchWizard", u"Board", None))
         self.label_2.setText(QCoreApplication.translate("qemuLaunchWizard", u"CPU", None))
         self.cpuSettings_PushButton.setText(QCoreApplication.translate("qemuLaunchWizard", u"Advanced Settings", None))
+        self.memoryLabel.setText(QCoreApplication.translate("qemuLaunchWizard", u"Memory", None))
         self.deviceTypeLabel.setText(QCoreApplication.translate("qemuLaunchWizard", u"Device Type", None))
         self.deviceLabel.setText(QCoreApplication.translate("qemuLaunchWizard", u"Device", None))
         self.addDevicePushButton.setText(QCoreApplication.translate("qemuLaunchWizard", u"Add", None))
