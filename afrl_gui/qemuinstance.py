@@ -17,6 +17,7 @@ class qemuInstance(QObject):
         self.machineSettings = []
         self.cpu = ""
         self.cpuSettings = []
+        self.memory = "4M"
         self.devices = []
         self.deviceSettings = []  # List of deviceSetting lists, index match devices[] list
 
@@ -25,7 +26,8 @@ class qemuInstance(QObject):
         return(f"""\nName: {self.name}
                    \nDescription: {self.description}
                    \nMachine: {self.machine}
-                   \nCPU: {self.cpu}
+                   \nCPU: {self.cpu}M
+                   \nMem: {self.memory}
                    \nIP: {self.ipAddress.toString()}
                    \nKernel: {self.kernel}
                    \nApplication: {self.application}""")
@@ -48,6 +50,9 @@ class qemuInstance(QObject):
             cmdLine += f" -cpu {self.cpu}"
             for s in self.cpuSettings:
                 cmdLine += f",{s}"
+
+        # Setup Memory
+        cmdLine += f" -m {self.memory}M"  # Always using MB for simplicity
 
         # Setup devices
         deviceIdx = 0
