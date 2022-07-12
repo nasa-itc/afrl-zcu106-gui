@@ -29,6 +29,7 @@ from afrl_gui.qemucpulist import qemuCpuList
 from afrl_gui.qemudevicelist import qemuDeviceList
 from afrl_gui.devicesettingswidget import deviceSettingsWidget
 from afrl_gui.machinesettingswidget import machineSettingsWidget
+from afrl_gui.memoryspinbox import memorySpinBox
 
 lastKernelDirectory = "/home/afrl_dev"
 lastAppDirectory = "/home/afrl_dev"
@@ -38,6 +39,7 @@ class QemuLaunchWizard(QWizard):
 
     kill_signal = Signal(bool)
     newQemuSignal = Signal(object)
+    newDeviceSignal = Signal(str, list)  # signal device and list of settings
 
     def __init__(self, parent):
         super().__init__(parent)
@@ -80,6 +82,8 @@ class QemuLaunchWizard(QWizard):
             "machine", self.ui.machineComboBox)
         self.ui.qemuLaunchWizardMachineCpuPage.registerField(
             "cpu", self.ui.cpuComboBox)
+        self.ui.qemuLaunchWizardMachineCpuPage.registerField(
+            "memory", self.ui.memorySpinBox)
         self.ui.qemuLaunchWizardNetworkPage.registerField(
             "ipAddress*", self.ui.ipLineEdit)
         self.ui.qemuLaunchWizardNetworkPage.registerField(
@@ -88,6 +92,11 @@ class QemuLaunchWizard(QWizard):
             "kernel*", self.ui.kernelLineEdit)
         self.ui.qemuLaunchWizardKernelAppPage.registerField(
             "application*", self.ui.appLineEdit)
+
+        # Setup the memory entry widget to only produce values with power of 2
+        self.lastMemoryValue = self.ui.memorySpinBox.value()
+        self.ui.memorySpinBox.valueChanged.connect(self.adjustMemoryValue)
+        self.ui.memorySpinBox.lineEdit().setReadOnly(True)
 
     def openKernelFileBrowser(self):
         (filename, dir) = self.openFileBrowser(
@@ -144,8 +153,10 @@ class QemuLaunchWizard(QWizard):
     def applyDeviceSettings(self, settings):
         '''slot to gather and save the device settings strings '''
         print(f"DEVICE SETTINGS: {settings}")
-        self.devices.append(self.ui.deviceComboBox.currentText())
+        device = self.ui.deviceComboBox.currentText()
+        self.devices.append(device)
         self.deviceSettings.append(settings)
+        self.newDeviceSignal.emit(device, self.deviceSettings)
 
     def openMachineSettings(self):
         '''Populates a form for configuring device settings '''
@@ -160,6 +171,16 @@ class QemuLaunchWizard(QWizard):
         print(f"MACHINE SETTINGS: {settings}")
         self.machineSettings = settings
 
+    @Slot(int)
+    def adjustMemoryValue(self, value):
+        '''slot to adjust the memory value to a power of 2 on change'''
+        print(f"Memory Changing, recieved value {value}")
+        if value > self.lastMemoryValue:
+            self.ui.memorySpinBox.setValue(self.lastMemoryValue * 2)
+        else:
+            self.ui.memorySpinBox.setValue(self.lastMemoryValue / 2)
+        self.lastMemoryValue = self.ui.memorySpinBox.value()
+
     def launchQemuInstance(self):
         '''Verify QEMU model data and launch instance'''
         qemu = qemuInstance()
@@ -168,6 +189,7 @@ class QemuLaunchWizard(QWizard):
         qemu.machine = self.machineList[self.ui.qemuLaunchWizardMachineCpuPage.field("machine")].argument()
         qemu.machineSettings = self.machineSettings
         qemu.cpu = self.cpuList[self.ui.qemuLaunchWizardMachineCpuPage.field("cpu")].argument()
+        qemu.memory = self.ui.qemuLaunchWizardMachineCpuPage.field("memory")
         qemu.devices = self.devices
         qemu.deviceSettings = self.deviceSettings
         qemu.ipAddress.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("ipAddress"))
