@@ -29,7 +29,6 @@ from afrl_gui.qemucpulist import qemuCpuList
 from afrl_gui.qemudevicelist import qemuDeviceList
 from afrl_gui.devicesettingswidget import deviceSettingsWidget
 from afrl_gui.machinesettingswidget import machineSettingsWidget
-from afrl_gui.memoryspinbox import memorySpinBox
 
 lastKernelDirectory = "/home/afrl_dev"
 lastAppDirectory = "/home/afrl_dev"
@@ -72,6 +71,8 @@ class QemuLaunchWizard(QWizard):
         self.initMachineDropdown()
         self.initCpuDropdown()
         self.initDeviceTypeDropdown()
+        # Monitor machine selection to disable CPU selection if machine is selected
+        self.ui.machineComboBox.currentTextChanged.connect(self.setCpuSelectionStatus)
 
         # Register ui fields
         self.ui.qemuLaunchWizardNamePage.registerField(
@@ -170,6 +171,16 @@ class QemuLaunchWizard(QWizard):
         '''slot to gather and save the machine settings strings '''
         print(f"MACHINE SETTINGS: {settings}")
         self.machineSettings = settings
+
+    @Slot(str)
+    def setCpuSelectionStatus(self, text):
+        if text != "":
+            self.ui.cpuComboBox.setEnabled(False)
+            self.ui.cpuComboBox.setCurrentIndex(0)  # Clear out any CPU setting, idx 0 is default/empty
+            self.ui.cpuSettings_PushButton.setEnabled(False)
+        else:
+            self.ui.cpuComboBox.setEnabled(True)
+            self.ui.cpuSettings_PushButton.setEnabled(True)
 
     @Slot(int)
     def adjustMemoryValue(self, value):
