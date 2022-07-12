@@ -31,7 +31,7 @@ from afrl_gui.qemulaunchwizard import QemuLaunchWizard
 from afrl_gui.qemuinstance import qemuInstance
 from afrl_gui.terminalwidget import terminalWidget
 from afrl_gui.qemutableviewmodel import qemuTableViewModel
-
+from afrl_gui.devicelistviewmodel import deviceListViewModel
 
 class MainWindow(QMainWindow):
 
@@ -42,6 +42,7 @@ class MainWindow(QMainWindow):
         self.paused = False
         super().__init__()
         self.tableModel = qemuTableViewModel()
+        self.deviceListModel = deviceListViewModel();
         self.window = []
         self.default_theme = QGuiApplication.palette()
         self.qemuList = []
@@ -113,6 +114,8 @@ class MainWindow(QMainWindow):
             dock.setWidget(launchWiz)
             self.addDockWidget(Qt.LeftDockWidgetArea, dock)
             launchWiz.newQemuSignal.connect(self.tableModel.insertQemuInstance)
+            launchWiz.newDeviceSignal.connect(self.deviceListModel.insertDevice)
+            launchWiz.ui.deviceListView.setModel(self.deviceListModel)
         else:
             print("Error: All QEMU Instances Used")
             errBox = QMessageBox(self)
