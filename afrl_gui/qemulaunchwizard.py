@@ -16,7 +16,7 @@
 
 import os.path
 
-from PySide6.QtWidgets import QFileDialog, QWizard, QScrollArea, QPlainTextEdit
+from PySide6.QtWidgets import QFileDialog, QWizard, QPlainTextEdit
 from PySide6.QtCore import Qt, Signal, Slot, QSize
 from PySide6.QtGui import QIcon
 
