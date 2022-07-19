@@ -10,7 +10,7 @@ from afrl_gui.parametersetting import parameterSetting
 
 
 class settingsWidget(QWidget):
-
+    ''' base class for device and machine settings widgets '''
     settingsSignal = Signal(list)
 
     def __init__(self, parent):
@@ -42,7 +42,7 @@ class settingsWidget(QWidget):
         self.notesStrip = ""  # chars to remove from notes strings
         self.headerPattern = re.compile(r"NULL")
 
-    def populateForm(self):
+    def populateFormFields(self):
         qemuOut = subprocess.run(["./qemu-system-aarch64", self.paramStr, f"{self.deviceStr},?"], capture_output=True)
         if(qemuOut.returncode != 0):
             print(f"ERROR: qemu-system-aarch64 {self.paramStr} {self.deviceStr},? returned error code: {qemuOut.returncode}")
@@ -65,7 +65,7 @@ class settingsWidget(QWidget):
             if header is not None:
                 continue  # Skip header
             (label, info) = v.split('=', maxsplit=1)
-            labelParts = label.split(f"{self.deviceStr}.",maxsplit=1)
+            labelParts = label.split(f"{self.deviceStr}.", maxsplit=1)
             if len(labelParts) > 1:
                 label = labelParts[1].strip()
             else:
@@ -137,4 +137,7 @@ class settingsWidget(QWidget):
                         settings.append(line)
         self.settingsSignal.emit(settings)
         self.window().close()
+
+    def populateFormData(self, settings):
+        ''' Populates the data in the form if any settings are defined '''
 
