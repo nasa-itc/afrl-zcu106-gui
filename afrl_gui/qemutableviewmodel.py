@@ -28,7 +28,7 @@ class qemuTableViewModel(QAbstractTableModel):
             return headers[section]
 
     def data(self, index, role):
-        # print(f"data() being called with index: {index}")
+        print(f"data() being called with index: {index}, role: {role}")
         if(role == Qt.DisplayRole):
             col = index.column()
             if col == 0:
@@ -47,7 +47,6 @@ class qemuTableViewModel(QAbstractTableModel):
         self.beginInsertRows(index, position, position + rows - 1)
         # data is inserted by insertQemuInstance slot
         self.endInsertRows()
-        self.layoutChanged.emit()
         return True
 
     def validDataCount(self):
@@ -59,8 +58,8 @@ class qemuTableViewModel(QAbstractTableModel):
         row = 0
         if len(self.qemuList) < MAXIMUM_QEMU_INSTANCES:
             row = len(self.qemuList)
-            self.insertRows(row, 1)
             self.qemuList.append(qemu)
+            self.insertRows(row, 1)
         else:
             for row in range(0, MAXIMUM_QEMU_INSTANCES):
                 if not self.qemuList[row].name:
