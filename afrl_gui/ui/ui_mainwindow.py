@@ -85,6 +85,9 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.action_file_new_qemu_instance.setText(QCoreApplication.translate("MainWindow", u"New QEMU Instance", None))
+#if QT_CONFIG(tooltip)
+        self.action_file_new_qemu_instance.setToolTip(QCoreApplication.translate("MainWindow", u"Opens wizard to create a new QEMU instance", None))
+#endif // QT_CONFIG(tooltip)
         self.action_help_about.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.action_file_exit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.actionModify_Image_Contents.setText(QCoreApplication.translate("MainWindow", u"Modify Image Contents", None))

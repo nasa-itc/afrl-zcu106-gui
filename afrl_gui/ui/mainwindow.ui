@@ -106,6 +106,9 @@
    <property name="text">
     <string>New QEMU Instance</string>
    </property>
+   <property name="toolTip">
+    <string>Opens wizard to create a new QEMU instance</string>
+   </property>
   </action>
   <action name="action_help_about">
    <property name="text">
