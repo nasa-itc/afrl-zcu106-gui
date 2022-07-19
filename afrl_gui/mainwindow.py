@@ -115,6 +115,7 @@ class MainWindow(QMainWindow):
             self.addDockWidget(Qt.LeftDockWidgetArea, dock)
             launchWiz.newQemuSignal.connect(self.tableModel.insertQemuInstance)
             launchWiz.newDeviceSignal.connect(self.deviceListModel.insertDevice)
+            launchWiz.removeDeviceSignal.connect(self.deviceListModel.removeDevice)
             launchWiz.ui.deviceListView.setModel(self.deviceListModel)
         else:
             print("Error: All QEMU Instances Used")

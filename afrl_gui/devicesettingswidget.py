@@ -13,4 +13,4 @@ class deviceSettingsWidget(settingsWidget):
         self.headerPattern = re.compile(r".+ options:")
         self.infoDelimiter = ' - '
         self.typeStrip = '<>'
-        self.populateForm()
+        self.populateFormFields()

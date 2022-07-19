@@ -13,4 +13,4 @@ class machineSettingsWidget(settingsWidget):
         self.headerPattern = re.compile(r"NULL")
         self.infoDelimiter = ' ('
         self.notesStrip = ')'
-        self.populateForm()
+        self.populateFormFields()

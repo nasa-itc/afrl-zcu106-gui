@@ -20,26 +20,29 @@ class deviceListViewModel(QAbstractListModel):
 
     def data(self, index, role):
         row = index.row()
-        print(f"deviceListViewModel.data() being called with index row: {row} and role : {role}")
         if(role == Qt.DisplayRole):
             print(f"DisplayRole: data returning {self.deviceList[row]}")
             return self.deviceList[row]
-
+        # TODO: tooltip not working, may need to use the activate function or something like it
         elif(role == Qt.ToolTipRole):
             ds = self.deviceSettingsList[row]
             print(f"ToolTipRole: data returning {ds}")
             return self.deviceSettingsList[row]
 
-        else:
-            print(f"Role: {role}")
-
     def flags(self, index):
         return Qt.ItemIsEnabled | Qt.ItemIsSelectable
 
-    def insertRows(self, position, rows, index=QModelIndex()):
-        self.beginInsertRows(index, position, position + rows - 1)
+    def insertRows(self, row, count, parent=QModelIndex()):
+        self.beginInsertRows(parent, row, row + count - 1)
         # data is inserted by insertQemuInstance slot
         self.endInsertRows()
+        self.layoutChanged.emit()
+        return True
+
+    def removeRows(self, row, count, parent=QModelIndex()):
+        self.beginRemoveRows(parent, row, row + count - 1)
+        # data is inserted by insertQemuInstance slot
+        self.endRemoveRows()
         self.layoutChanged.emit()
         return True
 
@@ -50,9 +53,23 @@ class deviceListViewModel(QAbstractListModel):
     @Slot(str, list)
     def insertDevice(self, device, deviceSettings):
         row = len(self.deviceList)
-        self.insertRows(row, 1)
         self.deviceList.append(device)
         self.deviceSettingsList.append(deviceSettings)
+        self.insertRows(row, 1)
+        topLeft = self.createIndex(row, 0)
+        bottomRight = self.createIndex(row, 0)
+        self.dataChanged.emit(topLeft, bottomRight)
+
+    @Slot(list)
+    def removeDevice(self, indices):
+        if len(indices) > 1:
+            print("ERROR, multiple selection not supported")
+            return
+        index = indices[0].row()
+        row = len(self.deviceList)
+        self.deviceList.pop(index)
+        self.deviceSettingsList.pop(index)
+        self.removeRows(row, 1)
         topLeft = self.createIndex(row, 0)
         bottomRight = self.createIndex(row, 0)
         self.dataChanged.emit(topLeft, bottomRight)

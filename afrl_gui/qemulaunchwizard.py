@@ -39,6 +39,7 @@ class QemuLaunchWizard(QWizard):
     kill_signal = Signal(bool)
     newQemuSignal = Signal(object)
     newDeviceSignal = Signal(str, list)  # signal device and list of settings
+    removeDeviceSignal = Signal(list) # removes device at index provided
 
     def __init__(self, parent):
         super().__init__(parent)
@@ -65,6 +66,8 @@ class QemuLaunchWizard(QWizard):
         self.ui.appButton.clicked.connect(self.openAppFileBrowser)
         self.ui.boardSettings_PushButton.clicked.connect(self.openMachineSettings)
         self.ui.addDevicePushButton.clicked.connect(self.openDeviceSettings)
+        self.ui.removeDevicePushButton.clicked.connect(self.removeDevice)
+        self.ui.editDevicePushButton.clicked.connect(self.editDevice)
         self.button(QWizard.FinishButton).clicked.connect(self.launchQemuInstance)
 
         # Populate the dropdown menus
@@ -153,11 +156,19 @@ class QemuLaunchWizard(QWizard):
     @Slot(list)
     def applyDeviceSettings(self, settings):
         '''slot to gather and save the device settings strings '''
-        print(f"DEVICE SETTINGS: {settings}")
         device = self.ui.deviceComboBox.currentText()
         self.devices.append(device)
         self.deviceSettings.append(settings)
         self.newDeviceSignal.emit(device, self.deviceSettings)
+
+    def removeDevice(self):
+        ''' Removes the selected device from the device list '''
+        # TODO? Message Box to ask if user is sure?
+        selected = self.ui.deviceListView.selectedIndexes()
+        self.removeDeviceSignal.emit(selected)
+
+    def editDevice(self):
+        ''' Opens the device settings menu for the selected device from the device list '''
 
     def openMachineSettings(self):
         '''Populates a form for configuring device settings '''
