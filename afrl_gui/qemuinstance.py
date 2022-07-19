@@ -26,8 +26,8 @@ class qemuInstance(QObject):
         return(f"""\nName: {self.name}
                    \nDescription: {self.description}
                    \nMachine: {self.machine}
-                   \nCPU: {self.cpu}M
-                   \nMem: {self.memory}
+                   \nCPU: {self.cpu}
+                   \nMem: {self.memory}M
                    \nIP: {self.ipAddress.toString()}
                    \nKernel: {self.kernel}
                    \nApplication: {self.application}""")
