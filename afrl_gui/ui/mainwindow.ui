@@ -89,6 +89,7 @@
     </property>
     <addaction name="action_file_new_qemu_instance"/>
     <addaction name="separator"/>
+    <addaction name="actionModify_Image_Contents"/>
     <addaction name="action_file_exit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -114,6 +115,14 @@
   <action name="action_file_exit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionModify_Image_Contents">
+   <property name="text">
+    <string>Modify Image Contents</string>
+   </property>
+   <property name="toolTip">
+    <string>Opens GUI to copy items into guest image</string>
    </property>
   </action>
  </widget>
