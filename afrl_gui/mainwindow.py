@@ -32,6 +32,8 @@ from afrl_gui.qemuinstance import qemuInstance
 from afrl_gui.terminalwidget import terminalWidget
 from afrl_gui.qemutableviewmodel import qemuTableViewModel
 from afrl_gui.devicelistviewmodel import deviceListViewModel
+from afrl_gui.diskimagewidget import diskImageWidget
+from afrl_gui.errormsgbox import errorMsgBox
 
 class MainWindow(QMainWindow):
 
@@ -66,7 +68,7 @@ class MainWindow(QMainWindow):
 
         # Setup Menu Actions
         self.ui.action_file_new_qemu_instance.triggered.connect(self.showLaunchWizard)
-        self.ui.actionModify_Image_Contents.triggered.connect(self.show
+        self.ui.actionModify_Image_Contents.triggered.connect(self.showDiskImageWidget)
         self.ui.action_file_exit.triggered.connect(self.close)
         self.ui.action_help_about.triggered.connect(self.showAboutSplash)
 
@@ -120,15 +122,15 @@ class MainWindow(QMainWindow):
             launchWiz.ui.deviceListView.setModel(self.deviceListModel)
         else:
             print("Error: All QEMU Instances Used")
-            errBox = QMessageBox(self)
-            errBox.setWindowTitle("QEMU Launch Error")
-            errBox.setIcon(QMessageBox.Icon.Critical)
-            errBox.setText("All QEMU Instances Utilized")
-            errBox.exec_()
+            errorMsgBox(self, "All QEMU Instances Utilized")
 
     def showDiskImageWidget(self):
         '''Displays the widget for interacting iwth the guest disk image file'''
-        dsikImageWidget =
+        print("Launching the disk image widget")
+        self.diskImageWidget = diskImageWidget(self)
+        self.diskImageWidget.setFloating(True)
+        self.diskImageWidget.show()
+
 
     def showAboutSplash(self):
         """about menu handler"""
