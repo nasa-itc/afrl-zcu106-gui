@@ -38,7 +38,7 @@ class qemuTableViewModel(QAbstractTableModel):
             elif col == 2:
                 return self.qemuList[index.row()].ipAddress.toString()
             elif col == 3:
-                return "new"   # placeholder for status
+                return self.qemuList[index.row()].status
 
     def flags(self, index):
         return Qt.ItemIsEnabled | Qt.ItemIsSelectable

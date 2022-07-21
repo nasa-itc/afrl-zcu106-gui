@@ -20,6 +20,7 @@ class qemuInstance(QObject):
         self.memory = "4M"
         self.devices = []
         self.deviceSettings = []  # List of deviceSetting lists, index match devices[] list
+        self.status = ""
 
     def __repr__(self):
         '''Returns string representation of the qemu instance class'''
@@ -30,7 +31,8 @@ class qemuInstance(QObject):
                    \nMem: {self.memory}M
                    \nIP: {self.ipAddress.toString()}
                    \nKernel: {self.kernel}
-                   \nApplication: {self.application}""")
+                   \nApplication: {self.application}
+                   \nStatus: {self.status}""")
 
     def fieldCount(self):
         '''Returns the number of displayable fields for table views, update as necessary'''

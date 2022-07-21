@@ -65,9 +65,10 @@ class MainWindow(QMainWindow):
         self.ui.jstarLogoLabel.setPixmap(logo)
 
         # Setup Menu Actions
-        self.ui.action_file_new_qemu_instance.triggered.connect(self.show_launch_wizard)
+        self.ui.action_file_new_qemu_instance.triggered.connect(self.showLaunchWizard)
+        self.ui.actionModify_Image_Contents.triggered.connect(self.show
         self.ui.action_file_exit.triggered.connect(self.close)
-        self.ui.action_help_about.triggered.connect(self.show_about_splash)
+        self.ui.action_help_about.triggered.connect(self.showAboutSplash)
 
         # Initialize QEMU Instance Table
         self.init_table()
@@ -105,7 +106,7 @@ class MainWindow(QMainWindow):
             )
         return pid
 
-    def show_launch_wizard(self):
+    def showLaunchWizard(self):
         """start qemu instance launch wizard in dock"""
         if self.tableModel.validDataCount() < MAXIMUM_QEMU_INSTANCES:
             dock = QDockWidget(self)
@@ -125,7 +126,11 @@ class MainWindow(QMainWindow):
             errBox.setText("All QEMU Instances Utilized")
             errBox.exec_()
 
-    def show_about_splash(self):
+    def showDiskImageWidget(self):
+        '''Displays the widget for interacting iwth the guest disk image file'''
+        dsikImageWidget =
+
+    def showAboutSplash(self):
         """about menu handler"""
         about_dialog = QMessageBox(self)
         about_dialog.setWindowTitle("AFRL-RWWN QEMU MANAGER")
