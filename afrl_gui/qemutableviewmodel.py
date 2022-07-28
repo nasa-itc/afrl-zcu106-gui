@@ -28,7 +28,7 @@ class qemuTableViewModel(QAbstractTableModel):
             return headers[section]
 
     def data(self, index, role):
-        print(f"data() being called with index: {index}, role: {role}")
+        #  print(f"data() being called with index: {index}, role: {role}")
         if(role == Qt.DisplayRole):
             col = index.column()
             if col == 0:
