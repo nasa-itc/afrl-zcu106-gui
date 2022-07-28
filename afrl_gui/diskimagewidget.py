@@ -73,23 +73,24 @@ class diskImageWidget(QDockWidget):
             if(fd.exec()):
                 filename = fd.selectedFiles()
                 path = filename[0]
-        path = self.openImageFile(path)
-        if len(self.mountPaths):
-            self.guestFileSystemModel.setRootPath(self.mountPaths[0])
-            self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(self.mountPaths[0]))
+                path = self.openImageFile(path)
+                self.ui.guestComboBox.setCurrentIndex(0)  # Load the fi
+        if path != "":
+            self.guestFileSystemModel.setRootPath(path)
+            self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(path))
 
     def openImageFile(self, path):
         '''Creates a loop device for the image file at path and mounts as drive(s) '''
         diskOut = subprocess.run(["udisksctl", "loop-setup", "-f", path], capture_output=True)
         if(diskOut.returncode != 0):
             errorMsgBox(self, f"Cannot Mount Image at: {path}")
-            return
+            return ""
         outStr = diskOut.stdout.decode("utf-8")
         # Parse outstr for the loop device to determine mount location
         m = re.match(r"Mapped file (?P<fileName>\S+) as (?P<loopName>\S+)\.", outStr)
         if m is None:
             errorMsgBox(self, f"Image {path} could not be opened\nError: {outStr}")
-            return
+            return ""
         print(outStr)
         print(m.groupdict())
         self.loopPath = m.groupdict()['loopName']
@@ -104,11 +105,12 @@ class diskImageWidget(QDockWidget):
             if(mountOut.returncode != 0):
                 outErr = mountOut.stderr.decode("utf-8")
                 errorMsgBox(self, f"Cannot Mount Loop Device {self.loopPath}\n{outErr}")
-                return
+                return ""
 
         # add the mountPAths to the dropdown menu
         self.ui.guestComboBox.insertItems(0,self.mountPaths)
         print(f"Mounting complete, mounted drives: {self.mountPaths}")
+        return self.mountPaths[0] # Return first mounted path on success
 
     def getMountLocation(self, devicePath):
         '''Get the mounted location of devicePath, returns empty string if not mounted '''
