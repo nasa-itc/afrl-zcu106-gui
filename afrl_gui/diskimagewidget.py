@@ -22,7 +22,7 @@ class diskImageWidget(QDockWidget):
         self.hostFileSystemModel.setRootPath("~/")
         self.guestFileSystemModel = QFileSystemModel()
         self.guestFileSystemModel.setRootPath("~/")
-        self.loopPath = ""
+        self.loopPaths = [] # stores paths of loop devices/objects that are mounted
         self.mountPaths = []
         self.partitionList = []
         self.init_ui()
@@ -93,18 +93,18 @@ class diskImageWidget(QDockWidget):
             return ""
         print(outStr)
         print(m.groupdict())
-        self.loopPath = m.groupdict()['loopName']
+        loopPath = m.groupdict()['loopName']
 
         # Check to see if image loop is automounted
         time.sleep(3)  # Wait to allow time for automount
-        self.getMountLocation(self.loopPath)
+        self.getMountLocation(loopPath)
         if len(self.mountPaths) == 0:
             # If no  device mounted then attempt to mount the loop
-            mountOut = subprocess.run(["udisksctl", "mount", "--block-device", self.loopPath], capture_output=True)
+            mountOut = subprocess.run(["udisksctl", "mount", "--block-device", loopPath], capture_output=True)
             outStr = mountOut.stdout.decode("utf-8")
             if(mountOut.returncode != 0):
                 outErr = mountOut.stderr.decode("utf-8")
-                errorMsgBox(self, f"Cannot Mount Loop Device {self.loopPath}\n{outErr}")
+                errorMsgBox(self, f"Cannot Mount Loop Device {loopPath}\n{outErr}")
                 return ""
 
         # add the mountPAths to the dropdown menu
@@ -135,6 +135,7 @@ class diskImageWidget(QDockWidget):
             mountPath = m.groupdict()['mountPath']
             print(f"Device {devicePath} mounted at: {mountPath}")
             self.mountPaths.append(mountPath)
+            self.loopPaths.append(devicePath)
             return
         else:
             # Look for partitions
@@ -156,15 +157,15 @@ class diskImageWidget(QDockWidget):
                 print(f"Partitions: {self.partitionList}, Mount Points {self.mountPaths}")
 
     def unmountDiskImage(self):
-        ''' Unmount and remove loop device'''
-        if len(self.mountPaths):
-            print(f"Unmounting {self.mountPaths}")
-            mountOut = subprocess.run(["udisksctl", "unmount", "--block-device", self.loopPath], capture_output=True)
+        ''' Unmount and remove loop devices'''
+        for f in self.loopPaths:
+            if f.startswith('/dev'):
+                typeArg = '-b'
+            elif f.startswith('block_devices'):
+                typeArg = '-p'
+            else:
+                print(f"{devicePath} is not a supported object nor block device")
+                return
+            mountOut = subprocess.run(["udisksctl", "unmount", typeArg, f], capture_output=True)
             outStr = mountOut.stdout.decode("utf-8")
             print(f"Unmount output: {outStr}")
-
-        elif self.loopPath != "":
-            print(f"Removing loop device: {self.loopPath}")
-            loopOut = subprocess.run(["udisksctl", "loop-delete", "--block-device", self.loopPath], capture_output=True)
-            outStr = loopOut.stdout.decode("utf-8")
-            print(f"loop-delete output: {outStr}")
