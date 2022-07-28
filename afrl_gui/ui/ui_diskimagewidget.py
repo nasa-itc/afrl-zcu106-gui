@@ -23,6 +23,8 @@ class Ui_DiskImageWidget(object):
         if not DiskImageWidget.objectName():
             DiskImageWidget.setObjectName(u"DiskImageWidget")
         DiskImageWidget.resize(1203, 574)
+        DiskImageWidget.setFloating(True)
+        DiskImageWidget.setFeatures(QDockWidget.DockWidgetClosable|QDockWidget.DockWidgetFloatable|QDockWidget.DockWidgetMovable)
         self.dockWidgetContents = QWidget()
         self.dockWidgetContents.setObjectName(u"dockWidgetContents")
         self.hostTreeView = QTreeView(self.dockWidgetContents)
@@ -51,7 +53,7 @@ class Ui_DiskImageWidget(object):
     # setupUi
 
     def retranslateUi(self, DiskImageWidget):
-        DiskImageWidget.setWindowTitle(QCoreApplication.translate("DiskImageWidget", u"DockWidget", None))
+        DiskImageWidget.setWindowTitle(QCoreApplication.translate("DiskImageWidget", u"Modify Guest Image", None))
         self.toHostPushButton.setText("")
         self.toGuestPushButton.setText("")
     # retranslateUi

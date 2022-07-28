@@ -10,8 +10,14 @@
     <height>574</height>
    </rect>
   </property>
+  <property name="floating">
+   <bool>true</bool>
+  </property>
+  <property name="features">
+   <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+  </property>
   <property name="windowTitle">
-   <string>DockWidget</string>
+   <string>Modify Guest Image</string>
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <widget class="QTreeView" name="hostTreeView">
