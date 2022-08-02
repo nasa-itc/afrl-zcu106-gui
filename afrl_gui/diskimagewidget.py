@@ -2,10 +2,10 @@
 
 # if __name__ == "__main__":
 #     pass
-import subprocess, re, time, os
-from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog
-from PySide6.QtGui import QIcon
-from PySide6.QtCore import QSize
+import subprocess, re, time, os, shutil
+from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog, QMenu
+from PySide6.QtGui import QIcon, QAction
+from PySide6.QtCore import QSize, Qt
 from afrl_gui.ui.ui_diskimagewidget import Ui_DiskImageWidget
 from afrl_gui.errormsgbox import errorMsgBox
 from afrl_gui.common import QEMU_IMAGE_FILTERS, RESOURCE_ROOT
@@ -30,6 +30,10 @@ class diskImageWidget(QDockWidget):
     def __del__(self):
         self.unmountDiskImage()
 
+    def closeEvent(self, event):
+        self.unmountDiskImage()
+
+
     def init_ui(self):
         self.ui = Ui_DiskImageWidget()
         self.ui.setupUi(self)
@@ -37,6 +41,9 @@ class diskImageWidget(QDockWidget):
         self.ui.hostTreeView.setRootIndex(self.hostFileSystemModel.index("~/"));
         self.ui.guestTreeView.setModel(self.guestFileSystemModel)
         self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index("~/"));
+        self.ui.guestTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.ui.guestTreeView.customContextMenuRequested.connect(self.showFileContextMenu)
+
         # Initialize comboboxes with Browse option, need to consider last few locations or default locations as well
         self.ui.hostComboBox.addItem("Browse")
         self.ui.guestComboBox.addItem("Browse")
@@ -47,11 +54,13 @@ class diskImageWidget(QDockWidget):
                      QIcon.Normal, QIcon.On)
         self.ui.toGuestPushButton.setIcon(rhIcon)
         self.ui.toGuestPushButton.setIconSize(QSize(32,32))
+        self.ui.toGuestPushButton.clicked.connect(self.copyToGuest)
         lhIcon = QIcon()
         lhIcon.addFile(os.path.join(RESOURCE_ROOT, "lhArrow.svg"), QSize(32,32),
                      QIcon.Normal, QIcon.On)
         self.ui.toHostPushButton.setIcon(lhIcon)
         self.ui.toHostPushButton.setIconSize(QSize(32,32))
+        self.ui.toHostPushButton.clicked.connect(self.copyToHost)
 
     def loadHostDirectory(self, path):
         '''Loads the directory at path into the hostTreeView'''
@@ -155,6 +164,48 @@ class diskImageWidget(QDockWidget):
                         print(f"re failed for {self.partitionList[i]}")
 
                 print(f"Partitions: {self.partitionList}, Mount Points {self.mountPaths}")
+
+    def showFileContextMenu(self, position):
+        '''displays context menu for file items in the treeviews '''
+        editAction = QAction("Edit")
+        editAction.triggered.connect(self.editSelection)
+        menu = QMenu(self.ui.guestTreeView)
+        menu.addAction(editAction)
+
+        menu.exec_(self.ui.guestTreeView.mapToGlobal(position))
+
+    def editSelection(self):
+        print("editing selection")
+
+    def copyToGuest(self):
+        '''copies file highlighted in host view to guest'''
+        dest = self.guestFileSystemModel.rootPath()
+        selections = self.ui.hostTreeView.selectedIndexes()
+        row = -1  # Is there a better way to filter
+        for s in selections:
+            if s.row() == row:
+                continue
+            src = self.hostFileSystemModel.filePath(s)
+            row = s.row()
+            print(f"Host to Guest: Copying {src} to {dest}")
+            self.copyFile(src, dest)
+
+    def copyToHost(self):
+        '''copies file highlighted in guest view to host'''
+        dest = self.hostFileSystemModel.rootPath()
+        selections = self.ui.guestTreeView.selectedIndexes()
+        row = -1  # Is there a better way to filter
+        for s in selections:
+            if s.row() == row:
+                continue
+            src = self.guestFileSystemModel.filePath(s)
+            row = s.row()
+            print(f"Guest to Host: Copying {src} to {dest}")
+            self.copyFile(src, dest)
+
+    def copyFile(self, src, dest):
+        '''copies a file at src to dest'''
+        shutil.copy2(src, dest)
 
     def unmountDiskImage(self):
         ''' Unmount and remove loop devices'''
