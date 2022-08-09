@@ -2,7 +2,7 @@
 
 # if __name__ == "__main__":
 #     pass
-import subprocess, re, time, os, shutil
+import subprocess, os, shutil
 from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog, QMenu
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import QSize, Qt
@@ -19,9 +19,9 @@ class diskImageWidget(QDockWidget):
         super().__init__(parent)
         self.hostFileSystemModel = QFileSystemModel()
         # TODO: Pick appropriate entry point for file system views, maybe store last for convenience?
-        self.hostFileSystemModel.setRootPath("~/")
+        self.hostFileSystemModel.setRootPath(os.path.expanduser('~'))
         self.guestFileSystemModel = QFileSystemModel()
-        self.guestFileSystemModel.setRootPath("~/")
+        self.guestFileSystemModel.setRootPath(os.path.expanduser('~'))
         self.guestPath=""
         self.init_ui()
 
@@ -36,9 +36,9 @@ class diskImageWidget(QDockWidget):
         self.ui = Ui_DiskImageWidget()
         self.ui.setupUi(self)
         self.ui.hostTreeView.setModel(self.hostFileSystemModel)
-        self.ui.hostTreeView.setRootIndex(self.hostFileSystemModel.index("~/"));
+        self.ui.hostTreeView.setRootIndex(self.hostFileSystemModel.index(os.path.expanduser('~')));
         self.ui.guestTreeView.setModel(self.guestFileSystemModel)
-        self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index("~/"));
+        self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(os.path.expanduser('~')));
         self.ui.guestTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.guestTreeView.customContextMenuRequested.connect(self.showFileContextMenu)
 
@@ -103,15 +103,58 @@ class diskImageWidget(QDockWidget):
 
     def showFileContextMenu(self, position):
         '''displays context menu for file items in the treeviews '''
+        menu = QMenu(self.ui.guestTreeView)
+        newFolderAction = QAction("New Folder")
+        newFolderAction.triggered.connect(self.createNewFolder)
+        menu.addAction(newFolderAction)
+        newFileAction = QAction("New Text File")
+        newFileAction.triggered.connect(self.createNewFile)
+        menu.addAction(newFileAction)
+        menu.addSeparator()
         editAction = QAction("Edit")
         editAction.triggered.connect(self.editSelection)
-        menu = QMenu(self.ui.guestTreeView)
         menu.addAction(editAction)
-
+        renameAction = QAction("Rename")
+        renameAction.triggered.connect(self.renameSelection)
+        menu.addAction(renameAction)
+        deleteAction = QAction("Delete")
+        deleteAction.triggered.connect(self.deleteSelection)
+        menu.addAction(deleteAction)
+        menu.addSeparator()
+        copyAction = QAction("Copy")
+        copyAction.triggered.connect(self.copySelection)
+        menu.addAction(copyAction)
+        pasteAction = QAction("Paste")
+        pasteAction.triggered.connect(self.pasteToSelection)
+        menu.addAction(pasteAction)
         menu.exec_(self.ui.guestTreeView.mapToGlobal(position))
 
+    def createNewFolder(self):
+        '''Creates a new directory in the selected directory '''
+
+    def createNewFile(self):
+        '''Creates a new text file in the selected directory '''
+
     def editSelection(self):
+        '''Edits selected file '''
         print("editing selection")
+
+
+    def renameSelection(self):
+        '''Renames selected file/folder '''
+        print("editing selection")
+
+    def deleteSelection(self):
+        '''Deletes Edits selected file/folder '''
+        print("Deleting selection")
+
+    def copySelection(self):
+        '''Copies Edits selected file/folder '''
+        print("Deleting selection")
+
+    def pasteToSelection(self):
+        '''Pastes file/folder in selected folder'''
+        print("Pasting selection")
 
     def copyToGuest(self):
         '''copies file highlighted in host view to guest'''
