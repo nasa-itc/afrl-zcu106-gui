@@ -93,6 +93,7 @@ class diskImageWidget(QDockWidget):
         diskOut = subprocess.run(["guestmount", "-a", path, "-i", self.guestPath, "-o", f"uid={os.getuid()}", "-o", f"uid={os.getgid()}"], capture_output=True)
         if(diskOut.returncode != 0):
             errorMsgBox(self, f"Cannot Mount Image at: {path}")
+            self.guestPath=""  # Clear the path so we don't try to unmount later
             return ""
 
         # add the mountPAths to the dropdown menu
@@ -114,7 +115,6 @@ class diskImageWidget(QDockWidget):
 
     def copyToGuest(self):
         '''copies file highlighted in host view to guest'''
-        dest = self.guestFileSystemModel.rootPath()
         sourceSelections = self.ui.hostTreeView.selectedIndexes()
         destSelections = self.ui.guestTreeView.selectedIndexes()
         srcRow = -1
@@ -133,14 +133,19 @@ class diskImageWidget(QDockWidget):
 
     def copyToHost(self):
         '''copies file highlighted in guest view to host'''
-        dest = self.hostFileSystemModel.rootPath()
-        selections = self.ui.guestTreeView.selectedIndexes()
-        row = -1  # Is there a better way to filter
-        for s in selections:
-            if s.row() == row:
+        sourceSelections = self.ui.guestTreeView.selectedIndexes()
+        destSelections = self.ui.hostTreeView.selectedIndexes()
+        srcRow = -1
+        destRow = -1
+        for s in sourceSelections:
+            if s.row() == srcRow:
                 continue
             src = self.guestFileSystemModel.filePath(s)
-            row = s.row()
+            srcRow = s.row()
+            for d in destSelections:
+                if d.row == destRow:
+                    continue
+                dest = self.hostFileSystemModel.filePath(d)
             print(f"Guest to Host: Copying {src} to {dest}")
             self.copyFile(src, dest)
 
@@ -150,6 +155,7 @@ class diskImageWidget(QDockWidget):
 
     def unmountDiskImage(self):
         ''' Unmount the guest FS'''
-        mountOut = subprocess.run(["guestunmount", self.guestPath], capture_output=True)
-        outStr = mountOut.stdout.decode("utf-8")
-        print(f"Unmount output: {outStr}")
+        if self.guestPath != "":
+            mountOut = subprocess.run(["guestunmount", self.guestPath], capture_output=True)
+            outStr = mountOut.stdout.decode("utf-8")
+            print(f"Unmount output: {outStr}")
