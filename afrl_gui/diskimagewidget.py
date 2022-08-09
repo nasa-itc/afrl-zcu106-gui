@@ -22,9 +22,7 @@ class diskImageWidget(QDockWidget):
         self.hostFileSystemModel.setRootPath("~/")
         self.guestFileSystemModel = QFileSystemModel()
         self.guestFileSystemModel.setRootPath("~/")
-        self.loopPaths = [] # stores paths of loop devices/objects that are mounted
-        self.mountPaths = []
-        self.partitionList = []
+        self.guestPath=""
         self.init_ui()
 
     def __del__(self):
@@ -89,81 +87,18 @@ class diskImageWidget(QDockWidget):
             self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(path))
 
     def openImageFile(self, path):
-        '''Creates a loop device for the image file at path and mounts as drive(s) '''
-        diskOut = subprocess.run(["udisksctl", "loop-setup", "-f", path], capture_output=True)
+        '''Opens image file with libguestfs and mounts the partition(s) '''
+        self.guestPath = f"{os.path.realpath(os.curdir)}/guestMnt"
+        diskOut = subprocess.run(["mkdir", "-p", self.guestPath], capture_output=True)
+        diskOut = subprocess.run(["guestmount", "-a", path, "-i", self.guestPath, "-o", f"uid={os.getuid()}", "-o", f"uid={os.getgid()}"], capture_output=True)
         if(diskOut.returncode != 0):
             errorMsgBox(self, f"Cannot Mount Image at: {path}")
             return ""
-        outStr = diskOut.stdout.decode("utf-8")
-        # Parse outstr for the loop device to determine mount location
-        m = re.match(r"Mapped file (?P<fileName>\S+) as (?P<loopName>\S+)\.", outStr)
-        if m is None:
-            errorMsgBox(self, f"Image {path} could not be opened\nError: {outStr}")
-            return ""
-        print(outStr)
-        print(m.groupdict())
-        loopPath = m.groupdict()['loopName']
-
-        # Check to see if image loop is automounted
-        time.sleep(3)  # Wait to allow time for automount
-        self.getMountLocation(loopPath)
-        if len(self.mountPaths) == 0:
-            # If no  device mounted then attempt to mount the loop
-            mountOut = subprocess.run(["udisksctl", "mount", "--block-device", loopPath], capture_output=True)
-            outStr = mountOut.stdout.decode("utf-8")
-            if(mountOut.returncode != 0):
-                outErr = mountOut.stderr.decode("utf-8")
-                errorMsgBox(self, f"Cannot Mount Loop Device {loopPath}\n{outErr}")
-                return ""
 
         # add the mountPAths to the dropdown menu
-        self.ui.guestComboBox.insertItems(0,self.mountPaths)
-        print(f"Mounting complete, mounted drives: {self.mountPaths}")
-        return self.mountPaths[0] # Return first mounted path on success
-
-    def getMountLocation(self, devicePath):
-        '''Get the mounted location of devicePath, returns empty string if not mounted '''
-        if devicePath.startswith('/dev'):
-            typeArg = '-b'
-        elif devicePath.startswith('block_devices'):
-            typeArg = '-p'
-        else:
-            print(f"{devicePath} is not a supported object nor block device")
-            return
-
-        loopOut = subprocess.run(['udisksctl', 'info', typeArg, devicePath], capture_output=True)
-        if(loopOut.returncode != 0):
-            outErr = loopOut.stderr.decode("utf-8")
-            errorMsgBox(self, f"Cannot Access Device at: {devicePath}\n{outErr}")
-            return ""
-
-        outStr = loopOut.stdout.decode("utf-8")
-        print(f"device info output: {outStr}")
-        m = re.search(r"MountPoints:\s+(?P<mountPath>\S+)\s", outStr)
-        if m is not None:
-            mountPath = m.groupdict()['mountPath']
-            print(f"Device {devicePath} mounted at: {mountPath}")
-            self.mountPaths.append(mountPath)
-            self.loopPaths.append(devicePath)
-            return
-        else:
-            # Look for partitions
-            m = re.search(r"Partitions:\s+\[(?P<partList>.+)\]\s", outStr)
-            if m is not None:
-                partitionStr = m.groupdict()['partList']
-                self.partitionList = partitionStr.split(',')
-                for i in range(0, len(self.partitionList)):
-                    self.partitionList[i] = self.partitionList[i].strip()
-                    self.partitionList[i] = self.partitionList[i].strip("'")
-                    m = re.search(r"(?P<partPath>block_devices\S+)", self.partitionList[i])
-                    if m is not None:
-                        partPath = m.groupdict()['partPath']
-                        print(f"Getting mount location for {partPath}")
-                        self.getMountLocation(partPath) # recursive call to add the mount location for the partition
-                    else:
-                        print(f"re failed for {self.partitionList[i]}")
-
-                print(f"Partitions: {self.partitionList}, Mount Points {self.mountPaths}")
+        self.ui.guestComboBox.insertItems(0,self.guestPath)
+        print(f"Mounting complete, mounted drives: {self.guestPath}")
+        return self.guestPath # Return first mounted path on success
 
     def showFileContextMenu(self, position):
         '''displays context menu for file items in the treeviews '''
@@ -180,13 +115,19 @@ class diskImageWidget(QDockWidget):
     def copyToGuest(self):
         '''copies file highlighted in host view to guest'''
         dest = self.guestFileSystemModel.rootPath()
-        selections = self.ui.hostTreeView.selectedIndexes()
-        row = -1  # Is there a better way to filter
-        for s in selections:
-            if s.row() == row:
+        sourceSelections = self.ui.hostTreeView.selectedIndexes()
+        destSelections = self.ui.guestTreeView.selectedIndexes()
+        srcRow = -1
+        destRow = -1
+        for s in sourceSelections:
+            if s.row() == srcRow:
                 continue
             src = self.hostFileSystemModel.filePath(s)
-            row = s.row()
+            srcRow = s.row()
+            for d in destSelections:
+                if d.row == destRow:
+                    continue
+                dest = self.guestFileSystemModel.filePath(d)
             print(f"Host to Guest: Copying {src} to {dest}")
             self.copyFile(src, dest)
 
@@ -208,15 +149,7 @@ class diskImageWidget(QDockWidget):
         shutil.copy2(src, dest)
 
     def unmountDiskImage(self):
-        ''' Unmount and remove loop devices'''
-        for f in self.loopPaths:
-            if f.startswith('/dev'):
-                typeArg = '-b'
-            elif f.startswith('block_devices'):
-                typeArg = '-p'
-            else:
-                print(f"{devicePath} is not a supported object nor block device")
-                return
-            mountOut = subprocess.run(["udisksctl", "unmount", typeArg, f], capture_output=True)
-            outStr = mountOut.stdout.decode("utf-8")
-            print(f"Unmount output: {outStr}")
+        ''' Unmount the guest FS'''
+        mountOut = subprocess.run(["guestunmount", self.guestPath], capture_output=True)
+        outStr = mountOut.stdout.decode("utf-8")
+        print(f"Unmount output: {outStr}")
