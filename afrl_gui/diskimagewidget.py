@@ -24,6 +24,7 @@ class diskImageWidget(QDockWidget):
         self.guestFileSystemModel.setRootPath(os.path.expanduser('~'))
         self.guestPath=""
         self.init_ui()
+        self.guestCopyCandidate=""  # pathname for copying files within guestsystem, will be copied if user selects 'paste'
 
     def __del__(self):
         self.unmountDiskImage()
@@ -127,7 +128,31 @@ class diskImageWidget(QDockWidget):
         pasteAction = QAction("Paste")
         pasteAction.triggered.connect(self.pasteToSelection)
         menu.addAction(pasteAction)
+        if self.guestCopyCandidate == "":
+            pasteAction.setEnabled(False)
+        else:
+            pasteAction.setEnabled(True)
         menu.exec_(self.ui.guestTreeView.mapToGlobal(position))
+
+    def copyToGuest(self):
+        '''copies file highlighted in host view to guest'''
+        # GUI uses single selection mode so can use the 0 index
+        s = self.ui.hostTreeView.selectedIndexes()[0]
+        d = self.ui.guestTreeView.selectedIndexes()[0]
+        src = self.hostFileSystemModel.filePath(s)
+        dest = self.guestFileSystemModel.filePath(d)
+        print(f"Host to Guest: Copying {src} to {dest}")
+        self.copyFile(src, dest)
+
+    def copyToHost(self):
+        '''copies file highlighted in guest view to host'''
+        # GUI uses single selection mode so can use the 0 index
+        s = self.ui.guestTreeView.selectedIndexes()[0]
+        d = self.ui.hostTreeView.selectedIndexes()[0]
+        src = self.guestFileSystemModel.filePath(s)
+        dest = self.hostFileSystemModel.filePath(d)
+        print(f"Guest to Host: Copying {src} to {dest}")
+        self.copyFile(src, dest)
 
     def createNewFolder(self):
         '''Creates a new directory in the selected directory '''
@@ -150,47 +175,17 @@ class diskImageWidget(QDockWidget):
 
     def copySelection(self):
         '''Copies Edits selected file/folder '''
-        print("Deleting selection")
+        s = self.ui.guestTreeView.selectedIndexes()[0]
+        self.guestCopyCandidate = self.guestFileSystemModel.filePath(s)
+        print(f"Copying {self.guestCopyCandidate} to clipboard")
 
     def pasteToSelection(self):
         '''Pastes file/folder in selected folder'''
         print("Pasting selection")
-
-    def copyToGuest(self):
-        '''copies file highlighted in host view to guest'''
-        sourceSelections = self.ui.hostTreeView.selectedIndexes()
-        destSelections = self.ui.guestTreeView.selectedIndexes()
-        srcRow = -1
-        destRow = -1
-        for s in sourceSelections:
-            if s.row() == srcRow:
-                continue
-            src = self.hostFileSystemModel.filePath(s)
-            srcRow = s.row()
-            for d in destSelections:
-                if d.row == destRow:
-                    continue
-                dest = self.guestFileSystemModel.filePath(d)
-            print(f"Host to Guest: Copying {src} to {dest}")
-            self.copyFile(src, dest)
-
-    def copyToHost(self):
-        '''copies file highlighted in guest view to host'''
-        sourceSelections = self.ui.guestTreeView.selectedIndexes()
-        destSelections = self.ui.hostTreeView.selectedIndexes()
-        srcRow = -1
-        destRow = -1
-        for s in sourceSelections:
-            if s.row() == srcRow:
-                continue
-            src = self.guestFileSystemModel.filePath(s)
-            srcRow = s.row()
-            for d in destSelections:
-                if d.row == destRow:
-                    continue
-                dest = self.hostFileSystemModel.filePath(d)
-            print(f"Guest to Host: Copying {src} to {dest}")
-            self.copyFile(src, dest)
+        d = self.ui.guestTreeView.selectedIndexes()[0]
+        dest = self.guestFileSystemModel.filePath(d)
+        self.copyFile(self.guestCopyCandidate, dest)
+        self.guestCopyCandidate = ""
 
     def copyFile(self, src, dest):
         '''copies a file at src to dest'''
