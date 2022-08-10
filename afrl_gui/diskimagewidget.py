@@ -169,16 +169,24 @@ class diskImageWidget(QDockWidget):
     def createNewFolder(self):
         '''Creates a new directory in the selected directory '''
         dest = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
-        newFolder = self.showFilenameDialog("New Directory")
-        if newFolder != "":
-            os.mkdir(os.path.join(dest, newFolder))
+        name = self.showFilenameDialog("New Directory")
+        if name:
+            path = os.path.join(dest, name)
+            if os.path.exists(path):
+                errorMsgBox(self, f"Directory already exists at {path}")
+                return
+            os.mkdir(path)
 
     def createNewFile(self):
         '''Creates a new text file in the selected directory '''
         dest = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
-        newFile = self.showFilenameDialog("New Text File")
-        if newFile != "":
-            open(os.path.join(dest, newFile),'w')
+        name = self.showFilenameDialog("New Text File")
+        if name:
+            path = os.path.join(dest, name)
+            if os.path.exists(path):
+                errorMsgBox(self, f"File already exists at {path}")
+                return
+            open(path,'w')
 
     def editSelection(self):
         '''Edits selected file '''
@@ -187,17 +195,24 @@ class diskImageWidget(QDockWidget):
     def renameSelection(self):
         '''Renames selected file/folder '''
         oldPath = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
-        newName = self.showFilenameDialog("Rename File")
-        if newName != "":
+        name = self.showFilenameDialog("Rename File")
+        if name != "":
             dir = os.path.dirname(oldPath)
-            os.replace(oldPath,os.path.join(dir, newName))
-
+            path = os.path.join(dir, name)
+            if os.path.exists(path):
+                errorMsgBox(self, f"File already exists at {path}")
+                return
+            os.replace(oldPath, path)
 
     def deleteSelection(self):
         '''Deletes Edits selected file/folder '''
         delFile = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
-        print(f"Deleting selection: {delFile}")
-        os.remove(delFile)
+        #  TODO add an are you sure?
+        #Test if directory or file
+        if os.path.isfile(delFile):
+            os.remove(delFile)
+        elif os.path.isdir(delFile):
+            shutil.rmtree(delFile,False)
 
     def copySelection(self):
         '''Copies Edits selected file/folder '''
@@ -208,6 +223,7 @@ class diskImageWidget(QDockWidget):
         '''Pastes file/folder in selected folder'''
         print("Pasting selection")
         dest = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
+        #  TODO:  Test for file and directory existence prior to copy
         self.copyFile(self.guestCopyCandidate, dest)
         self.guestCopyCandidate = ""
 
