@@ -3,7 +3,7 @@
 # if __name__ == "__main__":
 #     pass
 import subprocess, os, shutil
-from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog, QMenu
+from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog, QMenu, QInputDialog
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import QSize, Qt
 from afrl_gui.ui.ui_diskimagewidget import Ui_DiskImageWidget
@@ -104,6 +104,7 @@ class diskImageWidget(QDockWidget):
 
     def showFileContextMenu(self, position):
         '''displays context menu for file items in the treeviews '''
+        selectedItem = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
         menu = QMenu(self.ui.guestTreeView)
         newFolderAction = QAction("New Folder")
         newFolderAction.triggered.connect(self.createNewFolder)
@@ -128,62 +129,85 @@ class diskImageWidget(QDockWidget):
         pasteAction = QAction("Paste")
         pasteAction.triggered.connect(self.pasteToSelection)
         menu.addAction(pasteAction)
+        #Set action enable
         if self.guestCopyCandidate == "":
             pasteAction.setEnabled(False)
         else:
             pasteAction.setEnabled(True)
+        if os.path.isdir(selectedItem) == False:
+            newFileAction.setEnabled(False)
+            newFolderAction.setEnabled(False)
+        else:
+            editAction.setEnabled(False)
+
         menu.exec_(self.ui.guestTreeView.mapToGlobal(position))
+
+    def showFilenameDialog(self,title=""):
+        '''displays a dialog to get a name for new file, directory, duplicated file/dir, title argument allows customization to guide user '''
+        [filename, ok] = QInputDialog.getText(self,title,"Name")
+        if ok:
+            return filename
+        else:
+            return ""
 
     def copyToGuest(self):
         '''copies file highlighted in host view to guest'''
         # GUI uses single selection mode so can use the 0 index
-        s = self.ui.hostTreeView.selectedIndexes()[0]
-        d = self.ui.guestTreeView.selectedIndexes()[0]
-        src = self.hostFileSystemModel.filePath(s)
-        dest = self.guestFileSystemModel.filePath(d)
+        src = self.hostFileSystemModel.filePath(self.ui.hostTreeView.selectedIndexes()[0])
+        dest = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
         print(f"Host to Guest: Copying {src} to {dest}")
         self.copyFile(src, dest)
 
     def copyToHost(self):
         '''copies file highlighted in guest view to host'''
         # GUI uses single selection mode so can use the 0 index
-        s = self.ui.guestTreeView.selectedIndexes()[0]
-        d = self.ui.hostTreeView.selectedIndexes()[0]
-        src = self.guestFileSystemModel.filePath(s)
-        dest = self.hostFileSystemModel.filePath(d)
+        src = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
+        dest = self.hostFileSystemModel.filePath(self.ui.hostTreeView.selectedIndexes()[0])
         print(f"Guest to Host: Copying {src} to {dest}")
         self.copyFile(src, dest)
 
     def createNewFolder(self):
         '''Creates a new directory in the selected directory '''
+        dest = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
+        newFolder = self.showFilenameDialog("New Directory")
+        if newFolder != "":
+            os.mkdir(os.path.join(dest, newFolder))
 
     def createNewFile(self):
         '''Creates a new text file in the selected directory '''
+        dest = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
+        newFile = self.showFilenameDialog("New Text File")
+        if newFile != "":
+            open(os.path.join(dest, newFile),'w')
 
     def editSelection(self):
         '''Edits selected file '''
         print("editing selection")
 
-
     def renameSelection(self):
         '''Renames selected file/folder '''
-        print("editing selection")
+        oldPath = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
+        newName = self.showFilenameDialog("Rename File")
+        if newName != "":
+            dir = os.path.dirname(oldPath)
+            os.replace(oldPath,os.path.join(dir, newName))
+
 
     def deleteSelection(self):
         '''Deletes Edits selected file/folder '''
-        print("Deleting selection")
+        delFile = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
+        print(f"Deleting selection: {delFile}")
+        os.remove(delFile)
 
     def copySelection(self):
         '''Copies Edits selected file/folder '''
-        s = self.ui.guestTreeView.selectedIndexes()[0]
-        self.guestCopyCandidate = self.guestFileSystemModel.filePath(s)
+        self.guestCopyCandidate = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
         print(f"Copying {self.guestCopyCandidate} to clipboard")
 
     def pasteToSelection(self):
         '''Pastes file/folder in selected folder'''
         print("Pasting selection")
-        d = self.ui.guestTreeView.selectedIndexes()[0]
-        dest = self.guestFileSystemModel.filePath(d)
+        dest = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
         self.copyFile(self.guestCopyCandidate, dest)
         self.guestCopyCandidate = ""
 
