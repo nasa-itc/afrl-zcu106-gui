@@ -1,4 +1,4 @@
-# This Python file uses the following encoding: utf-8
+    # This Python file uses the following encoding: utf-8
 
 # if __name__ == "__main__":
 #     pass
@@ -31,7 +31,6 @@ class diskImageWidget(QDockWidget):
 
     def closeEvent(self, event):
         self.unmountDiskImage()
-
 
     def init_ui(self):
         self.ui = Ui_DiskImageWidget()
@@ -123,12 +122,17 @@ class diskImageWidget(QDockWidget):
         deleteAction.triggered.connect(self.deleteSelection)
         menu.addAction(deleteAction)
         menu.addSeparator()
+        duplicateAction = QAction("Duplicate")
+        duplicateAction.triggered.connect(self.duplicateSelection)
+        menu.addAction(duplicateAction)
         copyAction = QAction("Copy")
         copyAction.triggered.connect(self.copySelection)
         menu.addAction(copyAction)
         pasteAction = QAction("Paste")
         pasteAction.triggered.connect(self.pasteToSelection)
         menu.addAction(pasteAction)
+
+        #  TODO add a duplicate action (copy and ask for new name, place in same directory)
         #Set action enable
         if self.guestCopyCandidate == "":
             pasteAction.setEnabled(False)
@@ -142,9 +146,9 @@ class diskImageWidget(QDockWidget):
 
         menu.exec_(self.ui.guestTreeView.mapToGlobal(position))
 
-    def showFilenameDialog(self,title=""):
+    def showFilenameDialog(self,title="",origText=""):
         '''displays a dialog to get a name for new file, directory, duplicated file/dir, title argument allows customization to guide user '''
-        [filename, ok] = QInputDialog.getText(self,title,"Name")
+        [filename, ok] = QInputDialog.getText(self,title,"Name",text=origText)
         if ok:
             return filename
         else:
@@ -191,18 +195,37 @@ class diskImageWidget(QDockWidget):
     def editSelection(self):
         '''Edits selected file '''
         print("editing selection")
+        path = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
+        if os.path.isdir(path):
+            errorMsgBox(self, f"{path} is directory, cannot edit")
+            return
+        #TODO add a preferred editor and launch file in it
 
     def renameSelection(self):
         '''Renames selected file/folder '''
-        oldPath = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
-        name = self.showFilenameDialog("Rename File")
+        renamePath = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
+        [oldPath, oldName] = os.path.split(renamePath)
+        description = "File"
+        if os.path.isdir(renamePath):
+            description = "Dir"
+            #  TODO: Must handle directory differently, when it renames it breaks the file system model (renamed files in directory do not update on view)
+        name = self.showFilenameDialog(f"Rename {description}", oldName)
         if name != "":
-            dir = os.path.dirname(oldPath)
-            path = os.path.join(dir, name)
+            path = os.path.join(oldPath, name)
             if os.path.exists(path):
-                errorMsgBox(self, f"File already exists at {path}")
+                errorMsgBox(self, f"{description} already exists at {path}")
                 return
-            os.replace(oldPath, path)
+            # TODO: Figure out how to get the model/view to update when directory is renamed
+            #  if directory is renamed then a file in that directory is renamed it is not updated in view
+            shutil.move(renamePath, path)
+
+    def duplicateSelection(self):
+        '''Duplicates selected file/folder, asks user for new name '''
+        srcfile = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
+        srcPath = os.path.dirname(srcfile)
+        [dest, filter]= QFileDialog.getSaveFileName(self, "Select Copy Destination",srcPath)
+        if dest != "":
+            self.copyFile(srcfile,dest)
 
     def deleteSelection(self):
         '''Deletes Edits selected file/folder '''
@@ -218,17 +241,22 @@ class diskImageWidget(QDockWidget):
         '''Copies Edits selected file/folder '''
         self.guestCopyCandidate = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
         print(f"Copying {self.guestCopyCandidate} to clipboard")
+        #TODO test with directory and file
 
     def pasteToSelection(self):
         '''Pastes file/folder in selected folder'''
         print("Pasting selection")
         dest = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
-        #  TODO:  Test for file and directory existence prior to copy
+        if os.path.exists(dest):
+            errorMsgBox(self,f"{dest} already exists")
+            return
+
         self.copyFile(self.guestCopyCandidate, dest)
         self.guestCopyCandidate = ""
 
     def copyFile(self, src, dest):
         '''copies a file at src to dest'''
+        print(f"Copying {src} to {dest}")
         shutil.copy2(src, dest)
 
     def unmountDiskImage(self):
