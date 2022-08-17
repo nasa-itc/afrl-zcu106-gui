@@ -8,7 +8,7 @@ from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import QSize, Qt
 from afrl_gui.ui.ui_diskimagewidget import Ui_DiskImageWidget
 from afrl_gui.errormsgbox import errorMsgBox
-from afrl_gui.common import QEMU_IMAGE_FILTERS, RESOURCE_ROOT
+from afrl_gui.common import QEMU_IMAGE_FILTERS, RESOURCE_ROOT, TEXT_EDITOR
 
 
 class diskImageWidget(QDockWidget):
@@ -199,7 +199,7 @@ class diskImageWidget(QDockWidget):
         if os.path.isdir(path):
             errorMsgBox(self, f"{path} is directory, cannot edit")
             return
-        #TODO add a preferred editor and launch file in it
+        os.system(f"{TEXT_EDITOR} {path}")
 
     def renameSelection(self):
         '''Renames selected file/folder '''
@@ -241,12 +241,12 @@ class diskImageWidget(QDockWidget):
         '''Copies Edits selected file/folder '''
         self.guestCopyCandidate = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
         print(f"Copying {self.guestCopyCandidate} to clipboard")
-        #TODO test with directory and file
+        #TODO test with directory and file}
 
     def pasteToSelection(self):
         '''Pastes file/folder in selected folder'''
-        print("Pasting selection")
         dest = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
+        print(f"Pasting selection: {self.guestCopyCandidate} to {dest}")
         if os.path.exists(dest):
             errorMsgBox(self,f"{dest} already exists")
             return
@@ -256,7 +256,6 @@ class diskImageWidget(QDockWidget):
 
     def copyFile(self, src, dest):
         '''copies a file at src to dest'''
-        print(f"Copying {src} to {dest}")
         shutil.copy2(src, dest)
 
     def unmountDiskImage(self):
