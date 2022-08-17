@@ -160,7 +160,7 @@ class diskImageWidget(QDockWidget):
         src = self.hostFileSystemModel.filePath(self.ui.hostTreeView.selectedIndexes()[0])
         dest = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
         print(f"Host to Guest: Copying {src} to {dest}")
-        self.copyFile(src, dest)
+        self.copyTarget(src, dest)
 
     def copyToHost(self):
         '''copies file highlighted in guest view to host'''
@@ -168,7 +168,7 @@ class diskImageWidget(QDockWidget):
         src = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
         dest = self.hostFileSystemModel.filePath(self.ui.hostTreeView.selectedIndexes()[0])
         print(f"Guest to Host: Copying {src} to {dest}")
-        self.copyFile(src, dest)
+        self.copyTarget(src, dest)
 
     def createNewFolder(self):
         '''Creates a new directory in the selected directory '''
@@ -225,7 +225,7 @@ class diskImageWidget(QDockWidget):
         srcPath = os.path.dirname(srcfile)
         [dest, filter]= QFileDialog.getSaveFileName(self, "Select Copy Destination",srcPath)
         if dest != "":
-            self.copyFile(srcfile,dest)
+            self.copyTarget(srcfile,dest)
 
     def deleteSelection(self):
         '''Deletes Edits selected file/folder '''
@@ -247,16 +247,19 @@ class diskImageWidget(QDockWidget):
         '''Pastes file/folder in selected folder'''
         dest = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
         print(f"Pasting selection: {self.guestCopyCandidate} to {dest}")
-        if os.path.exists(dest):
-            errorMsgBox(self,f"{dest} already exists")
-            return
-
-        self.copyFile(self.guestCopyCandidate, dest)
+        self.copyTarget(self.guestCopyCandidate, dest)
         self.guestCopyCandidate = ""
 
-    def copyFile(self, src, dest):
-        '''copies a file at src to dest'''
-        shutil.copy2(src, dest)
+    def copyTarget(self, src, dest):
+        '''copies a file or directory at src to dest'''
+        if os.path.isdir(dest):
+            dest = dest + '/'  # Append a slash to make sure os treats as directory
+        if os.path.isdir(src):
+            dest = os.path.join(dest, os.path.basename(src))
+            print(f"Copying directory {src} to {dest}")
+            shutil.copytree(src,dest)
+        else:
+            shutil.copy2(src, dest)
 
     def unmountDiskImage(self):
         ''' Unmount the guest FS'''
