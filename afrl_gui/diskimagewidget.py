@@ -2,7 +2,7 @@
 
 # if __name__ == "__main__":
 #     pass
-import subprocess, os, shutil
+import os, stat, shutil, subprocess
 from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog, QMenu, QInputDialog
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import QSize, Qt
@@ -18,7 +18,6 @@ class diskImageWidget(QDockWidget):
     def __init__(self, parent):
         super().__init__(parent)
         self.hostFileSystemModel = QFileSystemModel()
-        # TODO: Pick appropriate entry point for file system views, maybe store last for convenience?
         self.hostFileSystemModel.setRootPath(os.path.expanduser('~'))
         self.guestFileSystemModel = QFileSystemModel()
         self.guestFileSystemModel.setRootPath(os.path.expanduser('~'))
@@ -90,13 +89,13 @@ class diskImageWidget(QDockWidget):
         '''Opens image file with libguestfs and mounts the partition(s) '''
         self.guestPath = f"{os.path.realpath(os.curdir)}/guestMnt"
         diskOut = subprocess.run(["mkdir", "-p", self.guestPath], capture_output=True)
-        diskOut = subprocess.run(["guestmount", "-a", path, "-i", self.guestPath, "-o", f"uid={os.getuid()}", "-o", f"uid={os.getgid()}"], capture_output=True)
+        diskOut = subprocess.run(["guestmount", "-a", path, "-o", f"uid={os.getuid()}", "-o", f"gid={os.getgid()}", "-i", self.guestPath], capture_output=True)
         if(diskOut.returncode != 0):
             errorMsgBox(self, f"Cannot Mount Image at: {path}")
             self.guestPath=""  # Clear the path so we don't try to unmount later
             return ""
 
-        # add the mountPAths to the dropdown menu
+        # add the mounted path to the dropdown menu
         self.ui.guestComboBox.insertItems(0,self.guestPath)
         print(f"Mounting complete, mounted drives: {self.guestPath}")
         return self.guestPath # Return first mounted path on success
@@ -131,8 +130,6 @@ class diskImageWidget(QDockWidget):
         pasteAction = QAction("Paste")
         pasteAction.triggered.connect(self.pasteToSelection)
         menu.addAction(pasteAction)
-
-        #  TODO add a duplicate action (copy and ask for new name, place in same directory)
         #Set action enable
         if self.guestCopyCandidate == "":
             pasteAction.setEnabled(False)
@@ -199,7 +196,10 @@ class diskImageWidget(QDockWidget):
         if os.path.isdir(path):
             errorMsgBox(self, f"{path} is directory, cannot edit")
             return
+        mode = os.stat(path).st_mode
+        os.chmod(path,mode | stat.S_IWOTH)  # Set the Write permission for all to allow editor to save file
         os.system(f"{TEXT_EDITOR} {path}")
+        os.chmod(path,mode) #  Restore original mode
 
     def renameSelection(self):
         '''Renames selected file/folder '''
@@ -241,7 +241,6 @@ class diskImageWidget(QDockWidget):
         '''Copies Edits selected file/folder '''
         self.guestCopyCandidate = self.guestFileSystemModel.filePath(self.ui.guestTreeView.selectedIndexes()[0])
         print(f"Copying {self.guestCopyCandidate} to clipboard")
-        #TODO test with directory and file}
 
     def pasteToSelection(self):
         '''Pastes file/folder in selected folder'''
