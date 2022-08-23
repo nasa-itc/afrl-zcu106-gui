@@ -3,11 +3,12 @@
 # if __name__ == "__main__":
 #     pass
 import os, stat, shutil, subprocess
-from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog, QMenu, QInputDialog
+from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog, QMenu, QInputDialog, QMessageBox
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import QSize, Qt
 from afrl_gui.ui.ui_diskimagewidget import Ui_DiskImageWidget
 from afrl_gui.errormsgbox import errorMsgBox
+from afrl_gui.diskmsgbox import diskMsgBox
 from afrl_gui.common import QEMU_IMAGE_FILTERS, RESOURCE_ROOT, TEXT_EDITOR
 
 
@@ -88,9 +89,13 @@ class diskImageWidget(QDockWidget):
     def openImageFile(self, path):
         '''Opens image file with libguestfs and mounts the partition(s) '''
         self.guestPath = f"{os.path.realpath(os.curdir)}/guestMnt"
-        diskOut = subprocess.run(["mkdir", "-p", self.guestPath], capture_output=True)
-        diskOut = subprocess.run(["guestmount", "-a", path, "-o", f"uid={os.getuid()}", "-o", f"gid={os.getgid()}", "-i", self.guestPath], capture_output=True)
-        if(diskOut.returncode != 0):
+        diskOut = subprocess.call(["mkdir", "-p", self.guestPath])
+        diskOut = subprocess.call(["guestmount", "-a", path, "-o", f"uid={os.getuid()}", "-o", f"gid={os.getgid()}", "-i", self.guestPath])
+#  TODO: Figure out how to launch the mount in background and have a status window to inform user that operation Pending
+#        self.dmBox = diskMsgBox(path)
+#        self.dmBox.exec_()
+
+        if(diskOut != 0):
             errorMsgBox(self, f"Cannot Mount Image at: {path}")
             self.guestPath=""  # Clear the path so we don't try to unmount later
             return ""
