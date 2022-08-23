@@ -25,3 +25,4 @@ QEMU_IMAGE_FILTERS = ["Disc Image files (*.img *.ext4)",
 
 # Text editor to call for editing files, include path if not on PATH
 TEXT_EDITOR = "gedit"
+MOUNT_TIMEOUT = 90  #  Timeout to mout a guestimage in seconds

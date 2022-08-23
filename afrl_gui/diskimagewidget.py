@@ -2,14 +2,13 @@
 
 # if __name__ == "__main__":
 #     pass
-import os, stat, shutil, subprocess
-from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog, QMenu, QInputDialog, QMessageBox
+import os, stat, shutil, subprocess, time
+from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog, QMenu, QInputDialog, QProgressDialog, QApplication
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import QSize, Qt
 from afrl_gui.ui.ui_diskimagewidget import Ui_DiskImageWidget
 from afrl_gui.errormsgbox import errorMsgBox
-from afrl_gui.diskmsgbox import diskMsgBox
-from afrl_gui.common import QEMU_IMAGE_FILTERS, RESOURCE_ROOT, TEXT_EDITOR
+from afrl_gui.common import QEMU_IMAGE_FILTERS, RESOURCE_ROOT, TEXT_EDITOR, MOUNT_TIMEOUT
 
 
 class diskImageWidget(QDockWidget):
@@ -77,11 +76,14 @@ class diskImageWidget(QDockWidget):
         if path == "Browse":
             fd = QFileDialog(self, "Open Guest Image")
             fd.setNameFilters(QEMU_IMAGE_FILTERS)
-            if(fd.exec()):
+            if(fd.exec_()):
                 filename = fd.selectedFiles()
                 path = filename[0]
+            if fd.close():  #Close the file dialog before loading image... first thing that doesn't work
+                QApplication.processEvents() # force updates
                 path = self.openImageFile(path)
                 self.ui.guestComboBox.setCurrentIndex(0)  # Load the fi
+
         if path != "":
             self.guestFileSystemModel.setRootPath(path)
             self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(path))
@@ -89,21 +91,37 @@ class diskImageWidget(QDockWidget):
     def openImageFile(self, path):
         '''Opens image file with libguestfs and mounts the partition(s) '''
         self.guestPath = f"{os.path.realpath(os.curdir)}/guestMnt"
-        diskOut = subprocess.call(["mkdir", "-p", self.guestPath])
-        diskOut = subprocess.call(["guestmount", "-a", path, "-o", f"uid={os.getuid()}", "-o", f"gid={os.getgid()}", "-i", self.guestPath])
-#  TODO: Figure out how to launch the mount in background and have a status window to inform user that operation Pending
-#        self.dmBox = diskMsgBox(path)
-#        self.dmBox.exec_()
+        subprocess.run(["mkdir", "-p", self.guestPath])
+        pd = QProgressDialog(f"Mounting {path}", "Cancel",0,MOUNT_TIMEOUT,self)
+        pd.setMinimumDuration(0)  # Show the progress dialog as soon as mount starts
+        pd.show()
+        QApplication.processEvents() # force updates
+        if pd.isVisible():
+            diskOut = subprocess.Popen(["guestmount", "-a", path, "-o", f"uid={os.getuid()}", "-o", f"gid={os.getgid()}", "-i", self.guestPath])
+            pd.canceled.connect(diskOut.terminate)
+            timeout = MOUNT_TIMEOUT
+            while timeout > 0:
+                try:
+                    diskOut.communicate(input=None, timeout=1)
+                except subprocess.TimeoutExpired:
+                    print(f"rc:{diskOut.returncode}")
+                    pd.setValue(MOUNT_TIMEOUT - timeout)
+                    QApplication.processEvents() # force updates
+                if diskOut.returncode != None:
+                    diskOut.terminate()
+                    pd.close()
+                    break
+                timeout -= 1
 
-        if(diskOut != 0):
-            errorMsgBox(self, f"Cannot Mount Image at: {path}")
-            self.guestPath=""  # Clear the path so we don't try to unmount later
-            return ""
+            if(diskOut.returncode != 0):
+                errorMsgBox(self, f"Cannot Mount Image at: {path}")
+                self.guestPath=""  # Clear the path so we don't try to unmount later
+                return ""
 
-        # add the mounted path to the dropdown menu
-        self.ui.guestComboBox.insertItems(0,self.guestPath)
-        print(f"Mounting complete, mounted drives: {self.guestPath}")
-        return self.guestPath # Return first mounted path on success
+            # add the mounted path to the dropdown menu
+            self.ui.guestComboBox.insertItems(0,self.guestPath)
+            print(f"Mounting complete, mounted drives: {self.guestPath}")
+            return self.guestPath # Return first mounted path on success
 
     def showFileContextMenu(self, position):
         '''displays context menu for file items in the treeviews '''
