@@ -2,7 +2,7 @@
 
 # if __name__ == "__main__":
 #     pass
-import os, stat, shutil, subprocess, time
+import os, stat, shutil, subprocess
 from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog, QMenu, QInputDialog, QProgressDialog, QApplication
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import QSize, Qt
@@ -40,10 +40,12 @@ class diskImageWidget(QDockWidget):
         self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(os.path.expanduser('~')));
         self.ui.guestTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.guestTreeView.customContextMenuRequested.connect(self.showFileContextMenu)
-
+        self.showFileDetails(False)
         # Initialize comboboxes with Browse option, need to consider last few locations or default locations as well
+        self.ui.hostComboBox.addItem("")
         self.ui.hostComboBox.addItem("Browse")
-        self.ui.guestComboBox.addItem("Browse")
+        self.ui.guestComboBox.addItem("")
+        self.ui.guestComboBox.addItem("Select Image File...")
         self.ui.hostComboBox.textActivated.connect(self.loadHostDirectory)
         self.ui.guestComboBox.textActivated.connect(self.loadGuestImage)
         rhIcon = QIcon()
@@ -73,7 +75,7 @@ class diskImageWidget(QDockWidget):
 
     def loadGuestImage(self, path):
         '''Mounts and loads the image file at path into the guestTreeView'''
-        if path == "Browse":
+        if path == "Select Image File...":
             fd = QFileDialog(self, "Open Guest Image")
             fd.setNameFilters(QEMU_IMAGE_FILTERS)
             if(fd.exec_()):
@@ -84,9 +86,9 @@ class diskImageWidget(QDockWidget):
                 path = self.openImageFile(path)
                 self.ui.guestComboBox.setCurrentIndex(0)  # Load the fi
 
-        if path != "":
-            self.guestFileSystemModel.setRootPath(path)
-            self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(path))
+        if path.startswith("Image:"):
+            self.guestFileSystemModel.setRootPath(self.guestPath)
+            self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(self.guestPath))
 
     def openImageFile(self, path):
         '''Opens image file with libguestfs and mounts the partition(s) '''
@@ -119,9 +121,10 @@ class diskImageWidget(QDockWidget):
                 return ""
 
             # add the mounted path to the dropdown menu
-            self.ui.guestComboBox.insertItems(0,self.guestPath)
+            imageStr = f"Image: {path}"
+            self.ui.guestComboBox.insertItem(0,imageStr)
             print(f"Mounting complete, mounted drives: {self.guestPath}")
-            return self.guestPath # Return first mounted path on success
+            return imageStr  #  Return the formatted image string on success
 
     def showFileContextMenu(self, position):
         '''displays context menu for file items in the treeviews '''
@@ -289,3 +292,14 @@ class diskImageWidget(QDockWidget):
             mountOut = subprocess.run(["guestunmount", self.guestPath], capture_output=True)
             outStr = mountOut.stdout.decode("utf-8")
             print(f"Unmount output: {outStr}")
+
+
+    def showFileDetails(self, visible=True):
+        '''Displays all columns of file data in tree views'''
+        for i in range(1,self.ui.guestTreeView.model().columnCount()):
+            if visible:
+                self.ui.guestTreeView.header().showSection(i)
+                self.ui.hostTreeView.header().showSection(i)  # Same columns for both, toggle all at once
+            else:
+                self.ui.guestTreeView.header().hideSection(i)
+                self.ui.hostTreeView.header().hideSection(i)  # Same columns for both, toggle all at once
