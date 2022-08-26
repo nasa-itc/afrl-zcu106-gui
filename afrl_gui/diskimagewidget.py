@@ -24,6 +24,7 @@ class diskImageWidget(QDockWidget):
         self.guestPath=""
         self.init_ui()
         self.guestCopyCandidate=""  # pathname for copying files within guestsystem, will be copied if user selects 'paste'
+        self.showDetails = False
 
     def __del__(self):
         self.unmountDiskImage()
@@ -37,9 +38,10 @@ class diskImageWidget(QDockWidget):
         self.ui.hostTreeView.setModel(self.hostFileSystemModel)
         self.ui.hostTreeView.setRootIndex(self.hostFileSystemModel.index(os.path.expanduser('~')));
         self.ui.guestTreeView.setModel(self.guestFileSystemModel)
-        self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(os.path.expanduser('~')));
+        #self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(os.path.expanduser('~')));
         self.ui.guestTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.guestTreeView.customContextMenuRequested.connect(self.showFileContextMenu)
+        self.ui.guestTreeView.setEnabled(False)
         self.showFileDetails(False)
         # Initialize comboboxes with Browse option, need to consider last few locations or default locations as well
         self.ui.hostComboBox.addItem("")
@@ -60,6 +62,7 @@ class diskImageWidget(QDockWidget):
         self.ui.toHostPushButton.setIcon(lhIcon)
         self.ui.toHostPushButton.setIconSize(QSize(32,32))
         self.ui.toHostPushButton.clicked.connect(self.copyToHost)
+        self.ui.detailsPushButton.clicked.connect(self.toggleDetails)
 
     def loadHostDirectory(self, path):
         '''Loads the directory at path into the hostTreeView'''
@@ -89,6 +92,7 @@ class diskImageWidget(QDockWidget):
         if path.startswith("Image:"):
             self.guestFileSystemModel.setRootPath(self.guestPath)
             self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(self.guestPath))
+            self.ui.guestTreeView.setEnabled(True)
 
     def openImageFile(self, path):
         '''Opens image file with libguestfs and mounts the partition(s) '''
@@ -292,6 +296,14 @@ class diskImageWidget(QDockWidget):
             mountOut = subprocess.run(["guestunmount", self.guestPath], capture_output=True)
             outStr = mountOut.stdout.decode("utf-8")
             print(f"Unmount output: {outStr}")
+
+    def toggleDetails(self):
+        if self.ui.detailsPushButton.text() == "Show Details":
+            self.ui.detailsPushButton.setText("Hide Details")
+            self.showFileDetails(True)
+        else:
+            self.ui.detailsPushButton.setText("Show Details")
+            self.showFileDetails(False)
 
 
     def showFileDetails(self, visible=True):
