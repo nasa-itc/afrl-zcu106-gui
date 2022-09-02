@@ -21,7 +21,7 @@ RESOURCE_ROOT = os.path.join(PACKAGE_ROOT, "resources")
 PLUGIN_ROOT = os.path.join(PACKAGE_ROOT, "plugins")
 MAXIMUM_QEMU_INSTANCES = 8
 QEMU_IMAGE_FILTERS = ["Disc Image files (*.img *.ext4)",
-                      "Any files (*)"]
+                      "All files (*)"]
 
 # Text editor to call for editing files, include path if not on PATH
 TEXT_EDITOR = "gedit"
