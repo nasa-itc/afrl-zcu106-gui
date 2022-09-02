@@ -78,8 +78,8 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>40</y>
-      <width>341</width>
+      <y>0</y>
+      <width>361</width>
       <height>101</height>
      </rect>
     </property>
@@ -92,7 +92,7 @@
     <widget class="QPushButton" name="boardSettings_PushButton">
      <property name="geometry">
       <rect>
-       <x>160</x>
+       <x>170</x>
        <y>60</y>
        <width>151</width>
        <height>31</height>
@@ -118,7 +118,7 @@
     <widget class="QComboBox" name="machineComboBox">
      <property name="geometry">
       <rect>
-       <x>122</x>
+       <x>130</x>
        <y>20</y>
        <width>191</width>
        <height>31</height>
@@ -130,9 +130,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>150</y>
-      <width>341</width>
-      <height>101</height>
+      <y>110</y>
+      <width>361</width>
+      <height>151</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -157,7 +157,7 @@
     <widget class="QComboBox" name="cpuComboBox">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>130</x>
        <y>10</y>
        <width>191</width>
        <height>31</height>
@@ -167,8 +167,8 @@
     <widget class="QPushButton" name="cpuSettings_PushButton">
      <property name="geometry">
       <rect>
-       <x>158</x>
-       <y>50</y>
+       <x>170</x>
+       <y>110</y>
        <width>151</width>
        <height>31</height>
       </rect>
@@ -177,13 +177,39 @@
       <string>Advanced Settings</string>
      </property>
     </widget>
+    <widget class="QLabel" name="smpLabel">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>60</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>SMP Cores</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="smpComboBox">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>60</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="maxVisibleItems">
+      <number>2</number>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="frame_5">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>260</y>
-      <width>341</width>
+      <y>270</y>
+      <width>361</width>
       <height>80</height>
      </rect>
     </property>
@@ -209,9 +235,9 @@
     <widget class="QSpinBox" name="memorySpinBox">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>130</x>
        <y>30</y>
-       <width>141</width>
+       <width>201</width>
        <height>31</height>
       </rect>
      </property>
@@ -223,6 +249,9 @@
      </property>
      <property name="maximum">
       <number>16384</number>
+     </property>
+     <property name="value">
+      <number>128</number>
      </property>
     </widget>
    </widget>
@@ -358,6 +387,81 @@
      </property>
      <property name="text">
       <string>Edit</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QWizardPage" name="qemuLaunchWizardImagePage">
+   <widget class="QFrame" name="frame_6">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>361</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="imageSelectButton">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>10</y>
+       <width>30</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../resources/document-open.png</normaloff>
+       <normalon>../resources/document-open.png</normalon>../resources/document-open.png</iconset>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="imageLineEdit">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>10</y>
+       <width>171</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>image</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="imageLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>111</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Image File</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="modImagePushButton">
+     <property name="geometry">
+      <rect>
+       <x>178</x>
+       <y>50</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Modify Image Contents</string>
      </property>
     </widget>
    </widget>
