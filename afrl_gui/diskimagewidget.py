@@ -38,7 +38,7 @@ class diskImageWidget(QDockWidget):
         self.ui.hostTreeView.setModel(self.hostFileSystemModel)
         self.ui.hostTreeView.setRootIndex(self.hostFileSystemModel.index(os.path.expanduser('~')));
         self.ui.guestTreeView.setModel(self.guestFileSystemModel)
-        #self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(os.path.expanduser('~')));
+        self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(""));
         self.ui.guestTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.guestTreeView.customContextMenuRequested.connect(self.showFileContextMenu)
         self.ui.guestTreeView.setEnabled(False)
@@ -96,6 +96,9 @@ class diskImageWidget(QDockWidget):
 
     def openImageFile(self, path):
         '''Opens image file with libguestfs and mounts the partition(s) '''
+        if self.guestPath != "":
+            self.unmountDiskImage()  # Unmount image before loading another
+
         self.guestPath = f"{os.path.realpath(os.curdir)}/guestMnt"
         subprocess.run(["mkdir", "-p", self.guestPath])
         pd = QProgressDialog(f"Mounting {path}", "Cancel",0,MOUNT_TIMEOUT,self)
@@ -296,6 +299,10 @@ class diskImageWidget(QDockWidget):
             mountOut = subprocess.run(["guestunmount", self.guestPath], capture_output=True)
             outStr = mountOut.stdout.decode("utf-8")
             print(f"Unmount output: {outStr}")
+            self.guestFileSystemModel.setRootPath("")
+            self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(""));
+            self.ui.guestTreeView.setEnabled(False)
+            self.guestPath == ""
 
     def toggleDetails(self):
         if self.ui.detailsPushButton.text() == "Show Details":
