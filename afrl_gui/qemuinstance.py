@@ -13,9 +13,11 @@ class qemuInstance(QObject):
         self.subnetMask = QHostAddress()
         self.kernel = ""
         self.application = ""
+        self.imageName = ""
         self.machine = ""
         self.machineSettings = []
         self.cpu = ""
+        self.smpCores = ""
         self.cpuSettings = []
         self.memory = "4M"
         self.devices = []
@@ -28,8 +30,10 @@ class qemuInstance(QObject):
                    \nDescription: {self.description}
                    \nMachine: {self.machine}
                    \nCPU: {self.cpu}
+                   \nSMP Cores: {self.smpCores}
                    \nMem: {self.memory}M
                    \nIP: {self.ipAddress.toString()}
+                   \nImage: {self.imageName}
                    \nKernel: {self.kernel}
                    \nApplication: {self.application}
                    \nStatus: {self.status}""")
@@ -52,6 +56,11 @@ class qemuInstance(QObject):
             cmdLine += f" -cpu {self.cpu}"
             for s in self.cpuSettings:
                 cmdLine += f",{s}"
+
+        if self.smpCores == "ALL":
+            cmdLine += " -smp $(nproc)"
+        elif self.smpCores != "" and self.smpCores != "0":
+            cmdLine += f" -smp {self.smpCores}"
 
         # Setup Memory
         cmdLine += f" -m {self.memory}M"  # Always using MB for simplicity
