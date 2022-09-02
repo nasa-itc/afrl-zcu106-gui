@@ -16,11 +16,11 @@
 
 import os.path
 
-from PySide6.QtWidgets import QFileDialog, QWizard, QPlainTextEdit
+from PySide6.QtWidgets import QFileDialog, QWizard, QPlainTextEdit,QComboBox
 from PySide6.QtCore import Qt, Signal, Slot, QSize
-from PySide6.QtGui import QIcon
+from PySide6.QtGui import QIcon,QIntValidator
 
-from afrl_gui.common import RESOURCE_ROOT
+from afrl_gui.common import RESOURCE_ROOT, QEMU_IMAGE_FILTERS
 from afrl_gui.ui.ui_qemulaunchwizard import Ui_qemuLaunchWizard
 from afrl_gui.qemuinstance import qemuInstance
 
@@ -29,9 +29,7 @@ from afrl_gui.qemucpulist import qemuCpuList
 from afrl_gui.qemudevicelist import qemuDeviceList
 from afrl_gui.devicesettingswidget import deviceSettingsWidget
 from afrl_gui.machinesettingswidget import machineSettingsWidget
-
-lastKernelDirectory = "/home/afrl_dev"
-lastAppDirectory = "/home/afrl_dev"
+from afrl_gui.diskimagewidget import diskImageWidget
 
 
 class QemuLaunchWizard(QWizard):
@@ -51,6 +49,9 @@ class QemuLaunchWizard(QWizard):
         self.devices = []  # The list of devices configured to launch with the QEMU instance
         self.deviceSettings = []  # A list of device settings lists corresponding to the devices list
         self.init_ui()
+        self.lastKernelDirectory = "~/"
+        self.lastAppDirectory = "~/"
+        self.lastImageDirectory = "~/"
 
     def init_ui(self):
         self.ui = Ui_qemuLaunchWizard()
@@ -62,15 +63,18 @@ class QemuLaunchWizard(QWizard):
                      QIcon.Normal, QIcon.On)
         self.ui.kernelButton.setIcon(icon)
         self.ui.appButton.setIcon(icon)
+        self.ui.imageSelectButton.setIcon(icon)
         self.ui.kernelButton.clicked.connect(self.openKernelFileBrowser)
         self.ui.appButton.clicked.connect(self.openAppFileBrowser)
+        self.ui.imageSelectButton.clicked.connect(self.openImageFileBrowser)
+        self.ui.modImagePushButton.clicked.connect(self.launchDiskImageWidget)
         self.ui.boardSettings_PushButton.clicked.connect(self.openMachineSettings)
         self.ui.addDevicePushButton.clicked.connect(self.openDeviceSettings)
         self.ui.removeDevicePushButton.clicked.connect(self.removeDevice)
         self.ui.editDevicePushButton.clicked.connect(self.editDevice)
         self.button(QWizard.FinishButton).clicked.connect(self.launchQemuInstance)
 
-        # Populate the dropdown menus
+        # Configure the dropdown menus
         self.initMachineDropdown()
         self.initCpuDropdown()
         self.initDeviceTypeDropdown()
@@ -86,8 +90,15 @@ class QemuLaunchWizard(QWizard):
             "machine", self.ui.machineComboBox)
         self.ui.qemuLaunchWizardMachineCpuPage.registerField(
             "cpu", self.ui.cpuComboBox)
+        self.ui.smpLineEdit.setValidator(QIntValidator(1,256))
+        self.ui.qemuLaunchWizardMachineCpuPage.registerField(
+            "smp", self.ui.smpLineEdit)
+        self.ui.qemuLaunchWizardMachineCpuPage.registerField(
+            "smpAll", self.ui.smpAllCheckBox)
         self.ui.qemuLaunchWizardMachineCpuPage.registerField(
             "memory", self.ui.memorySpinBox)
+        self.ui.qemuLaunchWizardImagePage.registerField(
+            "image*", self.ui.imageLineEdit)
         self.ui.qemuLaunchWizardNetworkPage.registerField(
             "ipAddress*", self.ui.ipLineEdit)
         self.ui.qemuLaunchWizardNetworkPage.registerField(
@@ -104,23 +115,42 @@ class QemuLaunchWizard(QWizard):
 
     def openKernelFileBrowser(self):
         (filename, dir) = self.openFileBrowser(
-                        "Open Kernel File", lastKernelDirectory, "*.bin")
+                        "Open Kernel File", ["Bin files (*.bin)",
+                        "All files (*)"], self.lastKernelDirectory, )
         self.ui.kernelLineEdit.setText(filename)
         self.lastKernelDirectory = dir
         print("Setting last kernel directory to " + self.lastKernelDirectory)
 
     def openAppFileBrowser(self):
         (filename, dir) = self.openFileBrowser(
-                        "Open Application File", lastAppDirectory, "*")
+                        "Open Application File", ["All files (*)"], self.lastAppDirectory)
         self.ui.appLineEdit.setText(filename)
         self.lastAppDirectory = dir
         print("Setting last kernel directory to " + self.lastKernelDirectory)
 
-    def openFileBrowser(self, title, fileFilter, directory):
-        (filename, filter) = QFileDialog.getOpenFileName(
-                                         self, title, fileFilter, directory)
-        dir = os.path.dirname(filename)
-        return (filename, dir)
+    def openImageFileBrowser(self):
+        (filename, dir) = self.openFileBrowser(
+                            "Open Image File", QEMU_IMAGE_FILTERS, self.lastImageDirectory)
+        self.ui.imageLineEdit.setText(filename)
+        self.lastImageDirectory = dir
+
+    def launchDiskImageWidget(self):
+        '''Displays the widget for interacting iwth the guest disk image file'''
+        print(f"Launching the disk image widget to modify {self.ui.imageLineEdit.text()}")
+        self.diskImageWidget = diskImageWidget(self,self.ui.imageLineEdit.text())
+        self.diskImageWidget.setFloating(True)
+        self.diskImageWidget.show()
+
+
+    def openFileBrowser(self, title="Open File", fileFilters=[], directory=""):
+        fd = QFileDialog(self, title)
+        fd.setNameFilters(fileFilters)
+        fd.setDirectory(directory)
+        if(fd.exec_()):
+            filename = fd.selectedFiles()[0]  #Single Selection mode, only one file returned in list
+            dir = os.path.dirname(filename)
+            return (filename, dir)
+
 
     def initMachineDropdown(self):
         for idx in range(0, len(self.machineList)):
@@ -211,9 +241,15 @@ class QemuLaunchWizard(QWizard):
         qemu.machine = self.machineList[self.ui.qemuLaunchWizardMachineCpuPage.field("machine")].argument()
         qemu.machineSettings = self.machineSettings
         qemu.cpu = self.cpuList[self.ui.qemuLaunchWizardMachineCpuPage.field("cpu")].argument()
+        if self.ui.qemuLaunchWizardMachineCpuPage.field("smpAll"):
+            qemu.smpCores = "ALL"
+        else:
+            qemu.smpCores = self.ui.qemuLaunchWizardMachineCpuPage.field("smp")
+        qemu.smpAll = self.ui.qemuLaunchWizardMachineCpuPage.field("smpAll")
         qemu.memory = self.ui.qemuLaunchWizardMachineCpuPage.field("memory")
         qemu.devices = self.devices
         qemu.deviceSettings = self.deviceSettings
+        qemu.imageName = self.ui.qemuLaunchWizardImagePage.field("image")
         qemu.ipAddress.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("ipAddress"))
         qemu.subnetMask.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("subnetMask"))
         qemu.kernel = self.ui.qemuLaunchWizardKernelAppPage.field("kernel")
