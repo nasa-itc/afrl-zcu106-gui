@@ -15,7 +15,7 @@ class diskImageWidget(QDockWidget):
 
 #    kill_signal = Signal(bool)
 
-    def __init__(self, parent):
+    def __init__(self, parent, path=""):
         super().__init__(parent)
         self.hostFileSystemModel = QFileSystemModel()
         self.hostFileSystemModel.setRootPath(os.path.expanduser('~'))
@@ -25,6 +25,8 @@ class diskImageWidget(QDockWidget):
         self.init_ui()
         self.guestCopyCandidate=""  # pathname for copying files within guestsystem, will be copied if user selects 'paste'
         self.showDetails = False
+        if path !="":
+            self.openImageFile(path)
 
     def __del__(self):
         self.unmountDiskImage()
@@ -87,7 +89,7 @@ class diskImageWidget(QDockWidget):
             if fd.close():  #Close the file dialog before loading image... first thing that doesn't work
                 QApplication.processEvents() # force updates
                 path = self.openImageFile(path)
-                self.ui.guestComboBox.setCurrentIndex(0)  # Load the fi
+                self.ui.guestComboBox.setCurrentIndex(0)  # Load the first entry
 
         if path.startswith("Image:"):
             self.guestFileSystemModel.setRootPath(self.guestPath)
@@ -131,6 +133,9 @@ class diskImageWidget(QDockWidget):
             imageStr = f"Image: {path}"
             self.ui.guestComboBox.insertItem(0,imageStr)
             print(f"Mounting complete, mounted drives: {self.guestPath}")
+            self.guestFileSystemModel.setRootPath(self.guestPath)
+            self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(self.guestPath))
+            self.ui.guestTreeView.setEnabled(True)
             return imageStr  #  Return the formatted image string on success
 
     def showFileContextMenu(self, position):
