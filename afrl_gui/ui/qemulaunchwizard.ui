@@ -190,17 +190,27 @@
       <string>SMP Cores</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="smpComboBox">
+    <widget class="QLineEdit" name="smpLineEdit">
      <property name="geometry">
       <rect>
        <x>130</x>
        <y>60</y>
-       <width>191</width>
+       <width>113</width>
        <height>31</height>
       </rect>
      </property>
-     <property name="maxVisibleItems">
-      <number>2</number>
+    </widget>
+    <widget class="QCheckBox" name="smpAllCheckBox">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>60</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ALL</string>
      </property>
     </widget>
    </widget>

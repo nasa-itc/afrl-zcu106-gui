@@ -15,10 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QLabel,
-    QLineEdit, QListView, QPlainTextEdit, QPushButton,
-    QSizePolicy, QSpinBox, QWidget, QWizard,
-    QWizardPage)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
+    QLabel, QLineEdit, QListView, QPlainTextEdit,
+    QPushButton, QSizePolicy, QSpinBox, QWidget,
+    QWizard, QWizardPage)
 
 class Ui_qemuLaunchWizard(object):
     def setupUi(self, qemuLaunchWizard):
@@ -75,10 +75,12 @@ class Ui_qemuLaunchWizard(object):
         self.smpLabel = QLabel(self.frame_2)
         self.smpLabel.setObjectName(u"smpLabel")
         self.smpLabel.setGeometry(QRect(40, 60, 81, 31))
-        self.smpComboBox = QComboBox(self.frame_2)
-        self.smpComboBox.setObjectName(u"smpComboBox")
-        self.smpComboBox.setGeometry(QRect(130, 60, 191, 31))
-        self.smpComboBox.setMaxVisibleItems(2)
+        self.smpLineEdit = QLineEdit(self.frame_2)
+        self.smpLineEdit.setObjectName(u"smpLineEdit")
+        self.smpLineEdit.setGeometry(QRect(130, 60, 113, 31))
+        self.smpAllCheckBox = QCheckBox(self.frame_2)
+        self.smpAllCheckBox.setObjectName(u"smpAllCheckBox")
+        self.smpAllCheckBox.setGeometry(QRect(270, 60, 51, 31))
         self.frame_5 = QFrame(self.qemuLaunchWizardMachineCpuPage)
         self.frame_5.setObjectName(u"frame_5")
         self.frame_5.setGeometry(QRect(10, 270, 361, 80))
@@ -212,6 +214,7 @@ class Ui_qemuLaunchWizard(object):
         self.label_2.setText(QCoreApplication.translate("qemuLaunchWizard", u"CPU", None))
         self.cpuSettings_PushButton.setText(QCoreApplication.translate("qemuLaunchWizard", u"Advanced Settings", None))
         self.smpLabel.setText(QCoreApplication.translate("qemuLaunchWizard", u"SMP Cores", None))
+        self.smpAllCheckBox.setText(QCoreApplication.translate("qemuLaunchWizard", u"ALL", None))
         self.memoryLabel.setText(QCoreApplication.translate("qemuLaunchWizard", u"Memory", None))
         self.deviceTypeLabel.setText(QCoreApplication.translate("qemuLaunchWizard", u"Device Type", None))
         self.deviceLabel.setText(QCoreApplication.translate("qemuLaunchWizard", u"Device", None))
