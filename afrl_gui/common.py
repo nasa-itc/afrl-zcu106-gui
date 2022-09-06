@@ -15,6 +15,7 @@
 # ivv-itc@lists.nasa.gov
 
 import os.path
+from string import Template
 
 PACKAGE_ROOT = os.path.dirname(os.path.abspath(__file__))
 RESOURCE_ROOT = os.path.join(PACKAGE_ROOT, "resources")
@@ -26,3 +27,12 @@ QEMU_IMAGE_FILTERS = ["Disc Image files (*.img *.ext4)",
 # Text editor to call for editing files, include path if not on PATH
 TEXT_EDITOR = "gedit"
 MOUNT_TIMEOUT = 90  #  Timeout to mout a guestimage in seconds
+
+#networking configuration parameters for guest os
+NETWORK_CFG = {
+"CFG_FILE" : "/etc/network/interfaces",
+"ADAPTER_NAME" : "eth0",
+"IP_TEMPLATE" : Template("address $address"),
+"NETMASK_TEMPLATE" : Template("netmask $netmask"),
+"GATEWAY_TEMPLATE" : Template("gateway $gateway")
+}
