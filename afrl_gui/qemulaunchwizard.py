@@ -20,7 +20,7 @@ from PySide6.QtWidgets import QFileDialog, QWizard, QPlainTextEdit,QComboBox
 from PySide6.QtCore import Qt, Signal, Slot, QSize
 from PySide6.QtGui import QIcon,QIntValidator
 
-from afrl_gui.common import RESOURCE_ROOT, QEMU_IMAGE_FILTERS
+from afrl_gui.common import RESOURCE_ROOT, QEMU_IMAGE_FILTERS, NETWORK_CFG
 from afrl_gui.ui.ui_qemulaunchwizard import Ui_qemuLaunchWizard
 from afrl_gui.qemuinstance import qemuInstance
 
@@ -100,7 +100,11 @@ class QemuLaunchWizard(QWizard):
         self.ui.qemuLaunchWizardImagePage.registerField(
             "image*", self.ui.imageLineEdit)
         self.ui.qemuLaunchWizardNetworkPage.registerField(
+            "ifaceName*", self.ui.ifaceLineEdit)
+        self.ui.qemuLaunchWizardNetworkPage.registerField(
             "ipAddress*", self.ui.ipLineEdit)
+        self.ui.qemuLaunchWizardNetworkPage.registerField(
+            "gateway", self.ui.gatewayLineEdit)
         self.ui.qemuLaunchWizardNetworkPage.registerField(
             "subnetMask*", self.ui.subnetMaskLineEdit)
         self.ui.qemuLaunchWizardKernelAppPage.registerField(
@@ -250,8 +254,11 @@ class QemuLaunchWizard(QWizard):
         qemu.devices = self.devices
         qemu.deviceSettings = self.deviceSettings
         qemu.imageName = self.ui.qemuLaunchWizardImagePage.field("image")
+        qemu.interfaceName = self.ui.qemuLaunchWizardNetworkPage.field("ifaceName")
         qemu.ipAddress.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("ipAddress"))
         qemu.subnetMask.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("subnetMask"))
+        if self.ui.qemuLaunchWizardNetworkPage.field("gateway") != "":
+            qemu.gateway.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("gateway"))
         qemu.kernel = self.ui.qemuLaunchWizardKernelAppPage.field("kernel")
         qemu.application = self.ui.qemuLaunchWizardKernelAppPage.field("application")
         print("Created QEMU Instance: ", repr(qemu))
