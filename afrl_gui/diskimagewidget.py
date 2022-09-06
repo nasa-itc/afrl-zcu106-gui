@@ -21,7 +21,7 @@ class diskImageWidget(QDockWidget):
         self.hostFileSystemModel.setRootPath(os.path.expanduser('~'))
         self.guestFileSystemModel = QFileSystemModel()
         self.guestFileSystemModel.setRootPath(os.path.expanduser('~'))
-        self.guestPath=""
+        self.guestMountPoints={}
         self.init_ui()
         self.guestCopyCandidate=""  # pathname for copying files within guestsystem, will be copied if user selects 'paste'
         self.showDetails = False
@@ -92,23 +92,25 @@ class diskImageWidget(QDockWidget):
                 self.ui.guestComboBox.setCurrentIndex(0)  # Load the first entry
 
         if path.startswith("Image:"):
-            self.guestFileSystemModel.setRootPath(self.guestPath)
-            self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(self.guestPath))
+            self.guestFileSystemModel.setRootPath(self.guestMountPoints[path])
+            self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(self.guestMountPoints[path]))
             self.ui.guestTreeView.setEnabled(True)
 
     def openImageFile(self, path):
         '''Opens image file with libguestfs and mounts the partition(s) '''
-        if self.guestPath != "":
-            self.unmountDiskImage()  # Unmount image before loading another
+        guestPath = ""
+        for idx in range(0,8):
+            guestPath = f"{os.path.realpath(os.curdir)}/guestMnt{idx}"
+            if os.path.isdir(guestPath) == False:
+                subprocess.run(["mkdir", "-p", guestPath])
+                break
 
-        self.guestPath = f"{os.path.realpath(os.curdir)}/guestMnt"
-        subprocess.run(["mkdir", "-p", self.guestPath])
         pd = QProgressDialog(f"Mounting {path}", "Cancel",0,MOUNT_TIMEOUT,self)
         pd.setMinimumDuration(0)  # Show the progress dialog as soon as mount starts
         pd.show()
         QApplication.processEvents() # force updates
         if pd.isVisible():
-            diskOut = subprocess.Popen(["guestmount", "-a", path, "-o", f"uid={os.getuid()}", "-o", f"gid={os.getgid()}", "-i", self.guestPath])
+            diskOut = subprocess.Popen(["guestmount", "-a", path, "-o", f"uid={os.getuid()}", "-o", f"gid={os.getgid()}", "-i", guestPath])
             pd.canceled.connect(diskOut.terminate)
             timeout = MOUNT_TIMEOUT
             while timeout > 0:
@@ -126,15 +128,15 @@ class diskImageWidget(QDockWidget):
 
             if(diskOut.returncode != 0):
                 errorMsgBox(self, f"Cannot Mount Image at: {path}")
-                self.guestPath=""  # Clear the path so we don't try to unmount later
                 return ""
 
             # add the mounted path to the dropdown menu
             imageStr = f"Image: {path}"
             self.ui.guestComboBox.insertItem(0,imageStr)
-            print(f"Mounting complete, mounted drives: {self.guestPath}")
-            self.guestFileSystemModel.setRootPath(self.guestPath)
-            self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(self.guestPath))
+            print(f"Mounted {path} at {guestPath}")
+            self.guestMountPoints[imageStr] = guestPath
+            self.guestFileSystemModel.setRootPath(guestPath)
+            self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(guestPath))
             self.ui.guestTreeView.setEnabled(True)
             return imageStr  #  Return the formatted image string on success
 
@@ -300,14 +302,15 @@ class diskImageWidget(QDockWidget):
 
     def unmountDiskImage(self):
         ''' Unmount the guest FS'''
-        if self.guestPath != "":
-            mountOut = subprocess.run(["guestunmount", self.guestPath], capture_output=True)
+        for name, mp in self.guestMountPoints.items():
+            mountOut = subprocess.run(["guestunmount", mp], capture_output=True)
             outStr = mountOut.stdout.decode("utf-8")
-            print(f"Unmount output: {outStr}")
+            print(f"Unmounted {name}:{mp}, output: {outStr}")
             self.guestFileSystemModel.setRootPath("")
             self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(""));
             self.ui.guestTreeView.setEnabled(False)
-            self.guestPath == ""
+            self.ui.guestComboBox.removeItem(self.ui.guestComboBox.findText(name))
+        self.guestMountPoints.clear()
 
     def toggleDetails(self):
         if self.ui.detailsPushButton.text() == "Show Details":
