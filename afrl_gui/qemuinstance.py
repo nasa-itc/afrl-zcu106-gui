@@ -3,13 +3,15 @@
 
 from PySide6.QtCore import QObject
 from PySide6.QtNetwork import QHostAddress
-
+import subprocess
 
 class qemuInstance(QObject):
     def __init__(self):
         self.name = ""
         self.description = ""
+        self.interfaceName = ""
         self.ipAddress = QHostAddress()
+        self.gateway = QHostAddress()
         self.subnetMask = QHostAddress()
         self.kernel = ""
         self.application = ""
@@ -74,5 +76,43 @@ class qemuInstance(QObject):
             deviceIdx += 1
 
         return cmdLine
+
+    def generateCfgFile(self):
+        ''' Generates an INI formatted config file for the -readconfig option '''
+        subprocess.run(["mkdir", "-p", "./configs"])
+        fout = open(f"{self.name}.cfg",'w',encoding="utf-8")
+        
+
+        # Setup Machine
+        if self.machine != "":
+            fout.write("[machine]\n")
+            fout.write(f"    type={self.machine}\n")
+            for s in self.machineSettings:
+                fout.write(f"    {s}")
+
+        # Setup CPU
+        if self.cpu != "":
+            fout.write(f"[cpu]\n")
+            fout.write(f"    type={self.cpu}\n")
+            for s in self.cpuSettings:
+                fout.write(f"    {s}")
+        if self.smpCores != "":
+            fout.write("[smp-opts]\n")
+            if self.smpCores == "ALL":
+                fout.write("    cpus=$(nproc)\n")
+            elif self.smpCores != "0":
+                fout.write(f"    cpus={self.smpCores}\n")
+
+        # Setup Memory
+        fout.write(f"[memory]\n    size={self.memory}M\n")  # Always using MB for simplicity
+
+        # Setup devices
+        deviceIdx = 0
+        for d in self.devices:
+            cmdLine += f" -device {d}"
+            for s in self.deviceSettings[deviceIdx]:
+                cmdLine += f",{s}"
+            deviceIdx += 1
+        
 
 
