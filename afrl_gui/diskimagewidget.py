@@ -128,6 +128,8 @@ class diskImageWidget(QDockWidget):
 
             if(diskOut.returncode != 0):
                 errorMsgBox(self, f"Cannot Mount Image at: {path}")
+                diskOut.terminate()
+                pd.close()
                 return ""
 
             # add the mounted path to the dropdown menu
@@ -306,6 +308,7 @@ class diskImageWidget(QDockWidget):
             mountOut = subprocess.run(["guestunmount", mp], capture_output=True)
             outStr = mountOut.stdout.decode("utf-8")
             print(f"Unmounted {name}:{mp}, output: {outStr}")
+            subprocess.run(["rm", "-rf", mp])  # Remove the directory after unmounting
             self.guestFileSystemModel.setRootPath("")
             self.ui.guestTreeView.setRootIndex(self.guestFileSystemModel.index(""));
             self.ui.guestTreeView.setEnabled(False)
