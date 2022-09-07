@@ -74,6 +74,10 @@ class QemuLaunchWizard(QWizard):
         self.ui.editDevicePushButton.clicked.connect(self.editDevice)
         self.button(QWizard.FinishButton).clicked.connect(self.launchQemuInstance)
 
+        #Setup slots to manage smp entry
+        self.ui.smpAllCheckBox.stateChanged.connect(self.checkSmpState)
+        self.ui.smpLineEdit.textChanged.connect(self.checkSmpText)
+
         # Configure the dropdown menus
         self.initMachineDropdown()
         self.initCpuDropdown()
@@ -236,6 +240,18 @@ class QemuLaunchWizard(QWizard):
         else:
             self.ui.memorySpinBox.setValue(self.lastMemoryValue / 2)
         self.lastMemoryValue = self.ui.memorySpinBox.value()
+
+    @Slot(bool)
+    def checkSmpState(self, value):
+        '''checks that smpLineEdit is cleared if all is checked'''
+        if self.ui.smpAllCheckBox.isChecked():
+            self.ui.smpLineEdit.clear()
+
+    @Slot(str)
+    def checkSmpText(self, value):
+        '''If text is entered in SMP line edit, clear the checkbox'''
+        if self.ui.smpLineEdit.text() != "":
+            self.ui.smpAllCheckBox.setChecked(False)
 
     def launchQemuInstance(self):
         '''Verify QEMU model data and launch instance'''
