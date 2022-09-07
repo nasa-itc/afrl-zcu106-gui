@@ -75,6 +75,10 @@ class qemuInstance(QObject):
                 cmdLine += f",{s}"
             deviceIdx += 1
 
+        # Setup drive
+        # Currently constrained to single zcu106 SD image setup
+        if self.imageName != "":
+            cmdLine += f" -drive if=sd,format=raw,index=1,file={self.imageName}"
         return cmdLine
 
     def generateCfgFile(self):
@@ -105,6 +109,13 @@ class qemuInstance(QObject):
 
         # Setup Memory
         fout.write(f"[memory]\n    size={self.memory}M\n")  # Always using MB for simplicity
+
+        # Setup drive
+        # Currently constrained to single zcu106 SD image setup
+        if self.imageName != "":
+            fout.write("[drive]\n")
+            fout.write("    if=\"sd\"\n    format=\"raw\"\n    index=\"1\"\n")
+            fout.write(f"file={self.imageName}")
 
         # Setup devices
         deviceIdx = 0
