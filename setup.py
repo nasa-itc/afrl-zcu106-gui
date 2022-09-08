@@ -15,7 +15,7 @@
 # NASA IV&V
 # ivv-itc@lists.nasa.gov
 
-import afrl_gui
+import afrl_zcu106_gui
 import setuptools
 
 setuptools.setup(
