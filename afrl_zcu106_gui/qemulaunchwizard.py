@@ -74,6 +74,8 @@ class QemuLaunchWizard(QWizard):
         self.ui.qemuLaunchWizardNamePage.registerField(
             "description", self.ui.descriptionPlainTextEdit, "plainText")
         self.ui.qemuLaunchWizardImagePage.registerField(
+            "configFile*", self.ui.configLineEdit)
+        self.ui.qemuLaunchWizardImagePage.registerField(
             "image*", self.ui.imageLineEdit)
         self.ui.qemuLaunchWizardNetworkPage.registerField(
             "ifaceName*", self.ui.ifaceLineEdit)
@@ -158,6 +160,7 @@ class QemuLaunchWizard(QWizard):
         qemu.devices = self.devices
         qemu.deviceSettings = self.deviceSettings
         qemu.imageName = self.ui.qemuLaunchWizardImagePage.field("image")
+        qemu.configFile = self.ui.qemuLaunchWizardImagePage.field("configFile")
         qemu.interfaceName = self.ui.qemuLaunchWizardNetworkPage.field("ifaceName")
         qemu.ipAddress.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("ipAddress"))
         qemu.subnetMask.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("subnetMask"))

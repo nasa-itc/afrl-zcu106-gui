@@ -13,6 +13,7 @@ class qemuInstance(QObject):
         self.ipAddress = QHostAddress()
         self.gateway = QHostAddress()
         self.subnetMask = QHostAddress()
+        self.configFile = ""
         self.kernel = ""
         self.application = ""
         self.imageName = ""
@@ -21,7 +22,7 @@ class qemuInstance(QObject):
         self.cpu = ""
         self.smpCores = ""
         self.cpuSettings = []
-        self.memory = "4M"
+        self.memory = ""
         self.devices = []
         self.deviceSettings = []  # List of deviceSetting lists, index match devices[] list
         self.status = ""
@@ -36,6 +37,7 @@ class qemuInstance(QObject):
                    \nMem: {self.memory}M
                    \nIP: {self.ipAddress.toString()}
                    \nImage: {self.imageName}
+                   \nConfigFile: {self.configFile}
                    \nKernel: {self.kernel}
                    \nApplication: {self.application}
                    \nStatus: {self.status}""")
@@ -65,7 +67,8 @@ class qemuInstance(QObject):
             cmdLine += f" -smp {self.smpCores}"
 
         # Setup Memory
-        cmdLine += f" -m {self.memory}M"  # Always using MB for simplicity
+        if self.memory:
+            cmdLine += f" -m {self.memory}M"  # Always using MB for simplicity
 
         # Setup devices
         deviceIdx = 0
@@ -108,7 +111,8 @@ class qemuInstance(QObject):
                 fout.write(f"    cpus={self.smpCores}\n")
 
         # Setup Memory
-        fout.write(f"[memory]\n    size={self.memory}M\n")  # Always using MB for simplicity
+        if self.memory:
+            fout.write(f"[memory]\n    size={self.memory}M\n")  # Always using MB for simplicity
 
         # Setup drive
         # Currently constrained to single zcu106 SD image setup
