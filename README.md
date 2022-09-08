@@ -1,5 +1,5 @@
-# JSTAR AFRL QEMU GUI
-A GUI written in Python meant to simplify [QEMU](https://github.com/qemu/qemu) setup and usage.
+# JSTAR AFRL ZCU-106 QEMU GUI
+A GUI written in Python meant to simplify [QEMU](https://github.com/qemu/qemu) setup and usage.  This fork is to limit scope of GUI to launching the ZCU106 Board model with a limited set of options.
 
 ## Development
 
@@ -16,7 +16,7 @@ python3 -m venv venv
 source ./venv/bin/activate
 pip3 install -e .
 pip3 install https://download.libguestfs.org/python/guestfs-1.40.2.tar.gz
-afrl_gui
+afrl_zcu106_gui
 ```
 
 In order to create a release package installable via pip, execute the following command:
@@ -40,6 +40,6 @@ commands:
 ```
 python3 -m venv venv 
 source ./venv/bin/activate
-pip3 install ./afrl_gui-<VERSION>.tar.gz
+pip3 install ./afrl_acu106_gui-<VERSION>.tar.gz
 ```
 
