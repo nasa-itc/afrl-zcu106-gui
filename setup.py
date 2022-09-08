@@ -19,20 +19,20 @@ import afrl_gui
 import setuptools
 
 setuptools.setup(
-    name="afrl_gui",
-    version=afrl_gui.__version__,
-    description="AFRL QEMU GUI",
+    name="afrl_zcu106_gui",
+    version=afrl_zcu106_gui.__version__,
+    description="AFRL ZCU106 QEMU GUI",
     author="ITC",
     author_email="ivv-itc@lists.nasa.gov",
     url="https://github.com/nasa-itc/afrl-rwwn",
     packages=setuptools.find_packages(),
     package_data={
-        "afrl_gui": [
+        "afrl_zcu106_gui": [
         ],
     },
     entry_points={
         "gui_scripts": [
-            "afrl_gui = afrl_gui.app:run",
+            "afrl_zcu106_gui = afrl_zcu106_gui.app:run",
         ]
     },
     install_requires=[
