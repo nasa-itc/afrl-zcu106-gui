@@ -127,8 +127,7 @@ class MainWindow(QMainWindow):
     def showDiskImageWidget(self):
         '''Displays the widget for interacting iwth the guest disk image file'''
         print("Launching the disk image widget")
-        self.diskImageWidget = diskImageWidget(self)
-        self.diskImageWidget.setFloating(True)
+        self.diskImageWidget = diskImageWidget()
         self.diskImageWidget.show()
 
 

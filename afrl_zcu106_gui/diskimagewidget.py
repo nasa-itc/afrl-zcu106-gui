@@ -3,7 +3,7 @@
 # if __name__ == "__main__":
 #     pass
 import os, stat, shutil, subprocess
-from PySide6.QtWidgets import QDockWidget, QFileSystemModel, QFileDialog, QMenu, QInputDialog, QProgressDialog, QApplication
+from PySide6.QtWidgets import QWidget, QFileSystemModel, QFileDialog, QMenu, QInputDialog, QProgressDialog, QApplication
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import QSize, Qt
 from afrl_zcu106_gui.ui.ui_diskimagewidget import Ui_DiskImageWidget
@@ -11,11 +11,11 @@ from afrl_zcu106_gui.errormsgbox import errorMsgBox
 from afrl_zcu106_gui.common import QEMU_IMAGE_FILTERS, RESOURCE_ROOT, TEXT_EDITOR, MOUNT_TIMEOUT
 
 
-class diskImageWidget(QDockWidget):
+class diskImageWidget(QWidget):
 
 #    kill_signal = Signal(bool)
 
-    def __init__(self, parent, path=""):
+    def __init__(self, parent=None, path=""):
         super().__init__(parent)
         self.hostFileSystemModel = QFileSystemModel()
         self.hostFileSystemModel.setRootPath(os.path.expanduser('~'))
