@@ -1,8 +1,8 @@
 # Copyright (C) 2009 - 2022 National Aeronautics and Space Administration. All Foreign Rights are Reserved to the U.S. Government.
 
 from PySide6.QtCore import Qt, QAbstractListModel, QModelIndex, Slot
-from afrl_gui.qemuinstance import qemuInstance
-from afrl_gui.common import MAXIMUM_QEMU_INSTANCES
+from afrl_zcu106_gui.qemuinstance import qemuInstance
+from afrl_zcu106_gui.common import MAXIMUM_QEMU_INSTANCES
 
 
 class deviceListViewModel(QAbstractListModel):

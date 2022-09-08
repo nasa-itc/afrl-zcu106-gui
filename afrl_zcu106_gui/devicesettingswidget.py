@@ -2,7 +2,7 @@
 # This Python file uses the following encoding: utf-8
 
 import subprocess, re
-from afrl_gui.settingswidget import settingsWidget
+from afrl_zcu106_gui.settingswidget import settingsWidget
 
 
 class deviceSettingsWidget(settingsWidget):

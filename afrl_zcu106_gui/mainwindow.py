@@ -24,16 +24,16 @@ from PySide6.QtGui import QGuiApplication, QIcon, QPixmap, QRegularExpressionVal
     QIntValidator, QAction
 from PySide6.QtCore import Signal, Qt, Slot, QRect
 
-from afrl_gui import __version__
-from afrl_gui.common import RESOURCE_ROOT, MAXIMUM_QEMU_INSTANCES
-from afrl_gui.ui.ui_mainwindow import Ui_MainWindow
-from afrl_gui.qemulaunchwizard import QemuLaunchWizard
-from afrl_gui.qemuinstance import qemuInstance
-from afrl_gui.terminalwidget import terminalWidget
-from afrl_gui.qemutableviewmodel import qemuTableViewModel
-from afrl_gui.devicelistviewmodel import deviceListViewModel
-from afrl_gui.diskimagewidget import diskImageWidget
-from afrl_gui.errormsgbox import errorMsgBox
+from afrl_zcu106_gui import __version__
+from afrl_zcu106_gui.common import RESOURCE_ROOT, MAXIMUM_QEMU_INSTANCES
+from afrl_zcu106_gui.ui.ui_mainwindow import Ui_MainWindow
+from afrl_zcu106_gui.qemulaunchwizard import QemuLaunchWizard
+from afrl_zcu106_gui.qemuinstance import qemuInstance
+from afrl_zcu106_gui.terminalwidget import terminalWidget
+from afrl_zcu106_gui.qemutableviewmodel import qemuTableViewModel
+from afrl_zcu106_gui.devicelistviewmodel import deviceListViewModel
+from afrl_zcu106_gui.diskimagewidget import diskImageWidget
+from afrl_zcu106_gui.errormsgbox import errorMsgBox
 
 class MainWindow(QMainWindow):
 

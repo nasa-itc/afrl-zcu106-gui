@@ -3,7 +3,7 @@
 
 # Collection of class definitions to define options for QEMU instance parameters
 
-from afrl_gui.qemuparameter import qemuParameter
+from afrl_zcu106_gui.qemuparameter import qemuParameter
 
 
 class qemuMachineItem(qemuParameter):

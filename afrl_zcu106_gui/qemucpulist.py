@@ -4,8 +4,8 @@
 # Class to maintain list of QEMU CPU options
 
 import subprocess
-from afrl_gui.qemuparameterlist import qemuParameterList
-from afrl_gui.qemucpuitem import qemuCpuItem
+from afrl_zcu106_gui.qemuparameterlist import qemuParameterList
+from afrl_zcu106_gui.qemucpuitem import qemuCpuItem
 
 
 class qemuCpuList(qemuParameterList):

@@ -4,8 +4,8 @@
 # Class to maintain list of QEMU machine (board) options
 
 import subprocess
-from afrl_gui.qemuparameterlist import qemuParameterList
-from afrl_gui.qemumachineitem import qemuMachineItem
+from afrl_zcu106_gui.qemuparameterlist import qemuParameterList
+from afrl_zcu106_gui.qemumachineitem import qemuMachineItem
 
 
 class qemuMachineList(qemuParameterList):

@@ -20,16 +20,16 @@ from PySide6.QtWidgets import QFileDialog, QWizard, QPlainTextEdit,QComboBox
 from PySide6.QtCore import Qt, Signal, Slot, QSize
 from PySide6.QtGui import QIcon,QIntValidator
 
-from afrl_gui.common import RESOURCE_ROOT, QEMU_IMAGE_FILTERS, NETWORK_CFG
-from afrl_gui.ui.ui_qemulaunchwizard import Ui_qemuLaunchWizard
-from afrl_gui.qemuinstance import qemuInstance
+from afrl_zcu106_gui.common import RESOURCE_ROOT, QEMU_IMAGE_FILTERS, NETWORK_CFG
+from afrl_zcu106_gui.ui.ui_qemulaunchwizard import Ui_qemuLaunchWizard
+from afrl_zcu106_gui.qemuinstance import qemuInstance
 
-from afrl_gui.qemumachinelist import qemuMachineList
-from afrl_gui.qemucpulist import qemuCpuList
-from afrl_gui.qemudevicelist import qemuDeviceList
-from afrl_gui.devicesettingswidget import deviceSettingsWidget
-from afrl_gui.machinesettingswidget import machineSettingsWidget
-from afrl_gui.diskimagewidget import diskImageWidget
+from afrl_zcu106_gui.qemumachinelist import qemuMachineList
+from afrl_zcu106_gui.qemucpulist import qemuCpuList
+from afrl_zcu106_gui.qemudevicelist import qemuDeviceList
+from afrl_zcu106_gui.devicesettingswidget import deviceSettingsWidget
+from afrl_zcu106_gui.machinesettingswidget import machineSettingsWidget
+from afrl_zcu106_gui.diskimagewidget import diskImageWidget
 
 
 class QemuLaunchWizard(QWizard):

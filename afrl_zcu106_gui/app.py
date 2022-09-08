@@ -18,7 +18,7 @@ import sys
 
 from PySide6.QtWidgets import QApplication
 
-from afrl_gui.mainwindow import MainWindow
+from afrl_zcu106_gui.mainwindow import MainWindow
 
 def run():
     """main app entry point"""

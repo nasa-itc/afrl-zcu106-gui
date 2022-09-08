@@ -2,7 +2,7 @@
 # This Python file uses the following encoding: utf-8
 
 # Baseclass for lists of candidates for QEMU parameters for dropdown comboboxes
-from afrl_gui.qemuparameter import qemuParameter
+from afrl_zcu106_gui.qemuparameter import qemuParameter
 
 class qemuParameterList:
     def __init__(self):
