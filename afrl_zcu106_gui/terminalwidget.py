@@ -1,6 +1,6 @@
 # Copyright (C) 2009 - 2022 National Aeronautics and Space Administration. All Foreign Rights are Reserved to the U.S. Government.
-from PySide6.QtWidgets import QWidget
-from PySide6.QtCore import QProcess
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import QProcess
 
 
 class terminalWidget(QWidget):

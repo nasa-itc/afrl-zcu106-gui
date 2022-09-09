@@ -16,9 +16,9 @@
 
 import os.path
 
-from PySide6.QtWidgets import QFileDialog, QWizard, QPlainTextEdit,QComboBox
-from PySide6.QtCore import Qt, Signal, Slot, QSize
-from PySide6.QtGui import QIcon,QIntValidator
+from PyQt5.QtWidgets import QFileDialog, QWizard, QPlainTextEdit,QComboBox
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QSize
+from PyQt5.QtGui import QIcon,QIntValidator
 
 from afrl_zcu106_gui.common import RESOURCE_ROOT, QEMU_IMAGE_FILTERS, QEMU_CFG_FILTERS, NETWORK_CFG
 from afrl_zcu106_gui.ui.ui_qemulaunchwizard import Ui_qemuLaunchWizard
@@ -31,10 +31,10 @@ from afrl_zcu106_gui.diskimagewidget import diskImageWidget
 
 class QemuLaunchWizard(QWizard):
 
-    kill_signal = Signal(bool)
-    newQemuSignal = Signal(object)
-    newDeviceSignal = Signal(str, list)  # signal device and list of settings
-    removeDeviceSignal = Signal(list) # removes device at index provided
+    kill_signal = pyqtSignal(bool)
+    newQemuSignal = pyqtSignal(object)
+    newDeviceSignal = pyqtSignal(str, list)  # signal device and list of settings
+    removeDeviceSignal = pyqtSignal(list) # removes device at index provided
 
     def __init__(self, parent):
         super().__init__(parent)
@@ -135,7 +135,6 @@ class QemuLaunchWizard(QWizard):
         self.deviceSettingsWidget.settingsSignal.connect(self.applyDeviceSettings)
         self.deviceSettingsWidget.show()
 
-    @Slot(list)
     def applyDeviceSettings(self, settings):
         '''slot to gather and save the device settings strings '''
         device = self.ui.deviceComboBox.currentText()
