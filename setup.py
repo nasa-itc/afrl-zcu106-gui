@@ -37,7 +37,7 @@ setuptools.setup(
     },
     install_requires=[
         "wheel",
-        "pyside6",
+        "pyqt5",
         "pygdbmi == 0.9.0.3"
     ],
     python_requires=">=3.4",

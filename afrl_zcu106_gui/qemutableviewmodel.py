@@ -1,6 +1,6 @@
 # Copyright (C) 2009 - 2022 National Aeronautics and Space Administration. All Foreign Rights are Reserved to the U.S. Government.
 
-from PySide6.QtCore import Qt, QAbstractTableModel, QModelIndex, Slot
+from PyQt5.QtCore import Qt, QAbstractTableModel, QModelIndex, pyqtSlot
 from afrl_zcu106_gui.qemuinstance import qemuInstance
 from afrl_zcu106_gui.common import MAXIMUM_QEMU_INSTANCES
 
@@ -53,7 +53,6 @@ class qemuTableViewModel(QAbstractTableModel):
         '''Returns the number of valid (non-empty) QEMU instances in fixed size list'''
         return self.validCount
 
-    @Slot(qemuInstance)
     def insertQemuInstance(self, qemu):
         row = 0
         if len(self.qemuList) < MAXIMUM_QEMU_INSTANCES:

@@ -1,6 +1,6 @@
 # This Python file uses the following encoding: utf-8
 
-from PySide6.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox
 
 
 class errorMsgBox(QMessageBox):

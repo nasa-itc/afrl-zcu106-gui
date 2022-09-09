@@ -1,8 +1,8 @@
 # Copyright (C) 2009 - 2022 National Aeronautics and Space Administration. All Foreign Rights are Reserved to the U.S. Government.
 # This Python file uses the following encoding: utf-8
 
-from PySide6.QtCore import QObject
-from PySide6.QtNetwork import QHostAddress
+from PyQt5.QtCore import QObject
+from PyQt5.QtNetwork import QHostAddress
 import subprocess
 
 class qemuInstance(QObject):

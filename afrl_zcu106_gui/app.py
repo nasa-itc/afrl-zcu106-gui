@@ -16,7 +16,7 @@
 
 import sys
 
-from PySide6.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication
 
 from afrl_zcu106_gui.mainwindow import MainWindow
 

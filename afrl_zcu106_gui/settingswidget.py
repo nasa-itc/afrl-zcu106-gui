@@ -2,16 +2,16 @@
 # This Python file uses the following encoding: utf-8
 
 import subprocess, re
-from PySide6.QtCore import Qt, Signal
-from PySide6.QtWidgets import QWidget, QScrollArea, QLabel, QPushButton
-from PySide6.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout
-from PySide6.QtWidgets import QLineEdit, QCheckBox, QPlainTextEdit
+from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtWidgets import QWidget, QScrollArea, QLabel, QPushButton
+from PyQt5.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout
+from PyQt5.QtWidgets import QLineEdit, QCheckBox, QPlainTextEdit
 from afrl_zcu106_gui.parametersetting import parameterSetting
 
 
 class settingsWidget(QWidget):
     ''' base class for device and machine settings widgets '''
-    settingsSignal = Signal(list)
+    settingsSignal = pyqtSignal(list)
 
     def __init__(self, parent):
         super().__init__(parent)

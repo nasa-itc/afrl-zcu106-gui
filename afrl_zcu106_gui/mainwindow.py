@@ -18,11 +18,11 @@ import time
 import datetime
 import os.path
 
-from PySide6.QtWidgets import QMainWindow, QLabel, QMessageBox, \
+from PyQt5.QtWidgets import QAction, QMainWindow, QLabel, QMessageBox, \
     QGraphicsView, QGraphicsScene, QWidget, QDockWidget, QTableView
-from PySide6.QtGui import QGuiApplication, QIcon, QPixmap, QRegularExpressionValidator, \
-    QIntValidator, QAction
-from PySide6.QtCore import Signal, Qt, Slot, QRect
+from PyQt5.QtGui import QGuiApplication, QIcon, QPixmap, QRegularExpressionValidator, \
+    QIntValidator
+from PyQt5.QtCore import pyqtSignal, Qt, pyqtSlot, QRect
 
 from afrl_zcu106_gui import __version__
 from afrl_zcu106_gui.common import RESOURCE_ROOT, MAXIMUM_QEMU_INSTANCES
@@ -37,7 +37,7 @@ from afrl_zcu106_gui.errormsgbox import errorMsgBox
 
 class MainWindow(QMainWindow):
 
-    kill_thread = Signal()
+    kill_thread = pyqtSignal()
 
     def __init__(self, app):
         self.app = app
