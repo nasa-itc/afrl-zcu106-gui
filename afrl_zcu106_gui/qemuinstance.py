@@ -49,8 +49,12 @@ class qemuInstance(QObject):
     def commandLine(self):
         '''Generates the qemu-system-aarch64 command line to launch this instance'''
         cmdLine = "qemu-system-aarch64"
+        #Config file
+        if self.configFile:
+            cmdLine += f" -readconfig {self.configFile}"
+
         # Setup Machine
-        if self.machine != "":
+        if self.machine:
             cmdLine += f" -machine {self.machine}"
             for s in self.machineSettings:
                 cmdLine += f",{s}"
