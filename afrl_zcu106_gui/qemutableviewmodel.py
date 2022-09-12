@@ -57,6 +57,7 @@ class qemuTableViewModel(QAbstractTableModel):
 
         print("Table View Model Received QEMU instance: " + repr(qemu))
         print(f"cmd line: {qemu.commandLine()}")
+        qemu.generateDockerEnvFile()
 
         #TODO: Connect the qemuLauncher run command here...
 
