@@ -17,10 +17,18 @@
 import os.path
 from string import Template
 
+#Path Variables
 PACKAGE_ROOT = os.path.dirname(os.path.abspath(__file__))
 RESOURCE_ROOT = os.path.join(PACKAGE_ROOT, "resources")
-PLUGIN_ROOT = os.path.join(PACKAGE_ROOT, "plugins")
+PROJECT_ROOT = os.path.join(PACKAGE_ROOT, "../../")
+DOCKER_ROOT = os.path.join(PROJECT_ROOT, "docker")
+QEMU_ROOT = os.path.join(PROJECT_ROOT, "xilinx-qemu")
+QEMU_BIN_DIR = os.path.join(QEMU_ROOT, "build/bin")
+
+
 MAXIMUM_QEMU_INSTANCES = 8
+
+#Filters for File Dialogs
 QEMU_IMAGE_FILTERS = ["Disc Image files (*.img *.ext4)",
                       "All files (*)"]
 QEMU_CFG_FILTERS = ["QEMU Config files (*.cfg)",
@@ -28,6 +36,8 @@ QEMU_CFG_FILTERS = ["QEMU Config files (*.cfg)",
 
 # Text editor to call for editing files, include path if not on PATH
 TEXT_EDITOR = "gedit"
+
+#Guest Image Mount parameters
 MOUNT_TIMEOUT = 90  #  Timeout to mout a guestimage in seconds
 
 #networking configuration parameters for guest os
@@ -38,3 +48,4 @@ NETWORK_CFG = {
 "NETMASK_TEMPLATE" : Template("netmask $netmask"),
 "GATEWAY_TEMPLATE" : Template("gateway $gateway")
 }
+
