@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QWidget, QScrollArea, QLabel, QPushButton
 from PyQt5.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout
 from PyQt5.QtWidgets import QLineEdit, QCheckBox, QPlainTextEdit
 from afrl_zcu106_gui.parametersetting import parameterSetting
+from afrl_zcu106_gui.common import QEMU_BIN_DIR
 
 
 class settingsWidget(QWidget):
@@ -43,7 +44,7 @@ class settingsWidget(QWidget):
         self.headerPattern = re.compile(r"NULL")
 
     def populateFormFields(self):
-        qemuOut = subprocess.run(["./qemu-system-aarch64", self.paramStr, f"{self.deviceStr},?"], capture_output=True)
+        qemuOut = subprocess.run([f"{QEMU_BIN_DIR}/qemu-system-aarch64", self.paramStr, f"{self.deviceStr},?"], capture_output=True)
         if(qemuOut.returncode != 0):
             print(f"ERROR: qemu-system-aarch64 {self.paramStr} {self.deviceStr},? returned error code: {qemuOut.returncode}")
             return

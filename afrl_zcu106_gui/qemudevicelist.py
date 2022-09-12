@@ -6,6 +6,7 @@
 import re, subprocess
 from afrl_zcu106_gui.qemuparameterlist import qemuParameterList
 from afrl_zcu106_gui.qemudeviceitem import qemuDeviceItem
+from afrl_zcu106_gui.common import QEMU_BIN_DIR
 
 
 class qemuDeviceList():
@@ -22,7 +23,7 @@ class qemuDeviceList():
         return self.__deviceLists
 
     def initializeList(self):
-        qemuOut = subprocess.run(["./qemu-system-aarch64", "-device", "?"], capture_output=True)
+        qemuOut = subprocess.run([f"{QEMU_BIN_DIR}/qemu-system-aarch64", "-device", "?"], capture_output=True)
         if(qemuOut.returncode != 0):
             print(f"ERROR: qemu-system-aarch64 -device ? returned error code: {qemuOut.returncode}")
             return
