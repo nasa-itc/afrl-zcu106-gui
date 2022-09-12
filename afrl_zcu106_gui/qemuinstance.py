@@ -103,8 +103,7 @@ class qemuInstance(QObject):
 
         # Setup CPU
         if self.cpu != "":
-            fout.write(f"[cpu]\n")
-            fout.write(f"    type={self.cpu}\n")
+            fout.write(f"[cpu]\n    type={self.cpu}\n")
             for s in self.cpuSettings:
                 fout.write(f"    {s}")
         if self.smpCores != "":
@@ -128,9 +127,9 @@ class qemuInstance(QObject):
         # Setup devices
         deviceIdx = 0
         for d in self.devices:
-            cmdLine += f" -device {d}"
+            fout.write(f"[device]\n    driver={d}\n")
             for s in self.deviceSettings[deviceIdx]:
-                cmdLine += f",{s}"
+                fout.write(f"    {s}\n")
             deviceIdx += 1
         
 

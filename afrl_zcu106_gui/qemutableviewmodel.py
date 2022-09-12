@@ -54,6 +54,12 @@ class qemuTableViewModel(QAbstractTableModel):
         return self.validCount
 
     def insertQemuInstance(self, qemu):
+
+        print("Table View Model Received QEMU instance: " + repr(qemu))
+        print(f"cmd line: {qemu.commandLine()}")
+
+        #TODO: Connect the qemuLauncher run command here...
+
         row = 0
         if len(self.qemuList) < MAXIMUM_QEMU_INSTANCES:
             row = len(self.qemuList)
@@ -72,5 +78,3 @@ class qemuTableViewModel(QAbstractTableModel):
         if len(qemu.name):
             self.validCount = self.validCount + 1 # Don't forget to decrement when deleting
         self.dataChanged.emit(topLeft, bottomRight)
-        print("Table View Model Received QEMU instance: " + repr(qemu))
-        print(f"cmd line: {qemu.commandLine()}")
