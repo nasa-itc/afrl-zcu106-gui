@@ -3,7 +3,9 @@
 
 from PyQt5.QtCore import QObject
 from PyQt5.QtNetwork import QHostAddress
-import subprocess
+from afrl_zcu106_gui.common import DOCKER_ROOT
+from datetime import datetime
+import os, subprocess
 
 class qemuInstance(QObject):
     def __init__(self):
@@ -88,6 +90,19 @@ class qemuInstance(QObject):
             cmdLine += f" -drive if=sd,format=raw,index=1,file={self.imageName}"
         return cmdLine
 
+    def generateDockerEnvFile(self):
+        '''Generate a env file containing env variables used to configure docker-compose instance'''
+        fout = open(os.path.join(DOCKER_ROOT, f"{self.name}.env"),'w',encoding="utf-8")
+        # Output Comment Block with Name, Description and date
+        fout.write(f"#  {self.name}.env: docker-compose environment variable file for QEMU instance {self.name}\n")
+        fout.write(f"#  Created: {datetime.now()}\n")
+        fout.write(f"#  {self.name} Description: {self.description}\n\n") # TODO: loop through description to only write x characters per line
+        fout.write("#The following is location of the config file for the ZCU106 QEMU instance\n")
+        fout.write(f"QEMU_CONFIG_FILE={self.configFile}\n\n")
+        fout.write("#The following is location of the root filesystem image file for the ZCU106 QEMU instance\n")
+        fout.write(f"ROOT_IMAGE_FILE={self.imageName}\n\n")
+        fout.close()
+
     def generateCfgFile(self):
         ''' Generates an INI formatted config file for the -readconfig option '''
         subprocess.run(["mkdir", "-p", "./configs"])
@@ -131,6 +146,6 @@ class qemuInstance(QObject):
             for s in self.deviceSettings[deviceIdx]:
                 fout.write(f"    {s}\n")
             deviceIdx += 1
-        
+        fout.close()
 
 
