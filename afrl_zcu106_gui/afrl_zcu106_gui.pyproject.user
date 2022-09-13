@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 8.0.1, 2022-09-12T10:42:27. -->
+<!-- Written by QtCreator 8.0.1, 2022-09-13T09:25:02. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -142,15 +142,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">settingswidget.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/settingswidget.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/settingswidget.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/settingswidget.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemudeviceitem.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemudeviceitem.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemudeviceitem.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemudeviceitem.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.1">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -159,15 +159,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">parametersetting.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/parametersetting.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/parametersetting.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/parametersetting.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemuparameter.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameter.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameter.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameter.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.10">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -176,15 +176,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemudeviceitem.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemudeviceitem.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemudeviceitem.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemudeviceitem.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">ui/ui_qemulaunchwizard.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_qemulaunchwizard.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_qemulaunchwizard.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_qemulaunchwizard.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.11">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -193,15 +193,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemuparameterlist.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameterlist.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameterlist.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameterlist.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">parametersetting.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/parametersetting.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/parametersetting.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/parametersetting.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.12">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -210,15 +210,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">devicesettingswidget.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/devicesettingswidget.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/devicesettingswidget.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/devicesettingswidget.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemuparameterlist.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameterlist.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameterlist.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameterlist.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.13">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -227,15 +227,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">app.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/app.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/app.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/app.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemudevicelist.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemudevicelist.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemudevicelist.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemudevicelist.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.14">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -244,15 +244,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">common.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/common.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/common.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/common.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">common.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/common.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/common.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/common.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.15">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -261,15 +261,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">ui/ui_diskimagewidget.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_diskimagewidget.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_diskimagewidget.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_diskimagewidget.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">errormsgbox.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/errormsgbox.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/errormsgbox.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/errormsgbox.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.16">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -278,15 +278,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">ui/ui_qemulaunchwizard.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_qemulaunchwizard.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_qemulaunchwizard.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_qemulaunchwizard.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">diskimagewidget.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/diskimagewidget.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/diskimagewidget.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/diskimagewidget.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.17">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -295,15 +295,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemulaunchwizard.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemulaunchwizard.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemulaunchwizard.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemulaunchwizard.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">devicelistviewmodel.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/devicelistviewmodel.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/devicelistviewmodel.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/devicelistviewmodel.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.18">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -312,15 +312,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">terminalwidget.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/terminalwidget.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/terminalwidget.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/terminalwidget.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">devicesettingswidget.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/devicesettingswidget.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/devicesettingswidget.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/devicesettingswidget.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.19">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -329,15 +329,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">errormsgbox.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/errormsgbox.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/errormsgbox.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/errormsgbox.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemulaunchwizard.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemulaunchwizard.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemulaunchwizard.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemulaunchwizard.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.2">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -346,15 +346,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">mainwindow.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/mainwindow.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/mainwindow.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/mainwindow.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">settingswidget.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/settingswidget.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/settingswidget.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/settingswidget.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.3">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -363,15 +363,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemudevicelist.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemudevicelist.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemudevicelist.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemudevicelist.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">mainwindow.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/mainwindow.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/mainwindow.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/mainwindow.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.4">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -380,15 +380,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemuinstance.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemuinstance.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemuinstance.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemuinstance.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">terminalwidget.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/terminalwidget.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/terminalwidget.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/terminalwidget.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.5">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -397,15 +397,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemuparameter.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameter.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameter.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemuparameter.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemuinstance.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuinstance.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuinstance.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuinstance.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.6">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -414,15 +414,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">diskimagewidget.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/diskimagewidget.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/diskimagewidget.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/diskimagewidget.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemutableviewmodel.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemutableviewmodel.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemutableviewmodel.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemutableviewmodel.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.7">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -431,15 +431,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemutableviewmodel.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemutableviewmodel.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemutableviewmodel.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/qemutableviewmodel.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">ui/ui_diskimagewidget.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_diskimagewidget.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_diskimagewidget.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_diskimagewidget.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.8">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -448,15 +448,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">devicelistviewmodel.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/devicelistviewmodel.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/devicelistviewmodel.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/devicelistviewmodel.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">ui/ui_mainwindow.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_mainwindow.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_mainwindow.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_mainwindow.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/ui</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.9">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -465,15 +465,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">ui/ui_mainwindow.py2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_mainwindow.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_mainwindow.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui/ui_mainwindow.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">app.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/app.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/app.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/app.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-zcu106-gui/afrl_zcu106_gui/ui</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">20</value>
   </valuemap>
