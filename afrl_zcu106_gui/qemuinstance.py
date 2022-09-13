@@ -94,9 +94,11 @@ class qemuInstance(QObject):
         '''Generate a env file containing env variables used to configure docker-compose instance'''
         fout = open(os.path.join(DOCKER_ROOT, f"{self.name}.env"),'w',encoding="utf-8")
         # Output Comment Block with Name, Description and date
+        fout.write("#******************************************************************************\n")
         fout.write(f"#  {self.name}.env: docker-compose environment variable file for QEMU instance {self.name}\n")
         fout.write(f"#  Created: {datetime.now()}\n")
-        fout.write(f"#  {self.name} Description: {self.description}\n\n") # TODO: loop through description to only write x characters per line
+        fout.write(f"#  Description: {self.description}\n") # TODO: loop through description to only write x characters per line
+        fout.write("#\n#******************************************************************************\n\n")
         fout.write("#The following is location of the config file for the ZCU106 QEMU instance\n")
         fout.write(f"QEMU_CONFIG_FILE={self.configFile}\n\n")
         fout.write("#The following is location of the root filesystem image file for the ZCU106 QEMU instance\n")
