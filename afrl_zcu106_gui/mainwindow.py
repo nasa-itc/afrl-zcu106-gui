@@ -19,13 +19,13 @@ import datetime
 import os.path
 
 from PyQt5.QtWidgets import QAction, QMainWindow, QLabel, QMessageBox, \
-    QGraphicsView, QGraphicsScene, QWidget, QDockWidget, QTableView
+    QInputDialog, QGraphicsView, QGraphicsScene, QWidget, QDockWidget, QTableView
 from PyQt5.QtGui import QGuiApplication, QIcon, QPixmap, QRegularExpressionValidator, \
     QIntValidator
 from PyQt5.QtCore import pyqtSignal, Qt, pyqtSlot, QRect
 
 from afrl_zcu106_gui import __version__
-from afrl_zcu106_gui.common import RESOURCE_ROOT, MAXIMUM_QEMU_INSTANCES
+from afrl_zcu106_gui.common import RESOURCE_ROOT, MAXIMUM_QEMU_INSTANCES, DOCKER_ROOT
 from afrl_zcu106_gui.ui.ui_mainwindow import Ui_MainWindow
 from afrl_zcu106_gui.qemulaunchwizard import QemuLaunchWizard
 from afrl_zcu106_gui.qemuinstance import qemuInstance
@@ -68,6 +68,7 @@ class MainWindow(QMainWindow):
 
         # Setup Menu Actions
         self.ui.action_file_new_qemu_instance.triggered.connect(self.showLaunchWizard)
+        self.ui.action_file_modify_qemu_instance.triggered.connect(self.selectQemuInstance)
         self.ui.actionModify_Image_Contents.triggered.connect(self.showDiskImageWidget)
         self.ui.action_file_exit.triggered.connect(self.close)
         self.ui.action_help_about.triggered.connect(self.showAboutSplash)
@@ -108,7 +109,7 @@ class MainWindow(QMainWindow):
             )
         return pid
 
-    def showLaunchWizard(self):
+    def showLaunchWizard(self, qemuName=""):
         """start qemu instance launch wizard in dock"""
         if self.tableModel.validDataCount() < MAXIMUM_QEMU_INSTANCES:
             dock = QDockWidget(self)
@@ -120,9 +121,30 @@ class MainWindow(QMainWindow):
             launchWiz.newDeviceSignal.connect(self.deviceListModel.insertDevice)
             launchWiz.removeDeviceSignal.connect(self.deviceListModel.removeDevice)
             launchWiz.ui.deviceListView.setModel(self.deviceListModel)
+            launchWiz.populateFields(qemuName)
+
         else:
             print("Error: All QEMU Instances Used")
             errorMsgBox(self, "All QEMU Instances Utilized")
+
+    def selectQemuInstance(self):
+        """Shows a selection dialog to pick one of the defined QEMU instances to modify"""
+        # Find env files from docker folder
+        files = os.listdir(DOCKER_ROOT)
+        qemus = []
+        #Find all .env files
+        for f in files:
+            (name, ext) = os.path.splitext(f)
+            if ext == ".env" and name:
+                qemus.append(name)
+
+        #Create a drop down dialog with qemu names
+        (name, ok) = QInputDialog.getItem(self,"Edit QEMU Instance","Select QEMU Instance",qemus,editable=False)
+
+        # Populate wizard with values
+        if ok:
+            self.showLaunchWizard(qemuName=name)
+
 
     def showDiskImageWidget(self):
         '''Displays the widget for interacting iwth the guest disk image file'''

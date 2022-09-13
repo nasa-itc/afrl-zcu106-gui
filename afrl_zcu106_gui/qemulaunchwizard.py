@@ -20,13 +20,14 @@ from PyQt5.QtWidgets import QFileDialog, QWizard, QPlainTextEdit,QComboBox
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QSize
 from PyQt5.QtGui import QIcon,QIntValidator
 
-from afrl_zcu106_gui.common import RESOURCE_ROOT, QEMU_IMAGE_FILTERS, QEMU_CFG_FILTERS, NETWORK_CFG
+from afrl_zcu106_gui.common import DOCKER_ROOT,RESOURCE_ROOT, QEMU_IMAGE_FILTERS, QEMU_CFG_FILTERS, NETWORK_CFG
 from afrl_zcu106_gui.ui.ui_qemulaunchwizard import Ui_qemuLaunchWizard
 from afrl_zcu106_gui.qemuinstance import qemuInstance
 
 from afrl_zcu106_gui.qemudevicelist import qemuDeviceList
 from afrl_zcu106_gui.devicesettingswidget import deviceSettingsWidget
 from afrl_zcu106_gui.diskimagewidget import diskImageWidget
+from afrl_zcu106_gui.errormsgbox import errorMsgBox
 
 
 class QemuLaunchWizard(QWizard):
@@ -45,6 +46,7 @@ class QemuLaunchWizard(QWizard):
         self.init_ui()
         self.lastImageDirectory = "~/"
         self.lastCfgDirectory = "~/"
+        self.NewQemuInstance = False  #True if a new
 
     def init_ui(self):
         self.ui = Ui_qemuLaunchWizard()
@@ -63,6 +65,10 @@ class QemuLaunchWizard(QWizard):
         self.ui.removeDevicePushButton.clicked.connect(self.removeDevice)
         self.ui.editDevicePushButton.clicked.connect(self.editDevice)
         self.button(QWizard.FinishButton).clicked.connect(self.launchQemuInstance)
+        #Connect line edit signals to data check functions
+        self.ui.nameLineEdit.editingFinished.connect(self.validateName)
+
+
 
 
         # Configure the dropdown menus
@@ -74,17 +80,17 @@ class QemuLaunchWizard(QWizard):
         self.ui.qemuLaunchWizardNamePage.registerField(
             "description", self.ui.descriptionPlainTextEdit, "plainText")
         self.ui.qemuLaunchWizardImagePage.registerField(
-            "configFile*", self.ui.configLineEdit)
+            "configFile", self.ui.configLineEdit)
         self.ui.qemuLaunchWizardImagePage.registerField(
-            "image*", self.ui.imageLineEdit)
+            "image", self.ui.imageLineEdit)
         self.ui.qemuLaunchWizardNetworkPage.registerField(
-            "ifaceName*", self.ui.ifaceLineEdit)
+            "ifaceName", self.ui.ifaceLineEdit)
         self.ui.qemuLaunchWizardNetworkPage.registerField(
-            "ipAddress*", self.ui.ipLineEdit)
+            "ipAddress", self.ui.ipLineEdit)
         self.ui.qemuLaunchWizardNetworkPage.registerField(
             "gateway", self.ui.gatewayLineEdit)
         self.ui.qemuLaunchWizardNetworkPage.registerField(
-            "subnetMask*", self.ui.subnetMaskLineEdit)
+            "subnetMask", self.ui.subnetMaskLineEdit)
 
     def openCfgFileBrowser(self):
         (filename, dir) = self.openFileBrowser(
@@ -150,6 +156,54 @@ class QemuLaunchWizard(QWizard):
 
     def editDevice(self):
         ''' Opens the device settings menu for the selected device from the device list '''
+        # TODO: build the edit capability
+
+    def validateName(self):
+        '''Ensures entered name not already in use, prompts user for new one if so'''
+        name = self.ui.nameLineEdit.text()
+        if self.NewQemuInstance and os.path.isfile(os.path.join(DOCKER_ROOT, f"{name}.env")):
+            print(f"{name} already in use")
+            e = errorMsgBox(self,f"{name} already in use. Please choose different name")
+            self.ui.nameLineEdit.setText("")
+
+    def populateFields(self,qemuName):
+        '''if qemuName given, the matchng env file is parsed and wizard fields populated'''
+        # Populate values from qemu instance name if given
+        if not qemuName:
+            self.NewQemuInstance = True
+        else:
+            self.NewQemuInstance = False
+            f = open(os.path.join(DOCKER_ROOT, f"{qemuName}.env"))
+            lines = f.readlines()
+            f.close()
+            parsingDescription = False
+            description = ""
+            self.ui.nameLineEdit.setText(qemuName)
+            for l in lines:
+                #Parse out description from comments
+                if l.startswith("#  Description: "):
+                    # add all lines to closing comment to description fields
+                    parsingDescription = True
+                    description = l.split("#  Description: ")[-1]
+                    continue
+                if parsingDescription:
+                    if l.startswith("#***********"):
+                        #Closing tag, stop parsing description
+                        parsingDescription = False
+                        self.ui.descriptionPlainTextEdit.setPlainText(description)
+                        continue
+                    else:
+                        l = l.split("#      ")[-1] # Pull off comment tag
+                        description += l
+                # Parse out variable/value pairs
+                try:
+                    (var,val) = l.split('=')
+                except ValueError:
+                    continue  # not valid var,value pair eval next line
+                if var == "QEMU_CONFIG_FILE":
+                    self.ui.configLineEdit.setText(val)
+                elif var == "ROOT_IMAGE_FILE":
+                    self.ui.imageLineEdit.setText(val)
 
     def launchQemuInstance(self):
         '''Verify QEMU model data and launch instance'''

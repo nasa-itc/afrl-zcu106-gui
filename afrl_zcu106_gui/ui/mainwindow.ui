@@ -88,6 +88,7 @@
      <string>File</string>
     </property>
     <addaction name="action_file_new_qemu_instance"/>
+    <addaction name="action_file_modify_qemu_instance"/>
     <addaction name="separator"/>
     <addaction name="actionModify_Image_Contents"/>
     <addaction name="action_file_exit"/>
@@ -126,6 +127,14 @@
    </property>
    <property name="toolTip">
     <string>Opens GUI to copy items into guest image</string>
+   </property>
+  </action>
+  <action name="action_file_modify_qemu_instance">
+   <property name="text">
+    <string>Modify QEMU Instance</string>
+   </property>
+   <property name="toolTip">
+    <string>Open wizard to modify QEMU Instance</string>
    </property>
   </action>
  </widget>
