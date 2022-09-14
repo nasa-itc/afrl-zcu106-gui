@@ -163,7 +163,7 @@ class QemuLaunchWizard(QWizard):
         name = self.ui.nameLineEdit.text()
         if self.NewQemuInstance and os.path.isfile(os.path.join(DOCKER_ROOT, f"{name}.env")):
             print(f"{name} already in use")
-            e = errorMsgBox(self,f"{name} already in use. Please choose different name")
+            errorMsgBox(self,f"{name} already in use. Please choose different name")
             self.ui.nameLineEdit.setText("")
 
     def populateFields(self,qemuName):
@@ -179,6 +179,7 @@ class QemuLaunchWizard(QWizard):
             parsingDescription = False
             description = ""
             self.ui.nameLineEdit.setText(qemuName)
+            self.ui.nameLineEdit.setEnabled(False) # Disable to keep from creating new instance by accident
             for l in lines:
                 #Parse out description from comments
                 if l.startswith("#  Description: "):
