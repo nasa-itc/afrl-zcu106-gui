@@ -16,7 +16,7 @@
 
 import os.path
 
-from PyQt5.QtWidgets import QFileDialog, QWizard, QPlainTextEdit,QComboBox
+from PyQt5.QtWidgets import QFileDialog, QWizard, QPlainTextEdit,QComboBox,QMessageBox
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QSize
 from PyQt5.QtGui import QIcon,QIntValidator
 
@@ -64,6 +64,8 @@ class QemuLaunchWizard(QWizard):
         self.ui.addDevicePushButton.clicked.connect(self.openDeviceSettings)
         self.ui.removeDevicePushButton.clicked.connect(self.removeDevice)
         self.ui.editDevicePushButton.clicked.connect(self.editDevice)
+        self.ui.deletePushButton.clicked.connect(self.deleteQemuInstance)
+        self.ui.deletePushButton.hide() # do not show delete unless modify is selected
         self.button(QWizard.FinishButton).clicked.connect(self.launchQemuInstance)
         #Connect line edit signals to data check functions
         self.ui.nameLineEdit.editingFinished.connect(self.validateName)
@@ -180,6 +182,7 @@ class QemuLaunchWizard(QWizard):
             description = ""
             self.ui.nameLineEdit.setText(qemuName)
             self.ui.nameLineEdit.setEnabled(False) # Disable to keep from creating new instance by accident
+            self.ui.deletePushButton.show() #Enable the delete button on a modify request
             for l in lines:
                 #Parse out description from comments
                 if l.startswith("#  Description: "):
@@ -194,7 +197,7 @@ class QemuLaunchWizard(QWizard):
                         self.ui.descriptionPlainTextEdit.setPlainText(description)
                         continue
                     else:
-                        l = l.split("#      ")[-1] # Pull off comment tag
+                        l = l.split("#")[-1].lstrip() # Pull off comment tag and indent
                         description += l
                 # Parse out variable/value pairs
                 try:
@@ -222,3 +225,17 @@ class QemuLaunchWizard(QWizard):
             qemu.gateway.setAddress(self.ui.qemuLaunchWizardNetworkPage.field("gateway"))
         print("Created QEMU Instance: ", repr(qemu))
         self.newQemuSignal.emit(qemu)
+
+    def deleteQemuInstance(self):
+        '''prompts for confirmation and deletes the qemu instance file'''
+        name = self.ui.nameLineEdit.text()
+        button = QMessageBox.question(self,f"Delete {name}", f"This will delete the {name} QEMU instance, are you sure?")
+        if button == QMessageBox.Yes:
+            print(f"Deleting QEMU Instance {name}")
+            qemuFile = os.path.join(DOCKER_ROOT, f"{name}.env")
+            if os.path.isfile(qemuFile):
+                os.remove(qemuFile)
+                #TODO:  Signal deletion if its running?
+                self.close()
+
+

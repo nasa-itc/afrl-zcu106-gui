@@ -66,6 +66,19 @@
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="deletePushButton">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>260</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QWizardPage" name="qemuLaunchWizardImagePage">
    <widget class="QFrame" name="frame_6">
