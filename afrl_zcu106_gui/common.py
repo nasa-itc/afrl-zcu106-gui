@@ -20,7 +20,7 @@ from string import Template
 #Path Variables
 PACKAGE_ROOT = os.path.dirname(os.path.abspath(__file__))
 RESOURCE_ROOT = os.path.join(PACKAGE_ROOT, "resources")
-PROJECT_ROOT = os.path.join(PACKAGE_ROOT, "../../")
+PROJECT_ROOT = os.path.normpath(os.path.join(PACKAGE_ROOT, "../../"))
 DOCKER_ROOT = os.path.join(PROJECT_ROOT, "docker")
 QEMU_ROOT = os.path.join(PROJECT_ROOT, "xilinx-qemu")
 QEMU_BIN_DIR = os.path.join(QEMU_ROOT, "build/bin")
