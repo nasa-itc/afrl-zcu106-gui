@@ -92,6 +92,9 @@ class qemuInstance(QObject):
 
     def generateDockerEnvFile(self):
         '''Generate a env file containing env variables used to configure docker-compose instance'''
+        if not self.name:
+            return  #Only generate env files for named qemu configurations (.env is reserved for default config)
+
         fout = open(os.path.join(DOCKER_ROOT, f"{self.name}.env"),'w',encoding="utf-8")
         # Output Comment Block with Name, Description and date
         fout.write("#******************************************************************************\n")
