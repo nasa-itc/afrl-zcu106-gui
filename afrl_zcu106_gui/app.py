@@ -14,7 +14,7 @@
 # NASA IV&V
 # ivv-itc@lists.nasa.gov
 
-import sys
+import sys, multiprocessing
 
 from PyQt5.QtWidgets import QApplication
 
@@ -32,5 +32,6 @@ def run():
     return app.exec_()
 
 if __name__ == '__main__':
+    multiprocessing.set_start_method('spawn')
     sys.exit(run())
 
