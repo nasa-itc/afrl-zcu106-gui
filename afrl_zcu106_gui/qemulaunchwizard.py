@@ -20,7 +20,7 @@ from PyQt5.QtWidgets import QFileDialog, QWizard, QPlainTextEdit,QComboBox,QMess
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QSize
 from PyQt5.QtGui import QIcon,QIntValidator
 
-from afrl_zcu106_gui.common import DOCKER_ROOT,RESOURCE_ROOT, QEMU_IMAGE_FILTERS, QEMU_CFG_FILTERS, NETWORK_CFG
+from afrl_zcu106_gui.common import PROJECT_ROOT, DOCKER_ROOT,RESOURCE_ROOT, QEMU_IMAGE_FILTERS, QEMU_CFG_FILTERS, NETWORK_CFG
 from afrl_zcu106_gui.ui.ui_qemulaunchwizard import Ui_qemuLaunchWizard
 from afrl_zcu106_gui.qemuinstance import qemuInstance
 
@@ -44,8 +44,8 @@ class QemuLaunchWizard(QWizard):
         self.devices = []  # The list of devices configured to launch with the QEMU instance
         self.deviceSettings = []  # A list of device settings lists corresponding to the devices list
         self.init_ui()
-        self.lastImageDirectory = "~/"
-        self.lastCfgDirectory = "~/"
+        self.lastImageDirectory = os.path.join(PROJECT_ROOT,"zcu106/images")
+        self.lastCfgDirectory = os.path.join(PROJECT_ROOT,"zcu106/config")
         self.NewQemuInstance = False  #True if a new
 
     def init_ui(self):
@@ -97,15 +97,19 @@ class QemuLaunchWizard(QWizard):
     def openCfgFileBrowser(self):
         (filename, dir) = self.openFileBrowser(
                         "Open Config File", QEMU_CFG_FILTERS, self.lastCfgDirectory)
-        self.ui.configLineEdit.setText(filename)
-        self.lastCfgDirectory = dir
-        print("Setting last kernel directory to " + self.lastCfgDirectory)
+        if filename:
+            #  The zcu106 directory is located at /qemu/zcu106 in the docker container.
+            #    remove the PROJECT_ROOT from path
+            filename = filename.replace(PROJECT_ROOT,"").lstrip('/')
+            self.ui.configLineEdit.setText(filename)
+
 
     def openImageFileBrowser(self):
         (filename, dir) = self.openFileBrowser(
                             "Open Image File", QEMU_IMAGE_FILTERS, self.lastImageDirectory)
-        self.ui.imageLineEdit.setText(filename)
-        self.lastImageDirectory = dir
+        if filename:
+            filename = filename.replace(PROJECT_ROOT,"").lstrip('/')
+            self.ui.imageLineEdit.setText(filename)
 
     def launchDiskImageWidget(self):
         '''Displays the widget for interacting iwth the guest disk image file'''
