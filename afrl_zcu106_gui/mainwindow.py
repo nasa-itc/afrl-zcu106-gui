@@ -84,9 +84,9 @@ class MainWindow(QMainWindow):
     def init_table(self):
         """initializes table headers"""
         headerData = self.tableModel.headerData(0, Qt.Horizontal)
-        for row in range(0, MAXIMUM_QEMU_INSTANCES):
-            qemuNode = qemuInstance()
-            self.tableModel.insertQemuInstance(qemuNode)
+#        for row in range(0, MAXIMUM_QEMU_INSTANCES):
+#            qemuNode = qemuInstance()
+#            self.tableModel.insertQemuInstance(qemuNode)
         print(f"header data: {headerData}")
         self.ui.qemuInstanceTable.setModel(self.tableModel)
         self.ui.qemuInstanceTable.setColumnWidth(0, 186)
