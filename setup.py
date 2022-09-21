@@ -36,6 +36,7 @@ setuptools.setup(
         ]
     },
     install_requires=[
+        "docker",
         "wheel",
         "pyqt5",
         "pygdbmi == 0.9.0.3"
