@@ -4,6 +4,7 @@
 from PyQt5.QtCore import QObject
 from PyQt5.QtNetwork import QHostAddress
 from afrl_zcu106_gui.common import DOCKER_ROOT
+from afrl_zcu106_gui.qemulauncher import run_qemu
 from datetime import datetime
 import os, subprocess
 
@@ -28,6 +29,7 @@ class qemuInstance(QObject):
         self.devices = []
         self.deviceSettings = []  # List of deviceSetting lists, index match devices[] list
         self.status = ""
+
 
     def __repr__(self):
         '''Returns string representation of the qemu instance class'''
@@ -153,4 +155,5 @@ class qemuInstance(QObject):
             deviceIdx += 1
         fout.close()
 
-
+    def startQemu(self):
+        run_qemu(name = self.name, envFile = f"{self.name}.env")
