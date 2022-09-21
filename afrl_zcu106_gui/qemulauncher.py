@@ -4,7 +4,8 @@ import argparse
 import subprocess
 import multiprocessing as mp 
 from pathlib import Path
-
+import os.path
+from afrl_zcu106_gui.common import DOCKER_ROOT
 import docker
 
 
@@ -41,7 +42,7 @@ def build_qemu(tag=QEMU_BUILDER_IMAGE, build_cache=QEMU_BUILD_CACHE_VOLUME, args
     # connect to docker daemon
     client = docker.from_env()
     # build qemu builder image
-    docker_path = Path(REPO_ROOT, "docker/qemu-builder")
+    docker_path = Path(DOCKER_ROOT, "/qemu-builder")
     build_docker_image(tag, docker_path)
     # create build cache volume if it doesn't exist
     try:
@@ -55,24 +56,27 @@ def build_qemu(tag=QEMU_BUILDER_IMAGE, build_cache=QEMU_BUILD_CACHE_VOLUME, args
     for chunk in container.logs(stream=True):
         print(chunk.decode(), end="")
 
-def run_qemu(tag=QEMU_RUNNER_IMAGE, instances=1, args=[]):
+def run_qemu(tag=QEMU_RUNNER_IMAGE, name="", args=[], envFile=".env"):
     """run qemu"""
+    print(f"Starting QEMU instance {name} with env file {envFile}")
     # build qemu runner image
-    docker_path = Path(REPO_ROOT, "docker/qemu")
+    print(f"DOCKER_ROOT: {DOCKER_ROOT}")
+    docker_path = os.path.join(DOCKER_ROOT, "qemu")
+    print(f"run_qemu docker_path = {docker_path}")
     build_docker_image(tag, docker_path)
     # run qemu
     try:
-        for i in range(instances):
-            p = mp.Process(target=run_qemu_instance, args=(i,))
-            p.start()        
+        p = mp.Process(target=run_qemu_instance, args=(name,envFile,))
+        p.start()
     except KeyboardInterrupt:
         pass
 
-def run_qemu_instance(i):
-    docker_path = Path(REPO_ROOT, "docker/qemu")
-    docker_path = docker_path / ".." 
-    subprocess.run(["docker-compose", "-p", str(i), "--env-file","tap.env","up","--detach"], cwd=docker_path)
-    subprocess.run(["mate-terminal", "-t", f"{i}: zcu106", "-e", f"docker attach {i}_xilinx-zcu106_1"])
+def run_qemu_instance(name,envFile):
+    docker_path = os.path.join(DOCKER_ROOT, "qemu")
+    docker_path = os.path.join(docker_path, "..")
+    print(f"Starting docker-compose in directory: {docker_path}")
+    subprocess.run(["docker-compose", "-p", name, "--env-file",envFile,"up","--detach"], cwd=docker_path)
+    subprocess.run(["mate-terminal", "-t", f"{name}: zcu106", "-e", f"docker attach {name}_xilinx-zcu106_1"])
 
 
 def stop_qemu(instances=1, args=[]):
