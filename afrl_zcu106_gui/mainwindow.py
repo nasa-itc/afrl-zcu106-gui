@@ -112,16 +112,13 @@ class MainWindow(QMainWindow):
     def showLaunchWizard(self, qemuName=""):
         """start qemu instance launch wizard in dock"""
         if self.tableModel.validDataCount() < MAXIMUM_QEMU_INSTANCES:
-            dock = QDockWidget(self)
-            dock.setFloating(True)
-            launchWiz = QemuLaunchWizard(dock)
-            dock.setWidget(launchWiz)
-            self.addDockWidget(Qt.LeftDockWidgetArea, dock)
+            launchWiz = QemuLaunchWizard(self)
             launchWiz.newQemuSignal.connect(self.tableModel.insertQemuInstance)
             launchWiz.newDeviceSignal.connect(self.deviceListModel.insertDevice)
             launchWiz.removeDeviceSignal.connect(self.deviceListModel.removeDevice)
             launchWiz.ui.deviceListView.setModel(self.deviceListModel)
             launchWiz.populateFields(qemuName)
+            launchWiz.show()
 
         else:
             print("Error: All QEMU Instances Used")
