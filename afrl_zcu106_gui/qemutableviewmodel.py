@@ -12,6 +12,10 @@ class qemuTableViewModel(QAbstractTableModel):
         self.qemuList = []
         self.validCount = 0
 
+    def __del__(self):
+        for q in self.qemuList:
+            q.stopQemu()
+
     def rowCount(self, QModelIndex):
         count = len(self.qemuList)
         # print(f"rowCount Called, count: {count}")
@@ -58,9 +62,8 @@ class qemuTableViewModel(QAbstractTableModel):
         print("Table View Model Received QEMU instance: " + repr(qemu))
         print(f"cmd line: {qemu.commandLine()}")
         qemu.generateDockerEnvFile()
+        # Following command launches the qemu instance, probably want to move it..
         qemu.startQemu()
-
-        #TODO: Connect the qemuLauncher run command here...
 
         row = 0
         if len(self.qemuList) < MAXIMUM_QEMU_INSTANCES:
