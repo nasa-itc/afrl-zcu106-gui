@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 8.0.1, 2022-09-19T16:52:13. -->
+<!-- Written by QtCreator 8.0.1, 2022-09-22T14:33:26. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -363,10 +363,10 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemuLauncher.py</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuLauncher.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuLauncher.py</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemuLauncher.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qemulauncher.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration./home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemulauncher.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemulauncher.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">/home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/afrl_zcu106_gui/qemulauncher.py</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
