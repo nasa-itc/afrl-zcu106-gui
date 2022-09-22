@@ -4,7 +4,7 @@
 from PyQt5.QtCore import QObject
 from PyQt5.QtNetwork import QHostAddress
 from afrl_zcu106_gui.common import DOCKER_ROOT
-from afrl_zcu106_gui.qemulauncher import run_qemu
+from afrl_zcu106_gui.qemulauncher import run_qemu, stop_qemu
 from datetime import datetime
 import os, subprocess
 
@@ -29,6 +29,7 @@ class qemuInstance(QObject):
         self.devices = []
         self.deviceSettings = []  # List of deviceSetting lists, index match devices[] list
         self.status = ""
+        self.process = None
 
 
     def __repr__(self):
@@ -156,4 +157,9 @@ class qemuInstance(QObject):
         fout.close()
 
     def startQemu(self):
-        run_qemu(name = self.name, envFile = f"{self.name}.env")
+        self.process = run_qemu(name = self.name, envFile = f"{self.name}.env")
+        print(f"Process {self.process.pid} spawned for QEMU instance {self.name}")
+
+    def stopQemu(self):
+        stop_qemu(name = self.name)
+        self.process.join()
