@@ -39,7 +39,8 @@ setuptools.setup(
         "docker",
         "wheel",
         "pyqt5",
-        "pygdbmi == 0.9.0.3"
+        "pygdbmi == 0.9.0.3",
+        "sip"
     ],
     python_requires=">=3.4",
     classifiers=[
