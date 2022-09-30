@@ -15,7 +15,7 @@
 # ivv-itc@lists.nasa.gov
 
 import time
-import datetime
+import docker
 import os.path
 
 from PyQt5.QtWidgets import QAction, QMainWindow, QLabel, QMessageBox, \
@@ -25,7 +25,7 @@ from PyQt5.QtGui import QGuiApplication, QIcon, QPixmap, QRegularExpressionValid
 from PyQt5.QtCore import pyqtSignal, Qt, pyqtSlot, QRect
 
 from afrl_zcu106_gui import __version__
-from afrl_zcu106_gui.common import RESOURCE_ROOT, MAXIMUM_QEMU_INSTANCES, DOCKER_ROOT
+from afrl_zcu106_gui.common import RESOURCE_ROOT, MAXIMUM_QEMU_INSTANCES, DOCKER_ROOT, DOCKER_TIMEOUT
 from afrl_zcu106_gui.ui.ui_mainwindow import Ui_MainWindow
 from afrl_zcu106_gui.qemulaunchwizard import QemuLaunchWizard
 from afrl_zcu106_gui.qemuinstance import qemuInstance
@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
         self.ui.qemuInstanceTable.setColumnWidth(2, 130)
         self.ui.qemuInstanceTable.setColumnWidth(3, 30)
 
-    def init_terminalView(self, tabIndex, tabName):
+    def init_terminalView(self, tabIndex, tabName, cmd=""):
         """initializes tab view with terminal windows for QEMU instances"""
         term = terminalWidget(self)
         tabSize = self.ui.terminalTabWidget.size()
@@ -102,18 +102,37 @@ class MainWindow(QMainWindow):
         self.ui.terminalTabWidget.tabCloseRequested.connect(
             term.termProcess.terminate)
         term.resize(tabSize)
-        pid = term.startXterm()
+        pid = term.startXterm(tabName,cmd)
         print(
             "Tab Size: " + str(tabSize)
             + "    TerminalSize: " + str(term.size())
             )
         return pid
 
+    def startQemuTerminal(self,qemu):
+        '''starts a terminal to monitor the qemu instance'''
+        nextTab = self.ui.terminalTabWidget.count()
+        print (f"The current tab position is {nextTab}")
+        client = docker.from_env()
+        start = time.time()
+        elapsed=0
+        while elapsed < DOCKER_TIMEOUT:
+            containers = client.containers.list()
+            elapsed = (time.time() - start)
+            if len(containers) > 1:
+                #verify correct container started
+                break
+            time.sleep(0.5)
+            print(f"containers at elapsed {elapsed}: {containers}")
+
+        self.init_terminalView(nextTab,qemu.name,f"docker attach {qemu.name}_xilinx-zcu106_1")
+
     def showLaunchWizard(self, qemuName=""):
         """start qemu instance launch wizard in dock"""
         if self.tableModel.validDataCount() < MAXIMUM_QEMU_INSTANCES:
             launchWiz = QemuLaunchWizard(self)
             launchWiz.newQemuSignal.connect(self.tableModel.insertQemuInstance)
+            launchWiz.newQemuSignal.connect(self.startQemuTerminal)
             launchWiz.newDeviceSignal.connect(self.deviceListModel.insertDevice)
             launchWiz.removeDeviceSignal.connect(self.deviceListModel.removeDevice)
             launchWiz.ui.deviceListView.setModel(self.deviceListModel)
