@@ -1,0 +1,271 @@
+F S UID          PID    PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
+4 S root           1       0  0  80   0 - 42133 -      10:44 ?        00:00:01 /sbin/init splash
+1 S root           2       0  0  80   0 -     0 -      10:44 ?        00:00:00 [kthreadd]
+1 I root           3       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [rcu_gp]
+1 I root           4       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [rcu_par_gp]
+1 I root           5       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [netns]
+1 I root           7       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/0:0H-events_highpri]
+1 I root           9       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/0:1H-kblockd]
+1 I root          10       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [mm_percpu_wq]
+1 S root          11       2  0  80   0 -     0 -      10:44 ?        00:00:00 [rcu_tasks_rude_]
+1 S root          12       2  0  80   0 -     0 -      10:44 ?        00:00:00 [rcu_tasks_trace]
+1 S root          13       2  0  80   0 -     0 -      10:44 ?        00:00:00 [ksoftirqd/0]
+1 I root          14       2  0  80   0 -     0 -      10:44 ?        00:00:00 [rcu_sched]
+1 S root          15       2  0 -40   - -     0 -      10:44 ?        00:00:00 [migration/0]
+1 S root          16       2  0   9   - -     0 -      10:44 ?        00:00:00 [idle_inject/0]
+1 I root          17       2  0  80   0 -     0 -      10:44 ?        00:00:02 [kworker/0:1-rcu_gp]
+1 S root          18       2  0  80   0 -     0 -      10:44 ?        00:00:00 [cpuhp/0]
+1 S root          19       2  0  80   0 -     0 -      10:44 ?        00:00:00 [cpuhp/1]
+1 S root          20       2  0   9   - -     0 -      10:44 ?        00:00:00 [idle_inject/1]
+1 S root          21       2  0 -40   - -     0 -      10:44 ?        00:00:00 [migration/1]
+1 S root          22       2  0  80   0 -     0 -      10:44 ?        00:00:00 [ksoftirqd/1]
+1 I root          24       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/1:0H-events_highpri]
+1 S root          25       2  0  80   0 -     0 -      10:44 ?        00:00:00 [cpuhp/2]
+1 S root          26       2  0   9   - -     0 -      10:44 ?        00:00:00 [idle_inject/2]
+1 S root          27       2  0 -40   - -     0 -      10:44 ?        00:00:00 [migration/2]
+1 S root          28       2  0  80   0 -     0 -      10:44 ?        00:00:00 [ksoftirqd/2]
+1 I root          30       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/2:0H-events_highpri]
+1 S root          31       2  0  80   0 -     0 -      10:44 ?        00:00:00 [cpuhp/3]
+1 S root          32       2  0   9   - -     0 -      10:44 ?        00:00:00 [idle_inject/3]
+1 S root          33       2  0 -40   - -     0 -      10:44 ?        00:00:00 [migration/3]
+1 S root          34       2  0  80   0 -     0 -      10:44 ?        00:00:00 [ksoftirqd/3]
+1 I root          36       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/3:0H-events_highpri]
+1 S root          37       2  0  80   0 -     0 -      10:44 ?        00:00:00 [cpuhp/4]
+1 S root          38       2  0   9   - -     0 -      10:44 ?        00:00:00 [idle_inject/4]
+1 S root          39       2  0 -40   - -     0 -      10:44 ?        00:00:00 [migration/4]
+1 S root          40       2  0  80   0 -     0 -      10:44 ?        00:00:00 [ksoftirqd/4]
+1 I root          42       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/4:0H-events_highpri]
+1 S root          43       2  0  80   0 -     0 -      10:44 ?        00:00:00 [cpuhp/5]
+1 S root          44       2  0   9   - -     0 -      10:44 ?        00:00:00 [idle_inject/5]
+1 S root          45       2  0 -40   - -     0 -      10:44 ?        00:00:00 [migration/5]
+1 S root          46       2  0  80   0 -     0 -      10:44 ?        00:00:00 [ksoftirqd/5]
+1 I root          48       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/5:0H-events_highpri]
+5 S root          49       2  0  80   0 -     0 -      10:44 ?        00:00:00 [kdevtmpfs]
+1 I root          50       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [inet_frag_wq]
+1 S root          51       2  0  80   0 -     0 -      10:44 ?        00:00:00 [kauditd]
+1 S root          52       2  0  80   0 -     0 -      10:44 ?        00:00:00 [khungtaskd]
+1 S root          53       2  0  80   0 -     0 -      10:44 ?        00:00:00 [oom_reaper]
+1 I root          54       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [writeback]
+1 S root          55       2  0  80   0 -     0 -      10:44 ?        00:00:00 [kcompactd0]
+1 S root          56       2  0  85   5 -     0 -      10:44 ?        00:00:00 [ksmd]
+1 S root          57       2  0  99  19 -     0 -      10:44 ?        00:00:00 [khugepaged]
+1 I root          66       2  0  80   0 -     0 -      10:44 ?        00:00:00 [kworker/5:1-events]
+1 I root         104       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kintegrityd]
+1 I root         105       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kblockd]
+1 I root         106       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [blkcg_punt_bio]
+1 I root         107       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [tpm_dev_wq]
+1 I root         108       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [ata_sff]
+1 I root         109       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [md]
+1 I root         110       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [edac-poller]
+1 I root         111       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [devfreq_wq]
+1 S root         112       2  0   9   - -     0 -      10:44 ?        00:00:00 [watchdogd]
+1 S root         116       2  0  80   0 -     0 -      10:44 ?        00:00:00 [kswapd0]
+1 S root         117       2  0  80   0 -     0 -      10:44 ?        00:00:00 [ecryptfs-kthrea]
+1 I root         119       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kthrotld]
+1 I root         121       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [acpi_thermal_pm]
+1 S root         124       2  0  80   0 -     0 -      10:44 ?        00:00:00 [scsi_eh_0]
+1 I root         125       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [scsi_tmf_0]
+1 S root         126       2  0  80   0 -     0 -      10:44 ?        00:00:00 [scsi_eh_1]
+1 I root         127       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [scsi_tmf_1]
+1 I root         129       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [vfio-irqfd-clea]
+1 I root         130       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/4:1H-events_highpri]
+1 I root         131       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/5:1H-kblockd]
+1 I root         133       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [mld]
+1 I root         134       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/2:1H-events_highpri]
+1 I root         135       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [ipv6_addrconf]
+1 I root         137       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/3:1H-events_highpri]
+1 I root         145       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kstrp]
+1 I root         146       2  0  80   0 -     0 -      10:44 ?        00:00:00 [kworker/1:1-rcu_gp]
+1 I root         149       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [zswap-shrink]
+1 I root         150       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/u13:0]
+1 I root         155       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [charger_manager]
+1 I root         207       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [kworker/1:1H-events_highpri]
+1 S root         209       2  0  80   0 -     0 -      10:44 ?        00:00:00 [scsi_eh_2]
+1 I root         210       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [scsi_tmf_2]
+1 I root         211       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [cryptd]
+1 I root         235       2  0  60 -20 -     0 -      10:44 ?        00:00:00 [ttm_swap]
+1 S root         236       2  0   9   - -     0 -      10:44 ?        00:00:00 [irq/18-vmwgfx]
+1 S root         237       2  0   9   - -     0 -      10:44 ?        00:00:00 [card0-crtc0]
+1 S root         238       2  0   9   - -     0 -      10:44 ?        00:00:00 [card0-crtc1]
+1 S root         239       2  0   9   - -     0 -      10:44 ?        00:00:00 [card0-crtc2]
+1 S root         240       2  0   9   - -     0 -      10:44 ?        00:00:00 [card0-crtc3]
+1 S root         241       2  0   9   - -     0 -      10:44 ?        00:00:00 [card0-crtc4]
+1 S root         242       2  0   9   - -     0 -      10:44 ?        00:00:00 [card0-crtc5]
+1 S root         243       2  0   9   - -     0 -      10:44 ?        00:00:00 [card0-crtc6]
+1 S root         244       2  0   9   - -     0 -      10:44 ?        00:00:00 [card0-crtc7]
+1 I root         319       2  0  60 -20 -     0 -      10:45 ?        00:00:00 [raid5wq]
+5 S root         358       1  0  80   0 - 24971 -      10:45 ?        00:00:00 dhclient -v -1 -cf /etc/dhcp/dhclient.conf.2 -pf /tmp/dhclient.pid.2 -4
+1 D root         386       2  0  80   0 -     0 -      10:45 ?        00:00:00 [jbd2/sda5-8]
+1 I root         387       2  0  60 -20 -     0 -      10:45 ?        00:00:00 [ext4-rsv-conver]
+4 S root         489       1  0  79  -1 - 47900 -      10:45 ?        00:00:00 /lib/systemd/systemd-journald
+1 I root         512       2  0  60 -20 -     0 -      10:45 ?        00:00:00 [ipmi-msghandler]
+4 S root         533       1  0  80   0 -  6372 -      10:45 ?        00:00:01 /lib/systemd/systemd-udevd
+1 I root         655       2  0  60 -20 -     0 -      10:45 ?        00:00:00 [iprt-VBoxWQueue]
+4 S systemd+     797       1  0  80   0 -  6170 -      10:45 ?        00:00:00 /lib/systemd/systemd-resolved
+4 S systemd+     798       1  0  80   0 - 22808 -      10:45 ?        00:00:00 /lib/systemd/systemd-timesyncd
+4 S root         804       1  0  80   0 - 60478 -      10:45 ?        00:00:00 /usr/lib/accountsservice/accounts-daemon
+4 S root         805       1  0  80   0 -   637 -      10:45 ?        00:00:00 /usr/sbin/acpid
+4 S avahi        808       1  0  80   0 -  2133 -      10:45 ?        00:00:00 avahi-daemon: running [wisp-vb-template.local]
+4 S root         809       1  0  80   0 -  2356 -      10:45 ?        00:00:00 /usr/sbin/cron -f
+4 S root         810       1  0  80   0 -  7143 -      10:45 ?        00:00:00 /usr/sbin/cupsd -l
+4 S message+     811       1  0  80   0 -  2484 -      10:45 ?        00:00:02 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+4 S root         812       1  0  80   0 - 102581 -     10:45 ?        00:00:01 /usr/sbin/NetworkManager --no-daemon
+4 S root         819       1  0  80   0 - 20458 -      10:45 ?        00:00:00 /usr/sbin/irqbalance --foreground
+4 S root         820       1  0  80   0 - 10001 -      10:45 ?        00:00:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+4 S root         821       1  0  80   0 - 60373 -      10:45 ?        00:00:01 /usr/lib/policykit-1/polkitd --no-debug
+4 S syslog       823       1  0  80   0 - 56088 -      10:45 ?        00:00:00 /usr/sbin/rsyslogd -n -iNONE
+4 S root         824       1  0  80   0 - 366372 -     10:45 ?        00:00:02 /usr/lib/snapd/snapd
+4 S root         825       1  0  80   0 - 58931 -      10:45 ?        00:00:00 /usr/libexec/switcheroo-control
+4 S root         826       1  0  80   0 -  4362 -      10:45 ?        00:00:00 /lib/systemd/systemd-logind
+4 S root         827       1  0  80   0 -  4247 -      10:45 ?        00:00:00 /lib/systemd/systemd-machined
+4 S root         828       1  0  80   0 - 98389 -      10:45 ?        00:00:00 /usr/lib/udisks2/udisksd
+4 S root         831       1  0  80   0 -  3421 -      10:45 ?        00:00:00 /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+1 S avahi        864     808  0  80   0 -  2087 -      10:45 ?        00:00:00 avahi-daemon: chroot helper
+1 S root         915       1  0  80   0 -  1142 -      10:45 ?        00:00:00 /usr/sbin/dropbear -p 22 -W 65536
+4 S root        1025       1  0  80   0 - 44631 -      10:45 ?        00:00:00 /usr/sbin/cups-browsed
+4 S root        1039       1  0  80   0 - 60344 -      10:45 ?        00:00:00 /usr/sbin/ModemManager
+4 S root        1045       1  0  80   0 - 389814 -     10:45 ?        00:00:00 /usr/sbin/libvirtd
+4 S root        1048       1  0  80   0 - 29539 -      10:45 ?        00:00:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+4 S root        1051       1  0  80   0 - 336335 -     10:46 ?        00:00:02 /usr/bin/containerd
+4 S uml-net     1136       1  0  80   0 -   627 -      10:46 ?        00:00:00 /usr/bin/uml_switch -unix /var/run/uml-utilities/uml_switch.ctl
+1 S root        1157       1  0  80   0 - 90267 -      10:46 ?        00:00:00 /usr/sbin/VBoxService --pidfile /var/run/vboxadd-service.sh
+4 S whoopsie    1191       1  0  80   0 - 63280 -      10:46 ?        00:00:00 /usr/bin/whoopsie -f
+4 S root        1193       1  0  80   0 - 59904 -      10:46 ?        00:00:00 /usr/sbin/gdm3
+1 S kernoops    1225       1  0  80   0 -  2816 -      10:46 ?        00:00:00 /usr/sbin/kerneloops --test
+1 S kernoops    1227       1  0  80   0 -  2816 -      10:46 ?        00:00:00 /usr/sbin/kerneloops
+0 S root        1616       2  0  80   0 -   624 -      10:46 ?        00:00:00 bpfilter_umh
+4 S rtkit       1623       1  0  81   1 - 38234 -      10:46 ?        00:00:00 /usr/libexec/rtkit-daemon
+5 S libvirt+    1877       1  0  80   0 -  2311 -      10:46 ?        00:00:00 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefile-ro --dhcp-script=/usr/lib/libvirt/libvirt_leaseshelper
+1 S root        1878    1877  0  80   0 -  2304 -      10:46 ?        00:00:00 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefile-ro --dhcp-script=/usr/lib/libvirt/libvirt_leaseshelper
+4 S root        1910       1  0  80   0 - 401399 -     10:46 ?        00:00:02 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+4 S root        1982       1  0  80   0 - 63036 -      10:46 ?        00:00:00 /usr/lib/upower/upowerd
+4 S colord      2499       1  0  80   0 - 61562 -      10:47 ?        00:00:00 /usr/libexec/colord
+4 S root        2568    1193  0  80   0 - 41804 -      11:08 ?        00:00:00 gdm-session-worker [pam/gdm-password]
+4 S afrl_dev    2581       1  0  80   0 -  4969 ep_pol 11:08 ?        00:00:00 /lib/systemd/systemd --user
+5 S afrl_dev    2582    2581  0  80   0 - 42485 -      11:08 ?        00:00:00 (sd-pam)
+0 S afrl_dev    2588    2581  0  69 -11 - 501790 do_sys 11:08 ?       00:00:00 /usr/bin/pulseaudio --daemonize=no --log-target=journal
+0 S afrl_dev    2590    2581  0  99   - - 127880 do_sys 11:08 ?       00:00:00 /usr/libexec/tracker-miner-fs
+0 S afrl_dev    2592    2581  0  80   0 -  2059 ep_pol 11:08 ?        00:00:00 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+0 S afrl_dev    2609    2581  0  80   0 - 59929 do_sys 11:08 ?        00:00:00 /usr/libexec/gvfsd
+0 S afrl_dev    2614    2581  0  80   0 - 94587 futex_ 11:08 ?        00:00:00 /usr/libexec/gvfsd-fuse /run/user/1001/gvfs -f -o big_writes
+0 S afrl_dev    2616    2581  0  80   0 - 96944 do_sys 11:08 ?        00:00:00 /usr/libexec/gvfs-udisks2-volume-monitor
+0 S afrl_dev    2628    2581  0  80   0 - 58926 do_sys 11:08 ?        00:00:00 /usr/libexec/gvfs-mtp-volume-monitor
+0 S afrl_dev    2632    2581  0  80   0 - 79182 do_sys 11:08 ?        00:00:00 /usr/libexec/gvfs-afc-volume-monitor
+0 S afrl_dev    2637    2581  0  80   0 - 58970 do_sys 11:08 ?        00:00:00 /usr/libexec/gvfs-goa-volume-monitor
+0 S afrl_dev    2641    2581  0  80   0 - 137367 do_sys 11:08 ?       00:00:00 /usr/libexec/goa-daemon
+1 S afrl_dev    2643       1  0  80   0 - 60047 -      11:08 ?        00:00:00 /usr/bin/gnome-keyring-daemon --daemonize --login
+0 S afrl_dev    2653    2581  0  80   0 - 78690 do_sys 11:08 ?        00:00:00 /usr/libexec/goa-identity-service
+0 S afrl_dev    2661    2581  0  80   0 - 59495 do_sys 11:08 ?        00:00:00 /usr/libexec/gvfs-gphoto2-volume-monitor
+4 S afrl_dev    2670    2568  0  80   0 - 41005 do_sys 11:08 tty2     00:00:00 /usr/lib/gdm3/gdm-x-session --run-script env GNOME_SHELL_SESSION_MODE=ubuntu /usr/bin/gnome-session --systemd --session=ubuntu
+4 S afrl_dev    2672    2670  0  80   0 - 103331 ep_pol 11:08 tty2    00:00:40 /usr/lib/xorg/Xorg vt2 -displayfd 3 -auth /run/user/1001/gdm/Xauthority -background none -noreset -keeptty -verbose 3
+0 S afrl_dev    2677    2670  0  80   0 - 47023 do_sys 11:08 tty2     00:00:00 /usr/libexec/gnome-session-binary --systemd --systemd --session=ubuntu
+1 S afrl_dev    2756       1  0  80   0 -  5663 do_wai 11:09 ?        00:00:00 /usr/bin/VBoxClient --clipboard
+1 S afrl_dev    2757    2756  0  80   0 - 38697 rtR0Se 11:09 ?        00:00:00 /usr/bin/VBoxClient --clipboard
+1 S afrl_dev    2768       1  0  80   0 -  5663 do_wai 11:09 ?        00:00:00 /usr/bin/VBoxClient --seamless
+1 S afrl_dev    2770    2768  0  80   0 - 38722 rtR0Se 11:09 ?        00:00:00 /usr/bin/VBoxClient --seamless
+1 S afrl_dev    2775       1  0  80   0 -  5663 do_wai 11:09 ?        00:00:00 /usr/bin/VBoxClient --draganddrop
+1 S afrl_dev    2777    2775  0  80   0 - 38851 futex_ 11:09 ?        00:00:06 /usr/bin/VBoxClient --draganddrop
+1 S afrl_dev    2780       1  0  80   0 -  5663 do_wai 11:09 ?        00:00:00 /usr/bin/VBoxClient --vmsvga
+1 S afrl_dev    2782    2780  0  80   0 - 39292 rtR0Se 11:09 ?        00:00:00 /usr/bin/VBoxClient --vmsvga
+1 S afrl_dev    2792    2677  0  80   0 -  1510 -      11:09 ?        00:00:00 /usr/bin/ssh-agent /usr/bin/im-launch env GNOME_SHELL_SESSION_MODE=ubuntu /usr/bin/gnome-session --systemd --session=ubuntu
+0 S afrl_dev    2809    2581  0  80   0 - 76352 do_sys 11:09 ?        00:00:00 /usr/libexec/at-spi-bus-launcher
+0 S afrl_dev    2814    2809  0  80   0 -  1845 ep_pol 11:09 ?        00:00:00 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.conf --nofork --print-address 3
+0 S afrl_dev    2848    2581  0  80   0 - 22516 do_sys 11:09 ?        00:00:00 /usr/libexec/gnome-session-ctl --monitor
+0 S afrl_dev    2855    2581  0  80   0 - 121026 do_sys 11:09 ?       00:00:00 /usr/libexec/gnome-session-binary --systemd-service --session=ubuntu
+0 S afrl_dev    2869    2581  2  80   0 - 1474329 do_sys 11:09 ?      00:02:32 /usr/bin/gnome-shell
+1 I root        2897       2  0  80   0 -     0 -      11:09 ?        00:00:00 [kworker/4:0-events]
+0 S afrl_dev    2912    2869  0  80   0 - 77735 do_sys 11:09 ?        00:00:01 ibus-daemon --panel disable --xim
+0 S afrl_dev    2916    2912  0  80   0 - 40677 do_sys 11:09 ?        00:00:00 /usr/libexec/ibus-memconf
+0 S afrl_dev    2917    2912  0  80   0 - 68921 do_sys 11:09 ?        00:00:01 /usr/libexec/ibus-extension-gtk3
+0 S afrl_dev    2921    2581  0  80   0 - 49476 do_sys 11:09 ?        00:00:00 /usr/libexec/ibus-x11 --kill-daemon
+0 S afrl_dev    2924    2581  0  80   0 - 59127 do_sys 11:09 ?        00:00:00 /usr/libexec/ibus-portal
+0 S afrl_dev    2933    2581  0  80   0 - 40728 do_sys 11:09 ?        00:00:00 /usr/libexec/at-spi2-registryd --use-gnome-session
+0 S afrl_dev    2938    2581  0  80   0 - 145274 do_sys 11:09 ?       00:00:00 /usr/libexec/gnome-shell-calendar-server
+0 S afrl_dev    2939    2581  0  80   0 - 58900 do_sys 11:09 ?        00:00:00 /usr/libexec/xdg-permission-store
+0 S afrl_dev    2949    2581  0  80   0 - 39059 do_sys 11:09 ?        00:00:00 /usr/libexec/dconf-service
+0 S afrl_dev    2962    2581  0  80   0 - 251171 do_sys 11:09 ?       00:00:00 /usr/libexec/evolution-source-registry
+0 S afrl_dev    2970    2581  0  80   0 - 698782 do_sys 11:09 ?       00:00:00 /usr/bin/gjs /usr/share/gnome-shell/org.gnome.Shell.Notifications
+0 S afrl_dev    2982    2581  0  80   0 - 77412 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-a11y-settings
+0 S afrl_dev    2983    2581  0  80   0 - 174747 do_sys 11:09 ?       00:00:00 /usr/libexec/gsd-color
+0 S afrl_dev    2984    2581  0  80   0 - 93401 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-datetime
+0 S afrl_dev    2987    2581  0  80   0 - 77960 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-housekeeping
+0 S afrl_dev    2989    2581  0  80   0 - 104914 do_sys 11:09 ?       00:00:00 /usr/libexec/gsd-keyboard
+0 S afrl_dev    2991    2581  0  80   0 - 190466 do_sys 11:09 ?       00:00:00 /usr/libexec/gsd-media-keys
+0 S afrl_dev    2992    2581  0  80   0 - 105017 do_sys 11:09 ?       00:00:00 /usr/libexec/gsd-power
+0 S afrl_dev    2995    2581  0  80   0 - 62055 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-print-notifications
+0 S afrl_dev    2996    2581  0  80   0 - 114276 do_sys 11:09 ?       00:00:00 /usr/libexec/gsd-rfkill
+0 S afrl_dev    3000    2581  0  80   0 - 58878 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-screensaver-proxy
+0 S afrl_dev    3002    2581  0  80   0 - 116193 do_sys 11:09 ?       00:00:00 /usr/libexec/gsd-sharing
+0 S afrl_dev    3003    2581  0  80   0 - 97220 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-smartcard
+0 S afrl_dev    3004    2581  0  80   0 - 79835 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-sound
+0 S afrl_dev    3005    2581  0  80   0 - 96238 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-usb-protection
+0 S afrl_dev    3007    2581  0  80   0 - 86356 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-wacom
+0 S afrl_dev    3009    2581  0  80   0 - 78520 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-wwan
+0 S afrl_dev    3018    2581  0  80   0 - 86647 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-xsettings
+0 S afrl_dev    3023    2855  0  80   0 - 57951 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-disk-utility-notify
+0 S afrl_dev    3037    2855  0  80   0 - 160490 do_sys 11:09 ?       00:00:00 /usr/libexec/evolution-data-server/evolution-alarm-notify
+0 S afrl_dev    3043    2912  0  80   0 - 40675 do_sys 11:09 ?        00:00:00 /usr/libexec/ibus-engine-simple
+0 S afrl_dev    3090    2581  0  80   0 - 85546 do_sys 11:09 ?        00:00:00 /usr/libexec/gsd-printer
+0 S afrl_dev    3158    2609  0  80   0 - 78458 do_sys 11:09 ?        00:00:00 /usr/libexec/gvfsd-trash --spawner :1.3 /org/gtk/gvfs/exec_spaw/0
+0 S afrl_dev    3165    2581  0  80   0 - 209667 do_sys 11:09 ?       00:00:00 /usr/libexec/evolution-calendar-factory
+4 S afrl_dev    3166    2581  0  80   0 - 247511 do_sys 11:09 ?       00:00:04 /snap/snap-store/592/usr/bin/snap-store --gapplication-service
+0 S afrl_dev    3194    2581  0  80   0 - 132814 do_sys 11:09 ?       00:00:00 /usr/libexec/xdg-document-portal
+0 S afrl_dev    3220    2581  0  80   0 - 186759 do_sys 11:09 ?       00:00:00 /usr/libexec/evolution-addressbook-factory
+0 S afrl_dev    3322    2581  0  80   0 - 152509 do_sys 11:09 ?       00:00:00 /usr/libexec/xdg-desktop-portal
+0 S afrl_dev    3326    2581  0  80   0 - 123437 do_sys 11:09 ?       00:00:00 /usr/libexec/xdg-desktop-portal-gtk
+4 S root        3337       1  0  80   0 - 97952 -      11:09 ?        00:00:00 /usr/libexec/fwupd/fwupd
+0 S afrl_dev    3794    2581  0  80   0 - 40572 do_sys 11:10 ?        00:00:00 /usr/libexec/gvfsd-metadata
+0 S afrl_dev    3797    2855  0  80   0 - 105108 do_sys 11:10 ?       00:00:00 update-notifier
+1 I root        3854       2  0  80   0 -     0 -      11:15 ?        00:00:00 [kworker/3:2-cgroup_destroy]
+1 I root        3867       2  0  80   0 -     0 -      11:26 ?        00:00:03 [kworker/u12:1-events_unbound]
+1 I root        3891       2  0  80   0 -     0 -      11:34 ?        00:00:00 [kworker/3:1-events]
+1 I root        3899       2  0  80   0 -     0 -      11:43 ?        00:00:02 [kworker/u12:0-events_power_efficient]
+0 R afrl_dev    3912    2581  0  80   0 - 203719 -     11:52 ?        00:00:03 /usr/libexec/gnome-terminal-server
+0 S afrl_dev    3922    3912  0  80   0 -  2753 do_wai 11:52 pts/0    00:00:00 bash
+0 S afrl_dev    3981    2869  0  80   0 - 647329 do_sys 12:02 ?       00:00:11 /home/afrl_dev/Qt/Tools/QtCreator/bin/qtcreator
+0 S afrl_dev    4003    3981  0  80   0 - 14697 do_sys 12:02 ?        00:00:00 /home/afrl_dev/Qt/Tools/QtCreator/bin/../libexec/qtcreator/qtcreator_processlauncher /tmp/QtCreator-KMPJzE/launcher-3981
+0 S afrl_dev    4085    4003  0  80   0 - 14191 pipe_r 12:02 ?        00:00:00 /home/afrl_dev/Qt/Tools/QtCreator/libexec/qtcreator/clang/bin/clangd --background-index=0 --header-insertion=never --limit-results=0 --limit-references=0 --clang-tidy=0 --use-dirty-headers
+4 S afrl_dev    4107    2581  4  80   0 - 966063 do_sys 12:06 ?       00:01:16 /usr/lib/firefox/firefox -new-window
+4 S afrl_dev    4186    4107  0  80   0 - 50831 do_sys 12:06 ?        00:00:00 /usr/lib/firefox/firefox -contentproc -parentBuildID 20220818191623 -prefsLen 27765 -prefMapSize 227384 -appDir /usr/lib/firefox/browser 4107 true socket
+4 S afrl_dev    4263    4107  0  80   0 - 614705 do_sys 12:06 ?       00:00:06 /usr/lib/firefox/firefox -contentproc -childID 1 -isForBrowser -prefsLen 27765 -prefMapSize 227384 -jsInitLen 247228 -parentBuildID 20220818191623 -appDir /usr/lib/firefox/browser 4107 true tab
+4 S afrl_dev    4334    4107  0  80   0 - 620722 do_sys 12:06 ?       00:00:01 /usr/lib/firefox/firefox -contentproc -childID 2 -isForBrowser -prefsLen 27871 -prefMapSize 227384 -jsInitLen 247228 -parentBuildID 20220818191623 -appDir /usr/lib/firefox/browser 4107 true tab
+4 S afrl_dev    4462    4107  0  80   0 - 686123 do_sys 12:06 ?       00:00:11 /usr/lib/firefox/firefox -contentproc -childID 3 -isForBrowser -prefsLen 32373 -prefMapSize 227384 -jsInitLen 247228 -parentBuildID 20220818191623 -appDir /usr/lib/firefox/browser 4107 true tab
+4 S afrl_dev    4745    4107  0  80   0 - 620860 do_sys 12:06 ?       00:00:01 /usr/lib/firefox/firefox -contentproc -childID 5 -isForBrowser -prefsLen 32946 -prefMapSize 227384 -jsInitLen 247228 -parentBuildID 20220818191623 -appDir /usr/lib/firefox/browser 4107 true tab
+4 S afrl_dev    4772    4107  0  80   0 - 620622 do_sys 12:06 ?       00:00:01 /usr/lib/firefox/firefox -contentproc -childID 6 -isForBrowser -prefsLen 32946 -prefMapSize 227384 -jsInitLen 247228 -parentBuildID 20220818191623 -appDir /usr/lib/firefox/browser 4107 true tab
+4 S afrl_dev    4923    4107  0  80   0 - 620037 do_sys 12:07 ?       00:00:07 /usr/lib/firefox/firefox -contentproc -childID 8 -isForBrowser -prefsLen 33079 -prefMapSize 227384 -jsInitLen 247228 -parentBuildID 20220818191623 -appDir /usr/lib/firefox/browser 4107 true tab
+4 S afrl_dev    5078    4107  0  80   0 - 598909 do_sys 12:08 ?       00:00:00 /usr/lib/firefox/firefox -contentproc -childID 10 -isForBrowser -prefsLen 33470 -prefMapSize 227384 -jsInitLen 247228 -parentBuildID 20220818191623 -appDir /usr/lib/firefox/browser 4107 true tab
+4 S afrl_dev    5121    4107  0  80   0 - 598909 do_sys 12:08 ?       00:00:00 /usr/lib/firefox/firefox -contentproc -childID 11 -isForBrowser -prefsLen 33470 -prefMapSize 227384 -jsInitLen 247228 -parentBuildID 20220818191623 -appDir /usr/lib/firefox/browser 4107 true tab
+4 S afrl_dev    5233    4107  0  80   0 - 599058 do_sys 12:10 ?       00:00:00 /usr/lib/firefox/firefox -contentproc -childID 12 -isForBrowser -prefsLen 33520 -prefMapSize 227384 -jsInitLen 247228 -parentBuildID 20220818191623 -appDir /usr/lib/firefox/browser 4107 true tab
+1 I root        5303       2  0  80   0 -     0 -      12:13 ?        00:00:00 [kworker/u12:2-events_unbound]
+0 S afrl_dev    5314    4003  2  80   0 - 113005 pipe_r 12:15 ?       00:00:29 /home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/venv/bin/python -m pylsp
+0 S afrl_dev    5318    5314  0  80   0 - 31456 pipe_r 12:15 ?        00:00:01 /home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/venv/bin/python /home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/venv/lib/python3.8/site-packages/jedi/inference/compiled/subprocess/__main__.py /home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/venv/lib/python3.8/site-packages 3.8.10
+1 I root        5672       2  0  80   0 -     0 -      12:20 ?        00:00:00 [kworker/0:0-events]
+1 I root        5895       2  0  80   0 -     0 -      12:21 ?        00:00:00 [kworker/2:2-cgroup_destroy]
+1 I root        5918       2  0  80   0 -     0 -      12:21 ?        00:00:00 [kworker/4:2-events]
+1 I root        5992       2  0  80   0 -     0 -      12:22 ?        00:00:00 [kworker/1:2-events]
+1 I root        6117       2  0  80   0 -     0 -      12:27 ?        00:00:00 [kworker/2:1-inet_frag_wq]
+0 S afrl_dev    6155    5314  0  80   0 - 23075 pipe_r 12:31 ?        00:00:00 /home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/venv/bin/python /home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/venv/lib/python3.8/site-packages/jedi/inference/compiled/subprocess/__main__.py /home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/venv/lib/python3.8/site-packages 3.8.10
+0 S afrl_dev    6170    2581  0  80   0 -  6766 do_sel 12:31 pts/0    00:00:00 /usr/bin/xterm -into 54525975 -xrm 'xterm*allowWindowOps: true' -fg green -fullscreen
+0 S afrl_dev    6171    2581  0  80   0 -  6766 do_sel 12:31 pts/0    00:00:00 /usr/bin/xterm -into 54525985 -xrm 'xterm*allowWindowOps: true' -fg green -fullscreen
+0 S afrl_dev    6173    6171  0  80   0 -  2720 do_sel 12:31 pts/2    00:00:00 bash
+0 S afrl_dev    6179    6170  0  80   0 -  2720 do_sel 12:31 pts/1    00:00:00 bash
+1 I root        6377       2  0  80   0 -     0 -      12:31 ?        00:00:00 [kworker/5:0-events]
+1 I root        6567       2  0  80   0 -     0 -      12:31 ?        00:00:00 [kworker/u12:3-events_unbound]
+1 I root        6616       2  0  80   0 -     0 -      12:34 ?        00:00:00 [kworker/0:2-events]
+1 I root        6638       2  0  80   0 -     0 -      12:34 ?        00:00:00 [kworker/4:1-events]
+1 I root        6663       2  0  80   0 -     0 -      12:34 ?        00:00:00 [kworker/1:0-events]
+1 I root        6669       2  0  80   0 -     0 -      12:34 ?        00:00:00 [kworker/2:0-events]
+0 S afrl_dev    6721    3922  0  80   0 - 247531 do_sys 12:34 pts/0   00:00:00 /home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/venv/bin/python /home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/venv/bin/afrl_zcu106_gui
+0 S afrl_dev    6733    6721  0  80   0 -  6766 do_sel 12:34 pts/0    00:00:00 /usr/bin/xterm -into 54525975 -xrm 'xterm*allowWindowOps: true' -fg green -fullscreen
+0 S afrl_dev    6734    6721  0  80   0 -  6766 do_sel 12:34 pts/0    00:00:00 /usr/bin/xterm -into 54525985 -xrm 'xterm*allowWindowOps: true' -fg green -fullscreen
+0 S afrl_dev    6736    6734  0  80   0 -  2720 do_sel 12:34 pts/4    00:00:00 bash
+0 S afrl_dev    6743    6733  0  80   0 -  2720 do_sel 12:34 pts/3    00:00:00 bash
+1 S afrl_dev    6760    6721  0  80   0 - 250103 do_wai 12:34 pts/0   00:00:00 /home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/venv/bin/python /home/afrl_dev/projects/afrl-rwwn/afrl-zcu106-gui/venv/bin/afrl_zcu106_gui
+0 S root        6967       1  0  80   0 - 28527 -      12:34 ?        00:00:00 /usr/bin/containerd-shim-runc-v2 -namespace moby -id 4bb431dceee536767f0696418646277ea69e45825594e54b22755caaf2ef4457 -address /run/containerd/containerd.sock
+6 S root        6989    6967  3  80   0 - 875690 -     12:34 pts/0    00:00:03 qemu-system-microblazeel -readconfig zcu106/config/zcu106_pmu.cfg -machine-path /tmp/qemu-shm -serial mon:stdio -serial /dev/null -display none
+0 S root        7055       1  0  80   0 - 28527 -      12:34 ?        00:00:00 /usr/bin/containerd-shim-runc-v2 -namespace moby -id 1dff919a495dde9bec54c57d2cc8ff20d4c3aadc0921ef713c9d2a59d6e21da4 -address /run/containerd/containerd.sock
+6 S root        7078    7055 99  80   0 - 1683172 -    12:34 pts/0    00:04:38 qemu-system-aarch64 -readconfig zcu106/config/zcu106.cfg -machine-path /tmp/qemu-shm -drive if=sd,format=raw,index=1,file=zcu106/images/rootfs.new.ext4 -serial mon:stdio -serial /dev/null -display none
+0 S afrl_dev    7096    6760  0  80   0 - 201390 do_sys 12:35 pts/0   00:00:00 mate-terminal -t test: zcu106 -e docker attach test_xilinx-zcu106_1
+0 S afrl_dev    7104    7096  0  80   0 - 374630 futex_ 12:35 pts/5   00:00:00 docker attach test_xilinx-zcu106_1
+0 S afrl_dev    7126    3912  0  80   0 -  2720 do_wai 12:35 pts/6    00:00:00 bash
+4 R afrl_dev    7163    7126  0  80   0 -  2874 -      12:36 pts/6    00:00:00 ps -elf
