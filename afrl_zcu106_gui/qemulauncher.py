@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import docker
 import subprocess
 import multiprocessing as mp 
 import os.path
@@ -71,8 +72,14 @@ def run_qemu(tag=QEMU_RUNNER_IMAGE, name="", args=[], envFile=".env"):
 
 def run_qemu_instance(name,envFile):
     print(f"Starting docker-compose in directory: {DOCKER_ROOT}")
-    subprocess.run(["docker-compose", "-p", name, "--env-file",envFile,"up","--detach"], cwd=DOCKER_ROOT)
-    subprocess.run(["mate-terminal", "-t", f"{name}: zcu106", "-e", f"docker attach {name}_xilinx-zcu106_1"])
+    dockerProc = subprocess.run(["docker-compose", "-p", name, "--env-file",envFile,"up","--detach"], cwd=DOCKER_ROOT)
+
+    if not dockerProc.returncode:
+        print(f"docker proc rc: {dockerProc.returncode}")
+    #TODO:  does it make sense to loop for container to start then signal to the terminal?
+        #client = docker.from_env()
+    #subprocess.run(["mate-terminal", "-t", f"{name}: zcu106", "-e", f"docker attach {name}_xilinx-zcu106_1"])
+    #subprocess.run(["xterm", "-T", f"{name}: zcu106", "-e", f"docker attach {name}_xilinx-zcu106_1"])
 
 def stop_qemu(name, args=[]):
     """stop all docker services and cleanup resources"""
