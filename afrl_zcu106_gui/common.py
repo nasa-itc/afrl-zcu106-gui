@@ -17,7 +17,7 @@
 import os.path
 from string import Template
 
-#Path Variables
+#Path Constants
 PACKAGE_ROOT = os.path.dirname(os.path.abspath(__file__))
 RESOURCE_ROOT = os.path.join(PACKAGE_ROOT, "resources")
 PROJECT_ROOT = os.path.normpath(os.path.join(PACKAGE_ROOT, "../../"))
@@ -25,6 +25,8 @@ DOCKER_ROOT = os.path.join(PROJECT_ROOT, "docker")
 QEMU_ROOT = os.path.join(PROJECT_ROOT, "xilinx-qemu")
 QEMU_BIN_DIR = os.path.join(QEMU_ROOT, "build/bin")
 
+#Docker consants
+DOCKER_TIMEOUT = 120  # Timeout in seconds
 
 MAXIMUM_QEMU_INSTANCES = 8
 
