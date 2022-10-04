@@ -62,6 +62,7 @@ def run_qemu(tag=QEMU_RUNNER_IMAGE, name="", args=[], envFile=".env"):
     docker_path = os.path.join(DOCKER_ROOT, "qemu")
     print(f"run_qemu docker_path = {docker_path}")
     build_docker_image(tag, docker_path)
+
     # run qemu
     try:
         p = mp.Process(target=run_qemu_instance, args=(name,envFile,))
@@ -76,10 +77,7 @@ def run_qemu_instance(name,envFile):
 
     if not dockerProc.returncode:
         print(f"docker proc rc: {dockerProc.returncode}")
-    #TODO:  does it make sense to loop for container to start then signal to the terminal?
-        #client = docker.from_env()
-    #subprocess.run(["mate-terminal", "-t", f"{name}: zcu106", "-e", f"docker attach {name}_xilinx-zcu106_1"])
-    #subprocess.run(["xterm", "-T", f"{name}: zcu106", "-e", f"docker attach {name}_xilinx-zcu106_1"])
+    return 0
 
 def stop_qemu(name, args=[]):
     """stop all docker services and cleanup resources"""
