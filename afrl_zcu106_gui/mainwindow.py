@@ -19,9 +19,9 @@ import docker
 import os.path
 
 from PyQt5.QtWidgets import QAction, QMainWindow, QLabel, QMessageBox, \
-    QInputDialog, QGraphicsView, QGraphicsScene, QWidget, QDockWidget, QTableView
+    QInputDialog, QGraphicsView, QGraphicsScene, QWidget, QDockWidget, QTableView, QScrollArea
 from PyQt5.QtGui import QGuiApplication, QIcon, QPixmap, QRegularExpressionValidator, \
-    QIntValidator
+    QIntValidator, QPalette
 from PyQt5.QtCore import pyqtSignal, Qt, pyqtSlot, QRect
 
 from afrl_zcu106_gui import __version__
@@ -34,6 +34,8 @@ from afrl_zcu106_gui.qemutableviewmodel import qemuTableViewModel
 from afrl_zcu106_gui.devicelistviewmodel import deviceListViewModel
 from afrl_zcu106_gui.diskimagewidget import diskImageWidget
 from afrl_zcu106_gui.errormsgbox import errorMsgBox
+import sys
+
 
 class MainWindow(QMainWindow):
 
@@ -78,8 +80,7 @@ class MainWindow(QMainWindow):
 
         # Load xterm terminal into the terminal widget
         self.ui.terminalTabWidget.clear()  # clear the default tabs
-        self.init_terminalView(0, "QEMU 1")
-        self.init_terminalView(1, "QEMU 2")
+        self.init_terminalView(0, "Host")
 
     def init_table(self):
         """initializes table headers"""
@@ -94,20 +95,13 @@ class MainWindow(QMainWindow):
         self.ui.qemuInstanceTable.setColumnWidth(2, 130)
         self.ui.qemuInstanceTable.setColumnWidth(3, 30)
 
-    def init_terminalView(self, tabIndex, tabName, cmd=""):
+    def init_terminalView(self, tabIndex, tabName, cmdstr=""):
         """initializes tab view with terminal windows for QEMU instances"""
         term = terminalWidget(self)
         tabSize = self.ui.terminalTabWidget.size()
-        self.ui.terminalTabWidget.insertTab(tabIndex, term, tabName)
-        self.ui.terminalTabWidget.tabCloseRequested.connect(
-            term.termProcess.terminate)
         term.resize(tabSize)
-        pid = term.startXterm(tabName,cmd)
-        print(
-            "Tab Size: " + str(tabSize)
-            + "    TerminalSize: " + str(term.size())
-            )
-        return pid
+        term.startXterm(tabName,cmdstr)
+        self.ui.terminalTabWidget.insertTab(tabIndex, term, tabName)
 
     def startQemuTerminal(self,qemu):
         '''starts a terminal to monitor the qemu instance'''
@@ -118,14 +112,16 @@ class MainWindow(QMainWindow):
         elapsed=0
         while elapsed < DOCKER_TIMEOUT:
             containers = client.containers.list()
+            print(f"containers at elapsed {elapsed}: {containers}")
             elapsed = (time.time() - start)
-            if len(containers) > 1:
+            if len(containers) >= nextTab*2: #Hacky way to see if containers started, need to search for name
                 #verify correct container started
+                time.sleep(1)  #Give container a second to establish
                 break
             time.sleep(0.5)
-            print(f"containers at elapsed {elapsed}: {containers}")
 
-        self.init_terminalView(nextTab,qemu.name,f"docker attach {qemu.name}_xilinx-zcu106_1")
+        cmd=f"docker attach {qemu.name.lower()}_xilinx-zcu106_1"
+        self.init_terminalView(nextTab,qemu.name,cmd)
 
     def showLaunchWizard(self, qemuName=""):
         """start qemu instance launch wizard in dock"""
