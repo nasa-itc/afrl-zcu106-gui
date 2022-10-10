@@ -120,13 +120,15 @@ class QemuLaunchWizard(QWizard):
 
 
     def openFileBrowser(self, title="Open File", fileFilters=[], directory=""):
+        filename=""
+        dir=""
         fd = QFileDialog(self, title)
         fd.setNameFilters(fileFilters)
         fd.setDirectory(directory)
         if(fd.exec_()):
             filename = fd.selectedFiles()[0]  #Single Selection mode, only one file returned in list
             dir = os.path.dirname(filename)
-            return (filename, dir)
+        return (filename, dir)
 
     def initDeviceTypeDropdown(self):
         self.ui.deviceTypeComboBox.addItems(self.deviceList.deviceTypeList())
