@@ -28,6 +28,8 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     package_data={
         "afrl_zcu106_gui": [
+            "resources/*",
+            "ui/*"
         ],
     },
     entry_points={
@@ -36,11 +38,9 @@ setuptools.setup(
         ]
     },
     install_requires=[
-        "docker",
         "wheel",
-        "pyqt5",
-        "pygdbmi == 0.9.0.3",
-        "sip"
+        "docker",
+        "pyqt5"
     ],
     python_requires=">=3.4",
     classifiers=[
