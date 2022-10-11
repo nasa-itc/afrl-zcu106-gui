@@ -1,5 +1,6 @@
 # Copyright (C) 2009 - 2022 National Aeronautics and Space Administration. All Foreign Rights are Reserved to the U.S. Government.
 
+import os
 from PyQt5.QtCore import Qt, QAbstractTableModel, QModelIndex, pyqtSlot
 from afrl_zcu106_gui.qemuinstance import qemuInstance
 from afrl_zcu106_gui.common import MAXIMUM_QEMU_INSTANCES
@@ -28,7 +29,7 @@ class qemuTableViewModel(QAbstractTableModel):
 
     def headerData(self, section, direction, role=Qt.DisplayRole):
         if direction == Qt.Horizontal and role == Qt.DisplayRole:
-            headers = ["Name", "Application", "IP Address", "Status"]
+            headers = ["Name", "Image File", "IP Address", "Status"]
             return headers[section]
 
     def data(self, index, role):
@@ -38,7 +39,7 @@ class qemuTableViewModel(QAbstractTableModel):
             if col == 0:
                 return self.qemuList[index.row()].name
             elif col == 1:
-                return self.qemuList[index.row()].application
+                return os.path.basename(self.qemuList[index.row()].imageName)
             elif col == 2:
                 return self.qemuList[index.row()].ipAddress.toString()
             elif col == 3:
