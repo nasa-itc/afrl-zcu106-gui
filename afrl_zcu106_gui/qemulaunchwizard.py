@@ -214,6 +214,14 @@ class QemuLaunchWizard(QWizard):
                     self.ui.configLineEdit.setText(val)
                 elif var == "ROOT_IMAGE_FILE":
                     self.ui.imageLineEdit.setText(val)
+                elif var == "NET_INTERFACE":
+                    self.ui.ifaceLineEdit.setText(val)
+                elif var == "IP_ADDRESS":
+                    self.ui.ipLineEdit.setText(val)
+                elif var == "SUBNET_MASK":
+                    self.ui.subnetMaskLineEdit.setText(val)
+                elif var == "GATEWAY":
+                    self.ui.gatewayLineEdit.setText(val)
 
     def launchQemuInstance(self):
         '''Verify QEMU model data and launch instance'''
