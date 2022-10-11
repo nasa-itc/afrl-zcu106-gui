@@ -106,11 +106,11 @@ class qemuInstance(QObject):
         fout.write(f"#  Description: {self.description}\n") # TODO: loop through description to only write x characters per line
         fout.write("#\n#******************************************************************************\n\n")
         fout.write("#The following is location of the config file for the ZCU106 QEMU instance\n")
-        fout.write(f"QEMU_CONFIG_FILE={self.configFile}\n\n")
+        fout.write(f"QEMU_CONFIG_FILE={self.configFile.strip()}\n\n")
         fout.write("#The following is location of the root filesystem image file for the ZCU106 QEMU instance\n")
-        fout.write(f"ROOT_IMAGE_FILE={self.imageName}\n\n")
+        fout.write(f"ROOT_IMAGE_FILE={self.imageName.strip()}\n\n")
         fout.write("#The following is the network adapter in the ZCU106 QEMU instance to configure (if applicable)\n")
-        fout.write(f"NET_INTERFACE={self.interfaceName}\n\n")
+        fout.write(f"NET_INTERFACE={self.interfaceName.strip()}\n\n")
         fout.write("#The following is IP Address for the ZCU106 QEMU instance\n")
         fout.write(f"IP_ADDRESS={self.ipAddress.toString()}\n\n")
         fout.write("#The following is the subnet mask for the ZCU106 QEMU instance\n")
@@ -166,8 +166,10 @@ class qemuInstance(QObject):
 
     def startQemu(self):
         self.process = run_qemu(name = self.name, envFile = f"{self.name}.env")
+        self.status = "UP"
         print(f"Process {self.process.pid} spawned for QEMU instance {self.name}")
 
     def stopQemu(self):
         stop_qemu(name = self.name)
+        self.status="DOWN"
         self.process.join()

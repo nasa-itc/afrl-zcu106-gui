@@ -208,6 +208,7 @@ class QemuLaunchWizard(QWizard):
                 # Parse out variable/value pairs
                 try:
                     (var,val) = l.split('=')
+                    val = val.strip()
                 except ValueError:
                     continue  # not valid var,value pair eval next line
                 if var == "QEMU_CONFIG_FILE":
