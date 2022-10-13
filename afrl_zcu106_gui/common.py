@@ -26,7 +26,7 @@ QEMU_ROOT = os.path.join(PROJECT_ROOT, "xilinx-qemu")
 QEMU_BIN_DIR = os.path.join(QEMU_ROOT, "build/bin")
 
 #Docker consants
-DOCKER_TIMEOUT = 120  # Timeout in seconds
+DOCKER_TIMEOUT = 180  # Timeout in seconds
 
 MAXIMUM_QEMU_INSTANCES = 8
 
