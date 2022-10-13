@@ -110,6 +110,8 @@ class diskImageWidget(QWidget):
         pd.show()
         QApplication.processEvents() # force updates
         if pd.isVisible():
+            mntCmd = f"guestmount -a {path} -o uid={os.getuid()} -o gid={os.getgid()} -i {guestPath}"
+            print(f"Mounting image with cmd: {mntCmd}")
             diskOut = subprocess.Popen(["guestmount", "-a", path, "-o", f"uid={os.getuid()}", "-o", f"gid={os.getgid()}", "-i", guestPath])
             pd.canceled.connect(diskOut.terminate)
             timeout = MOUNT_TIMEOUT
@@ -128,6 +130,7 @@ class diskImageWidget(QWidget):
 
             if(diskOut.returncode != 0):
                 errorMsgBox(self, f"Cannot Mount Image at: {path}")
+                subprocess.run(["rm", "-rf", guestPath])  # Remove mountpoint on failure
                 diskOut.terminate()
                 pd.close()
                 return ""
